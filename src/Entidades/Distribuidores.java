@@ -17,8 +17,8 @@ public class Distribuidores {
     private char digitoVerificador;
     private String nombreEmpresa;
     private int añosDeServicio;
-    private Direcciones direccion;
-    private Telefono telefono;
+    private String direccion;
+    private int telefono;
 
     public Distribuidores() {
     }
@@ -63,21 +63,23 @@ public class Distribuidores {
         this.añosDeServicio = añosDeServicio;
     }
 
-    public Direcciones getDireccion() {
+    public String getDireccion() {
         return direccion;
     }
 
-    public void setDireccion(Direcciones direccion) {
+    public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
 
-    public Telefono getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Telefono telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
+
+    
 
     public void setDireccion(ArrayList<Direcciones> direccion) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

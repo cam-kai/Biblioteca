@@ -36,5 +36,12 @@ public class Conexion {
         return conexion;
     }
     
+    public void close(){
+        try {
+            conexion.close();
+        } catch (Exception e) {
+            System.out.println("Error al cerrar la conexion: "+ e.getMessage());
+        }
+    }
     
 }

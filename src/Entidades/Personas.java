@@ -17,7 +17,7 @@ public class Personas {
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
-    private Direcciones direccion;
+    private String direccion;
     ArrayList<Correo> correo= new ArrayList<>();
     ArrayList<Telefono> telefono = new ArrayList<>();
 
@@ -64,13 +64,15 @@ public class Personas {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    public Direcciones getDireccion() {
+    public String getDireccion() {
         return direccion;
     }
 
-    public void setDireccion(Direcciones direccion) {
+    public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+
+    
 
     public ArrayList<Correo> getCorreo() {
         return correo;

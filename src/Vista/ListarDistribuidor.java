@@ -23,6 +23,7 @@ public class ListarDistribuidor extends javax.swing.JFrame {
      */
     public ListarDistribuidor() {
         initComponents();
+        listar();
     }
 
     /**
@@ -175,6 +176,8 @@ public class ListarDistribuidor extends javax.swing.JFrame {
         ModificarDistribuidor modificar = new ModificarDistribuidor(distribuidor);
         modificar.setVisible(true);
         
+        listar();
+        
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -200,7 +203,7 @@ public class ListarDistribuidor extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Seleccione un distribuidor");
         }
-        
+        listar();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     

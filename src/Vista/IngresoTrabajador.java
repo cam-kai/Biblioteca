@@ -13,6 +13,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import jdk.nashorn.internal.scripts.JO;
 
 /**
  *
@@ -52,7 +54,8 @@ public class IngresoTrabajador extends javax.swing.JFrame {
         txtDigitoVerificador = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
-        txtResultado = new javax.swing.JLabel();
+        btnLimpiar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,6 +74,12 @@ public class IngresoTrabajador extends javax.swing.JFrame {
 
         jLabel7.setText("Fecha Contratación");
 
+        txtRut.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRutFocusLost(evt);
+            }
+        });
+
         txtFechaContratacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFechaContratacionActionPerformed(evt);
@@ -86,7 +95,19 @@ public class IngresoTrabajador extends javax.swing.JFrame {
             }
         });
 
-        txtResultado.setText("jLabel9");
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,16 +151,17 @@ public class IngresoTrabajador extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(txtDigitoVerificador, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtResultado)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel7)
-                                    .addGap(27, 27, 27)
-                                    .addComponent(txtFechaContratacion, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel7)
+                            .addGap(27, 27, 27)
+                            .addComponent(txtFechaContratacion, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(10, 10, 10))))
                 .addContainerGap(142, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(127, 127, 127)
+                .addComponent(btnSalir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLimpiar)
+                .addGap(43, 43, 43)
                 .addComponent(btnAgregar)
                 .addGap(92, 92, 92))
         );
@@ -174,10 +196,11 @@ public class IngresoTrabajador extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFechaContratacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(txtResultado)
-                .addGap(7, 7, 7)
-                .addComponent(btnAgregar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnLimpiar)
+                    .addComponent(btnSalir))
                 .addGap(33, 33, 33))
         );
 
@@ -191,9 +214,9 @@ public class IngresoTrabajador extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         Personas persona = new Personas ();
-        PersonasDAO personaDao = new PersonasDAO();
+        
         Trabajador trabajador = new Trabajador();
-        TrabajadorDAO trabajadorDao = new TrabajadorDAO();
+        
         int rut= Integer.parseInt(txtRut.getText());
         persona.setRut(rut);
         String digito = txtDigitoVerificador.getText();
@@ -201,7 +224,61 @@ public class IngresoTrabajador extends javax.swing.JFrame {
             persona.setDigitoVerificador(digito.charAt(0));
         }
         
-        if (rut != 0) {
+        persona.setNombre(txtNombre.getText());
+        persona.setApellidoPaterno(txtApellidoPaterno.getText());
+        persona.setApellidoMaterno(txtApellidoMaterno.getText());
+        persona.setDireccion(txtDireccion.getText());
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            trabajador.setFechaContrato(df.parse(txtFechaContratacion.getText()));
+        } catch (ParseException ex) {
+            Logger.getLogger(IngresoTrabajador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        trabajador.setRut(Integer.parseInt(txtRut.getText()));
+        
+        
+        boolean fueAgregadoP= false;
+        boolean fueAgregadoT = false;
+        boolean fueAgregado= false;
+            
+        try {
+            
+            boolean valido = this.verificarRut(rut, digito);
+            if(valido == true){
+                Personas personaExiste = new PersonasDAO().buscarPorRut(rut);
+                if(personaExiste != null){
+                    fueAgregadoT = new TrabajadorDAO().agregarTrabajador(trabajador);
+                    fueAgregado= true;
+                }else{
+                    
+                    fueAgregadoP= new PersonasDAO().agregarPersona(persona);
+                    fueAgregadoT = new TrabajadorDAO().agregarTrabajador(trabajador);
+                    
+                    if(fueAgregadoP== true && fueAgregadoT == true){
+                    fueAgregado= true;
+                }
+                }
+                
+            }
+            
+        } catch (Exception e) {
+        }
+                
+        
+        if(fueAgregado ==true){
+            //txtResultado.setText("El trabajador fue agregado correctamente");
+            JOptionPane.showMessageDialog(this, "El trabajador fue agregado correctamente");
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "El trabajador no ha podido ser agregado");
+        }
+        
+        
+        
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    public boolean verificarRut(int rut, String digito){
+         if(rut != 0){
             int contador;
             contador=2;
             int Acumulador=0;
@@ -224,31 +301,36 @@ public class IngresoTrabajador extends javax.swing.JFrame {
                 
                 if(digitoCorrecto.equals(digito)){
                     rutCorrecto=true;
+                    return rutCorrecto;  
                 }
-                
+               
             }
             
-            
-            
-        } 
-        
-        persona.setNombre(txtNombre.getText());
-        persona.setApellidoPaterno(txtApellidoPaterno.getText());
-        persona.setApellidoMaterno(txtApellidoMaterno.getText());
-        persona.setDireccion(null);
-        personaDao.agregarPersona(persona);
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            trabajador.setFechaContrato(df.parse(txtFechaContratacion.getText()));
-        } catch (ParseException ex) {
-            Logger.getLogger(IngresoTrabajador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        trabajador.setRut(Integer.parseInt(txtRut.getText()));
+         
+       return false;
+    }
+    
+    private void txtRutFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRutFocusLost
+        int rutABuscar = Integer.parseInt(txtRut.getText());
+        PersonasDAO personaDao = new PersonasDAO();
+        Personas persona  = new Personas();
+        persona =  personaDao.buscarPorRut(rutABuscar);
+        txtRut.enable(false);
+        txtDigitoVerificador.setText(Character.toString(persona.getDigitoVerificador()));
+        txtNombre.setText(persona.getNombre());
+        txtApellidoPaterno.setText(persona.getApellidoPaterno());
+        txtApellidoMaterno.setText(persona.getApellidoMaterno());
+        txtDireccion.setText(persona.getDireccion());
         
         
-        trabajadorDao.agregarTrabajador(trabajador);
         
+    }//GEN-LAST:event_txtRutFocusLost
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        // TODO add your handling code here:
         txtRut.setText("");
+        txtRut.enable(true);
         txtDigitoVerificador.setText("");
         txtNombre.setText("");
         txtApellidoPaterno.setText("");
@@ -257,7 +339,12 @@ public class IngresoTrabajador extends javax.swing.JFrame {
         txtFechaContratacion.setText("");
         
         
-    }//GEN-LAST:event_btnAgregarActionPerformed
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -296,6 +383,8 @@ public class IngresoTrabajador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -310,7 +399,6 @@ public class IngresoTrabajador extends javax.swing.JFrame {
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtFechaContratacion;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JLabel txtResultado;
     private javax.swing.JTextField txtRut;
     // End of variables declaration//GEN-END:variables
 }

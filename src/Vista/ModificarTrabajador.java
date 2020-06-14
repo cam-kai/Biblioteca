@@ -73,7 +73,7 @@ public class ModificarTrabajador extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
-        jLabel1.setText("Ingrese trabajador ");
+        jLabel1.setText("Modificar trabajador ");
 
         jLabel2.setText("Rut ");
 
@@ -265,11 +265,6 @@ public class ModificarTrabajador extends javax.swing.JFrame {
             
             boolean valido = this.verificarRut(rut, digito);
             if(valido == true){
-//                Personas personaExiste = new PersonasDAO().buscarPorRut(rut);
-//                if(personaExiste != null){
-//                    fueModificadoT = new TrabajadorDAO().modificarTrabajador(trabajador);
-//                    fueModificado= true;
-//                }else{
                     
                     fueModificadoP= new PersonasDAO().modificarPersona(persona);
                     fueModificadoT = new TrabajadorDAO().modificarTrabajador(trabajador);
@@ -277,7 +272,7 @@ public class ModificarTrabajador extends javax.swing.JFrame {
                     if(fueModificadoP== true || fueModificadoT == true){
                     fueModificado= true;
                 }
-                //}
+               
                 
             }
             
@@ -286,7 +281,6 @@ public class ModificarTrabajador extends javax.swing.JFrame {
                 
         
         if(fueModificado ==true){
-            //txtResultado.setText("El trabajador fue agregado correctamente");
             JOptionPane.showMessageDialog(this, "El trabajador fue modificado correctamente");
             
             
@@ -299,34 +293,41 @@ public class ModificarTrabajador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     public boolean verificarRut(int rut, String digito){
+        String digitoCorrecto= "";
          if(rut != 0){
             int contador;
             contador=2;
             int Acumulador=0;
+            int resto=0;
+            int multiplicacion;
+            int resta;
             while (rut!=0){
                 int Multiplo=(rut%10)*contador;
                 Acumulador=Acumulador+Multiplo;
                 rut=rut/10;
-                contador=contador++;
+                contador++;
                 if(contador==8){
                 contador=2;
                 }
-                String digitoCorrecto = String.valueOf(Acumulador % 10) ;
-                if(digitoCorrecto.equals(10)){
-                    digitoCorrecto="K";
-                }
-                if(digitoCorrecto.equals(11)){
-                    digitoCorrecto="0";
-                }
-                boolean rutCorrecto= false;
                 
-                if(digitoCorrecto.equals(digito)){
-                    rutCorrecto=true;
-                    return rutCorrecto;  
-                }
-               
             }
-            
+            resto = (Acumulador / 11) ;
+            multiplicacion = resto * 11;
+            resta = Math.abs(Acumulador - multiplicacion);
+            digitoCorrecto = String.valueOf(11- resta);
+            if(digitoCorrecto.equals("10")){
+                digitoCorrecto="K";
+            }
+            if(digitoCorrecto.equals("11")){
+                digitoCorrecto="0";
+            }
+            boolean rutCorrecto= false;
+                
+            if(digitoCorrecto.equalsIgnoreCase(digito)){
+                rutCorrecto=true;
+                return rutCorrecto;  
+            }
+               
         }
          
        return false;

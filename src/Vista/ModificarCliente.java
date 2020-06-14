@@ -6,9 +6,9 @@
 package Vista;
 
 import DAO.PersonasDAO;
-import DAO.TrabajadorDAO;
+import DAO.ClientesDAO;
 import Entidades.Personas;
-import Entidades.Trabajador;
+import Entidades.Cliente;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -20,13 +20,24 @@ import jdk.nashorn.internal.scripts.JO;
  *
  * @author camila
  */
-public class IngresoTrabajador extends javax.swing.JFrame {
+public class ModificarCliente extends javax.swing.JFrame {
 
     /**
      * Creates new form IngresoTrabajador
      */
-    public IngresoTrabajador() {
+    public ModificarCliente(Cliente cliente) {
         initComponents();
+        txtId.setText(String.valueOf(cliente.getId_cliente()));
+        txtId.enable(false);
+        txtRut.setText(String.valueOf(cliente.getRut()));
+        txtRut.enable(false);
+        txtDigitoVerificador.setText(Character.toString(cliente.getDigitoVerificador()));
+        txtNombre.setText(cliente.getNombre());
+        txtApellidoPaterno.setText(cliente.getApellidoPaterno());
+        txtApellidoMaterno.setText(cliente.getApellidoMaterno());
+        txtDireccion.setText(cliente.getDireccion());
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        txtFechaNacimiento.setText(String.valueOf(df.format(cliente.getFechaNacimiento())));
     }
 
     /**
@@ -50,12 +61,14 @@ public class IngresoTrabajador extends javax.swing.JFrame {
         txtApellidoPaterno = new javax.swing.JTextField();
         txtApellidoMaterno = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
-        txtFechaContratacion = new javax.swing.JTextField();
+        txtFechaNacimiento = new javax.swing.JTextField();
         txtDigitoVerificador = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        btnAgregar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,7 +85,7 @@ public class IngresoTrabajador extends javax.swing.JFrame {
 
         jLabel6.setText("Dirección ");
 
-        jLabel7.setText("Fecha Contratación");
+        jLabel7.setText("Fecha de nacimiento");
 
         txtRut.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -80,18 +93,18 @@ public class IngresoTrabajador extends javax.swing.JFrame {
             }
         });
 
-        txtFechaContratacion.addActionListener(new java.awt.event.ActionListener() {
+        txtFechaNacimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaContratacionActionPerformed(evt);
+                txtFechaNacimientoActionPerformed(evt);
             }
         });
 
         jLabel8.setText("-");
 
-        btnAgregar.setText("Agregar");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
+                btnModificarActionPerformed(evt);
             }
         });
 
@@ -109,68 +122,75 @@ public class IngresoTrabajador extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setText("Id ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(206, 206, 206)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(187, 187, 187)
-                                    .addComponent(jLabel6)
-                                    .addGap(18, 18, 18))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(jLabel2)
-                                            .addGap(38, 38, 38))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(jLabel4)
-                                            .addGap(28, 28, 28))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel5)
-                                                .addComponent(jLabel3))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtDireccion)
-                                .addComponent(txtApellidoMaterno)
-                                .addComponent(txtApellidoPaterno)
-                                .addComponent(txtNombre)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(txtRut, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel8)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtDigitoVerificador, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addGap(27, 27, 27)
-                            .addComponent(txtFechaContratacion, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(10, 10, 10))))
-                .addContainerGap(142, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(127, 127, 127)
                 .addComponent(btnSalir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLimpiar)
                 .addGap(43, 43, 43)
-                .addComponent(btnAgregar)
+                .addComponent(btnModificar)
                 .addGap(92, 92, 92))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(206, 206, 206)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(139, 139, 139)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(46, 46, 46)
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(28, 28, 28))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel3))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel2))
+                                        .addGap(38, 38, 38)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtDireccion)
+                                    .addComponent(txtApellidoMaterno)
+                                    .addComponent(txtApellidoPaterno)
+                                    .addComponent(txtNombre)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtDigitoVerificador, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(27, 27, 27)
+                                .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,11 +214,11 @@ public class IngresoTrabajador extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFechaContratacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar)
+                    .addComponent(btnModificar)
                     .addComponent(btnLimpiar)
                     .addComponent(btnSalir))
                 .addGap(33, 33, 33))
@@ -207,15 +227,14 @@ public class IngresoTrabajador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFechaContratacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaContratacionActionPerformed
+    private void txtFechaNacimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaNacimientoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaContratacionActionPerformed
+    }//GEN-LAST:event_txtFechaNacimientoActionPerformed
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
         Personas persona = new Personas ();
-        
-        Trabajador trabajador = new Trabajador();
+        Cliente cliente = new Cliente();
         
         int rut= Integer.parseInt(txtRut.getText());
         persona.setRut(rut);
@@ -223,41 +242,36 @@ public class IngresoTrabajador extends javax.swing.JFrame {
         if(digito.length()==1){
             persona.setDigitoVerificador(digito.charAt(0));
         }
-        
         persona.setNombre(txtNombre.getText());
         persona.setApellidoPaterno(txtApellidoPaterno.getText());
         persona.setApellidoMaterno(txtApellidoMaterno.getText());
         persona.setDireccion(txtDireccion.getText());
+        cliente.setId_cliente(Integer.parseInt(txtId.getText()));
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            trabajador.setFechaContrato(df.parse(txtFechaContratacion.getText()));
+            cliente.setFechaNacimiento(df.parse(txtFechaNacimiento.getText()));
         } catch (ParseException ex) {
-            Logger.getLogger(IngresoTrabajador.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ModificarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        trabajador.setRut(Integer.parseInt(txtRut.getText()));
+        cliente.setRut(Integer.parseInt(txtRut.getText()));
         
         
-        boolean fueAgregadoP= false;
-        boolean fueAgregadoT = false;
-        boolean fueAgregado= false;
+        boolean fueModificadoP= false;
+        boolean fueModificadoC = false;
+        boolean fueModificado= false;
             
         try {
             
             boolean valido = this.verificarRut(rut, digito);
             if(valido == true){
-                Personas personaExiste = new PersonasDAO().buscarPorRut(rut);
-                if(personaExiste != null){
-                    fueAgregadoT = new TrabajadorDAO().agregarTrabajador(trabajador);
-                    fueAgregado= true;
-                }else{
                     
-                    fueAgregadoP= new PersonasDAO().agregarPersona(persona);
-                    fueAgregadoT = new TrabajadorDAO().agregarTrabajador(trabajador);
+                    fueModificadoP= new PersonasDAO().modificarPersona(persona);
+                    fueModificadoC = new ClientesDAO().modificarClientes(cliente);
                     
-                    if(fueAgregadoP== true && fueAgregadoT == true){
-                    fueAgregado= true;
+                    if(fueModificadoP== true || fueModificadoC == true){
+                    fueModificado= true;
                 }
-                }
+                
                 
             }
             
@@ -265,17 +279,17 @@ public class IngresoTrabajador extends javax.swing.JFrame {
         }
                 
         
-        if(fueAgregado ==true){
-            //txtResultado.setText("El trabajador fue agregado correctamente");
-            JOptionPane.showMessageDialog(this, "El trabajador fue agregado correctamente");
+        if(fueModificado ==true){
+            JOptionPane.showMessageDialog(this, "El cliente fue modificado correctamente");
+            
             
         }else{
-            JOptionPane.showMessageDialog(null, "El trabajador no ha podido ser agregado");
+            JOptionPane.showMessageDialog(null, "El cliente no ha podido ser modificado");
         }
         
         
         
-    }//GEN-LAST:event_btnAgregarActionPerformed
+    }//GEN-LAST:event_btnModificarActionPerformed
 public boolean verificarRut(int rut, String digito){
         String digitoCorrecto= "";
          if(rut != 0){
@@ -313,36 +327,25 @@ public boolean verificarRut(int rut, String digito){
             }
                
         }
-         
-       return false;
+        return false;
     }
-    
+
     private void txtRutFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRutFocusLost
-        int rutABuscar = Integer.parseInt(txtRut.getText());
-        PersonasDAO personaDao = new PersonasDAO();
-        Personas persona  = new Personas();
-        persona =  personaDao.buscarPorRut(rutABuscar);
-        txtRut.enable(false);
-        txtDigitoVerificador.setText(Character.toString(persona.getDigitoVerificador()));
-        txtNombre.setText(persona.getNombre());
-        txtApellidoPaterno.setText(persona.getApellidoPaterno());
-        txtApellidoMaterno.setText(persona.getApellidoMaterno());
-        txtDireccion.setText(persona.getDireccion());
-        
+   
         
         
     }//GEN-LAST:event_txtRutFocusLost
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         // TODO add your handling code here:
-        txtRut.setText("");
-        txtRut.enable(true);
+        txtId.enable(false);
+        txtRut.enable(false);
         txtDigitoVerificador.setText("");
         txtNombre.setText("");
         txtApellidoPaterno.setText("");
         txtApellidoMaterno.setText("");
         txtDireccion.setText("");
-        txtFechaContratacion.setText("");
+        txtFechaNacimiento.setText("");
         
         
     }//GEN-LAST:event_btnLimpiarActionPerformed
@@ -369,27 +372,30 @@ public boolean verificarRut(int rut, String digito){
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IngresoTrabajador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IngresoTrabajador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IngresoTrabajador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IngresoTrabajador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new IngresoTrabajador().setVisible(true);
+                new ModificarCliente(null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -399,11 +405,13 @@ public boolean verificarRut(int rut, String digito){
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField txtApellidoMaterno;
     private javax.swing.JTextField txtApellidoPaterno;
     private javax.swing.JTextField txtDigitoVerificador;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtFechaContratacion;
+    private javax.swing.JTextField txtFechaNacimiento;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtRut;
     // End of variables declaration//GEN-END:variables

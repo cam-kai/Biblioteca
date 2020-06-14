@@ -5,10 +5,10 @@
  */
 package Vista;
 
+import DAO.ClientesDAO;
 import DAO.PersonasDAO;
-import DAO.TrabajadorDAO;
+import Entidades.Cliente;
 import Entidades.Personas;
-import Entidades.Trabajador;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -20,12 +20,12 @@ import jdk.nashorn.internal.scripts.JO;
  *
  * @author camila
  */
-public class IngresoTrabajador extends javax.swing.JFrame {
+public class IngresoCliente extends javax.swing.JFrame {
 
     /**
      * Creates new form IngresoTrabajador
      */
-    public IngresoTrabajador() {
+    public IngresoCliente() {
         initComponents();
     }
 
@@ -50,7 +50,7 @@ public class IngresoTrabajador extends javax.swing.JFrame {
         txtApellidoPaterno = new javax.swing.JTextField();
         txtApellidoMaterno = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
-        txtFechaContratacion = new javax.swing.JTextField();
+        txtFechaNacimiento = new javax.swing.JTextField();
         txtDigitoVerificador = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
@@ -72,7 +72,7 @@ public class IngresoTrabajador extends javax.swing.JFrame {
 
         jLabel6.setText("Dirección ");
 
-        jLabel7.setText("Fecha Contratación");
+        jLabel7.setText("Fecha de nacimiento");
 
         txtRut.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -80,9 +80,9 @@ public class IngresoTrabajador extends javax.swing.JFrame {
             }
         });
 
-        txtFechaContratacion.addActionListener(new java.awt.event.ActionListener() {
+        txtFechaNacimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFechaContratacionActionPerformed(evt);
+                txtFechaNacimientoActionPerformed(evt);
             }
         });
 
@@ -153,7 +153,7 @@ public class IngresoTrabajador extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel7)
                             .addGap(27, 27, 27)
-                            .addComponent(txtFechaContratacion, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(10, 10, 10))))
                 .addContainerGap(142, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -194,7 +194,7 @@ public class IngresoTrabajador extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFechaContratacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -207,15 +207,14 @@ public class IngresoTrabajador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFechaContratacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaContratacionActionPerformed
+    private void txtFechaNacimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaNacimientoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaContratacionActionPerformed
+    }//GEN-LAST:event_txtFechaNacimientoActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         Personas persona = new Personas ();
-        
-        Trabajador trabajador = new Trabajador();
+        Cliente cliente = new Cliente();
         
         int rut= Integer.parseInt(txtRut.getText());
         persona.setRut(rut);
@@ -230,15 +229,15 @@ public class IngresoTrabajador extends javax.swing.JFrame {
         persona.setDireccion(txtDireccion.getText());
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            trabajador.setFechaContrato(df.parse(txtFechaContratacion.getText()));
+            cliente.setFechaNacimiento(df.parse(txtFechaNacimiento.getText()));
         } catch (ParseException ex) {
-            Logger.getLogger(IngresoTrabajador.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IngresoCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        trabajador.setRut(Integer.parseInt(txtRut.getText()));
+        cliente.setRut(Integer.parseInt(txtRut.getText()));
         
         
         boolean fueAgregadoP= false;
-        boolean fueAgregadoT = false;
+        boolean fueAgregadoC = false;
         boolean fueAgregado= false;
             
         try {
@@ -247,14 +246,16 @@ public class IngresoTrabajador extends javax.swing.JFrame {
             if(valido == true){
                 Personas personaExiste = new PersonasDAO().buscarPorRut(rut);
                 if(personaExiste != null){
-                    fueAgregadoT = new TrabajadorDAO().agregarTrabajador(trabajador);
-                    fueAgregado= true;
+                    fueAgregadoC = new ClientesDAO().agregarClientes(cliente);
+                    if (fueAgregadoC=true){
+                        fueAgregado=true;
+                    }
                 }else{
                     
                     fueAgregadoP= new PersonasDAO().agregarPersona(persona);
-                    fueAgregadoT = new TrabajadorDAO().agregarTrabajador(trabajador);
+                    fueAgregadoC = new ClientesDAO().agregarClientes(cliente);
                     
-                    if(fueAgregadoP== true && fueAgregadoT == true){
+                    if(fueAgregadoP== true && fueAgregadoC == true){
                     fueAgregado= true;
                 }
                 }
@@ -267,16 +268,17 @@ public class IngresoTrabajador extends javax.swing.JFrame {
         
         if(fueAgregado ==true){
             //txtResultado.setText("El trabajador fue agregado correctamente");
-            JOptionPane.showMessageDialog(this, "El trabajador fue agregado correctamente");
+            JOptionPane.showMessageDialog(this, "El cliente fue agregado correctamente");
             
         }else{
-            JOptionPane.showMessageDialog(null, "El trabajador no ha podido ser agregado");
+            JOptionPane.showMessageDialog(null, "El cliente no ha podido ser agregado");
         }
         
         
         
     }//GEN-LAST:event_btnAgregarActionPerformed
-public boolean verificarRut(int rut, String digito){
+
+    public boolean verificarRut(int rut, String digito){
         String digitoCorrecto= "";
          if(rut != 0){
             int contador;
@@ -342,7 +344,7 @@ public boolean verificarRut(int rut, String digito){
         txtApellidoPaterno.setText("");
         txtApellidoMaterno.setText("");
         txtDireccion.setText("");
-        txtFechaContratacion.setText("");
+        txtFechaNacimiento.setText("");
         
         
     }//GEN-LAST:event_btnLimpiarActionPerformed
@@ -369,20 +371,21 @@ public boolean verificarRut(int rut, String digito){
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IngresoTrabajador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IngresoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IngresoTrabajador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IngresoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IngresoTrabajador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IngresoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IngresoTrabajador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IngresoCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new IngresoTrabajador().setVisible(true);
+                new IngresoCliente().setVisible(true);
             }
         });
     }
@@ -403,7 +406,7 @@ public boolean verificarRut(int rut, String digito){
     private javax.swing.JTextField txtApellidoPaterno;
     private javax.swing.JTextField txtDigitoVerificador;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtFechaContratacion;
+    private javax.swing.JTextField txtFechaNacimiento;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtRut;
     // End of variables declaration//GEN-END:variables

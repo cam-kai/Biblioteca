@@ -41,7 +41,7 @@ public class ClientesDAO {
         ArrayList<Cliente> clientes =  new ArrayList<>();
         
         try {
-            String sql = "SELECT c.id_clientes, concat(p.rut,\" - \" , p.digito_verificador) as rut, p.nombre, p.apellido_paterno, p.apellido_materno, c.fecha_de_nacimiento, p.direccion\n" +
+            String sql = "SELECT c.id_clientes, concat(p.rut,\" - \" , p.digito_verificador) as rut, p.nombre, p.apellido_paterno, p.apellido_materno, c.fecha_de_nacimiento, p.direccion , p.correo, p.telefono \n" +
                         " FROM tbl_persona p" + " INNER JOIN tbl_clientes c ON p.rut = c.rut" +" ORDER BY c.id_clientes ;";
             PreparedStatement stmt = this.conexion.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
@@ -56,6 +56,8 @@ public class ClientesDAO {
                 cliente.setApellidoMaterno(rs.getString("apellido_materno"));
                 cliente.setFechaNacimiento(rs.getDate("fecha_de_nacimiento"));
                 cliente.setDireccion(rs.getString("direccion"));
+                cliente.setCorreo(rs.getString("correo"));
+                cliente.setTelefono(rs.getInt("telefono"));
                 clientes.add(cliente);
                                
             }

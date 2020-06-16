@@ -19,8 +19,8 @@ public class Personas {
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String direccion;
-    ArrayList<Correo> correo= new ArrayList<>();
-    ArrayList<Telefono> telefono = new ArrayList<>();
+    private String correo;
+    private int telefono ;
 
     public Personas() {
     }
@@ -73,27 +73,24 @@ public class Personas {
         this.direccion = direccion;
     }
 
-    
-
-    public ArrayList<Correo> getCorreo() {
+    public String getCorreo() {
         return correo;
     }
 
-    public void setCorreo(ArrayList<Correo> correo) {
+    public void setCorreo(String correo) {
         this.correo = correo;
     }
 
-    public ArrayList<Telefono> getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(ArrayList<Telefono> telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
 
-    public void setCorreo(List<String> asList) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
+
 
     
     

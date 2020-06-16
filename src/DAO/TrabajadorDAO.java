@@ -42,7 +42,7 @@ public class TrabajadorDAO {
     public ArrayList<Trabajador> listarTrabajador(){
         ArrayList<Trabajador> trabajadores = new ArrayList<>();
         try {
-            String sql= "SELECT t.id_trabajador, concat(p.rut,\" - \" , p.digito_verificador) as rut, p.nombre, p.apellido_paterno, p.apellido_materno, t.fecha_contratacion, p.direccion\n" +
+            String sql= "SELECT t.id_trabajador, concat(p.rut,\" - \" , p.digito_verificador) as rut, p.nombre, p.apellido_paterno, p.apellido_materno, t.fecha_contratacion, p.direccion, p.correo, p.telefono \n" +
                         " FROM tbl_persona p" + " INNER JOIN tbl_trabajador t ON p.rut = t.rut" +" ORDER BY t.id_trabajador ;";
             PreparedStatement stmt =this.conexion.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
@@ -57,6 +57,8 @@ public class TrabajadorDAO {
                 trabajador.setApellidoMaterno(rs.getString("apellido_materno"));
                 trabajador.setFechaContrato(rs.getDate("fecha_contratacion"));
                 trabajador.setDireccion(rs.getString("direccion"));
+                trabajador.setCorreo(rs.getString("correo"));
+                trabajador.setTelefono(rs.getInt("telefono"));
                 trabajadores.add(trabajador);
             }
             

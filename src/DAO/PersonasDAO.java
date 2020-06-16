@@ -30,13 +30,16 @@ public class PersonasDAO {
         int filasAfectadasC =0 ;
         
         try {
-            PreparedStatement stmt = this.conexion.prepareStatement("insert into tbl_persona(rut, digito_verificador, nombre, apellido_paterno, apellido_materno, direccion) values(?,?,?,?,?,?);");
+            PreparedStatement stmt = this.conexion.prepareStatement("insert into tbl_persona(rut, digito_verificador, nombre, apellido_paterno, apellido_materno, direccion, correo, telefono) values(?,?,?,?,?,?,?,?);");
             stmt.setInt(1, persona.getRut() );
             stmt.setString(2, String.valueOf(persona.getDigitoVerificador()));
             stmt.setString(3, persona.getNombre());
             stmt.setString(4, persona.getApellidoPaterno());
             stmt.setString(5, persona.getApellidoMaterno());
-            stmt.setString(6, persona.getDireccion());  
+            stmt.setString(6, persona.getDireccion());
+            stmt.setString(7, persona.getCorreo());
+            stmt.setInt(8, persona.getTelefono());
+            
             filasAfectadas = stmt.executeUpdate();
             if(filasAfectadas>0){
                 filas_afectadas = true;
@@ -61,6 +64,8 @@ public class PersonasDAO {
                 persona.setApellidoPaterno(rs.getString("apellido_paterno"));
                 persona.setApellidoMaterno(rs.getString("apellido_materno"));
                 persona.setDireccion(rs.getString("direccion"));
+                persona.setCorreo(rs.getString("correo"));
+                persona.setTelefono(rs.getInt("telefono"));
                 return persona;
                 
             }
@@ -73,13 +78,15 @@ public class PersonasDAO {
     public boolean modificarPersona(Personas persona){
         boolean fueModificado = false;
         try {
-            PreparedStatement stmt = this.conexion.prepareStatement("update tbl_persona set digito_verificador = ?, nombre =?, apellido_paterno = ?, apellido_materno = ?, direccion = ?  where rut =?;");
+            PreparedStatement stmt = this.conexion.prepareStatement("update tbl_persona set digito_verificador = ?, nombre =?, apellido_paterno = ?, apellido_materno = ?, direccion = ?, correo = ?, telefono = ?  where rut =?;");
             stmt.setString(1, String.valueOf(persona.getDigitoVerificador()));
             stmt.setString(2, persona.getNombre());
             stmt.setString(3, persona.getApellidoPaterno());
             stmt.setString(4, persona.getApellidoMaterno());
             stmt.setString(5, persona.getDireccion());
-            stmt.setInt(6, persona.getRut());
+            stmt.setString(6, persona.getCorreo());
+            stmt.setInt(7, persona.getTelefono());
+            stmt.setInt(8, persona.getRut());
             
             fueModificado = (stmt.executeUpdate()>0);
             

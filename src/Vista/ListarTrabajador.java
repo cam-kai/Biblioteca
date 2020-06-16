@@ -60,13 +60,13 @@ public class ListarTrabajador extends javax.swing.JFrame {
 
         tblListarTrabajadores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Rut", "Nombre", "Apellido Paterno", "Apellido Materno", "Fecha de contratación", "Dirección"
+                "Id", "Rut", "Nombre", "Apellido Paterno", "Apellido Materno", "Fecha de contratación", "Dirección", "Correo", "Telefono"
             }
         ));
         jScrollPane1.setViewportView(tblListarTrabajadores);
@@ -101,20 +101,20 @@ public class ListarTrabajador extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(84, 84, 84)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 583, Short.MAX_VALUE)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(txtIdABuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBuscar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING))))
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -128,7 +128,7 @@ public class ListarTrabajador extends javax.swing.JFrame {
                     .addComponent(btnBuscar))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
@@ -201,6 +201,8 @@ public class ListarTrabajador extends javax.swing.JFrame {
         modelo.addColumn("Apellido Materno");
         modelo.addColumn("Fecha Contratación");
         modelo.addColumn("Direccion");
+        modelo.addColumn("Correo");
+        modelo.addColumn("Telefono");
         
         if(txtIdABuscar.getText().equals("")){
             trabajadores = trabajadorDao.listarTrabajador();
@@ -218,7 +220,7 @@ public class ListarTrabajador extends javax.swing.JFrame {
         
         
         for (Trabajador trabajador : trabajadores) {
-            String[] fila = new String[7];
+            String[] fila = new String[9];
             fila[0]= String.valueOf(trabajador.getId_trabajador());
             fila[1]= String.valueOf(trabajador.getRut()+" - "+ trabajador.getDigitoVerificador());
             fila[2]= trabajador.getNombre();
@@ -226,6 +228,8 @@ public class ListarTrabajador extends javax.swing.JFrame {
             fila[4]= trabajador.getApellidoMaterno();
             fila[5]= String.valueOf(trabajador.getFechaContrato());
             fila[6]= trabajador.getDireccion();
+            fila[7]= trabajador.getCorreo();
+            fila[8]= String.valueOf(trabajador.getTelefono());
             
             modelo.addRow(fila);
             

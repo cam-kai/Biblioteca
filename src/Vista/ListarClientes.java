@@ -6,7 +6,6 @@
 package Vista;
 
 import DAO.ClientesDAO;
-import DAO.TrabajadorDAO;
 import Entidades.Cliente;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -61,13 +60,13 @@ public class ListarClientes extends javax.swing.JFrame {
 
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Rut", "Nombre", "Apellido Paterno", "Apellido Materno", "Fecha de Nacimiento", "Dirección"
+                "Id", "Rut", "Nombre", "Apellido Paterno", "Apellido Materno", "Fecha de Nacimiento", "Dirección", "Correo", "Telefono"
             }
         ));
         jScrollPane1.setViewportView(tblClientes);
@@ -102,7 +101,7 @@ public class ListarClientes extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(84, 84, 84)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 753, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(txtIdABuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -110,8 +109,8 @@ public class ListarClientes extends javax.swing.JFrame {
                         .addComponent(btnBuscar))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -202,6 +201,8 @@ public class ListarClientes extends javax.swing.JFrame {
         modelo.addColumn("Apellido Materno");
         modelo.addColumn("Fecha de Nacimiento");
         modelo.addColumn("Direccion");
+        modelo.addColumn("Correo");
+        modelo.addColumn("Telefono");
         
         if(txtIdABuscar.getText().equals("")){
             
@@ -220,7 +221,7 @@ public class ListarClientes extends javax.swing.JFrame {
         
         
         for (Cliente cliente : clientes) {
-            String[] fila = new String[7];
+            String[] fila = new String[9];
             fila[0]= String.valueOf(cliente.getId_cliente());
             fila[1]= String.valueOf(cliente.getRut()+" - "+ cliente.getDigitoVerificador());
             fila[2]= cliente.getNombre();
@@ -228,6 +229,8 @@ public class ListarClientes extends javax.swing.JFrame {
             fila[4]= cliente.getApellidoMaterno();
             fila[5]= String.valueOf(cliente.getFechaNacimiento());
             fila[6]= cliente.getDireccion();
+            fila[7]= cliente.getCorreo();
+            fila[8]= String.valueOf(cliente.getTelefono());
             
             modelo.addRow(fila);
             

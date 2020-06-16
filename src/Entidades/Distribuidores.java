@@ -19,6 +19,7 @@ public class Distribuidores {
     private int añosDeServicio;
     private String direccion;
     private int telefono;
+    private String correo;
 
     public Distribuidores() {
     }
@@ -77,6 +78,14 @@ public class Distribuidores {
 
     public void setTelefono(int telefono) {
         this.telefono = telefono;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     

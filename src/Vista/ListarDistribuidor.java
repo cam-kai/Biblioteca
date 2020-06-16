@@ -67,13 +67,13 @@ public class ListarDistribuidor extends javax.swing.JFrame {
 
         tblDistribuidores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Rut", "DV", "Nombre", "Años de servicio", "Dirección", "Telefono"
+                "Id", "Rut", "DV", "Nombre", "Años de servicio", "Dirección", "Telefono", "Correo"
             }
         ));
         jScrollPane1.setViewportView(tblDistribuidores);
@@ -107,8 +107,8 @@ public class ListarDistribuidor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(75, 75, 75)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 913, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -116,7 +116,7 @@ public class ListarDistribuidor extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(62, 62, 62)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 487, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(txtIdABuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -217,7 +217,7 @@ public class ListarDistribuidor extends javax.swing.JFrame {
         modelo.addColumn("Años de servicio");
         modelo.addColumn("Dirección");
         modelo.addColumn("Telefono");
-        
+        modelo.addColumn("Correo");
         
         
         if(txtIdABuscar.getText().equals("")){
@@ -234,7 +234,7 @@ public class ListarDistribuidor extends javax.swing.JFrame {
         }
         
         for (Distribuidores distribuidor : distribuidores) {
-            String[] fila = new String[7];
+            String[] fila = new String[8];
             fila[0] = String.valueOf(distribuidor.getId_distribuidores());
             fila[1] = String.valueOf(distribuidor.getRut());
             fila[2] = Character.toString(distribuidor.getDigitoVerificador());
@@ -242,6 +242,7 @@ public class ListarDistribuidor extends javax.swing.JFrame {
             fila[4] = String.valueOf(distribuidor.getAñosDeServicio());
             fila[5] = distribuidor.getDireccion();
             fila[6] = String.valueOf(distribuidor.getTelefono());
+            fila[7] = distribuidor.getCorreo();
             
             modelo.addRow(fila);
                     

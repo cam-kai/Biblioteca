@@ -31,7 +31,7 @@ public class DistribuidorDAO {
         int fueAgregado = 0;
         
         try {
-            PreparedStatement stmt = this.conexion.prepareStatement("insert into tbl_distribuidores(rut, digito_verificador, nombre_empresa, años_de_servicio, direccion, telefono) values(?,?,?,?,?,?);");
+            PreparedStatement stmt = this.conexion.prepareStatement("insert into tbl_distribuidores(rut, digito_verificador, nombre_empresa, años_de_servicio, direccion, telefono, correo) values(?,?,?,?,?,?,?);");
             stmt.setInt(1, distribuidor.getRut());
             String dv = String.valueOf(distribuidor.getDigitoVerificador());
             stmt.setString(2, dv);
@@ -39,6 +39,7 @@ public class DistribuidorDAO {
             stmt.setInt(4, distribuidor.getAñosDeServicio());
             stmt.setString(5, distribuidor.getDireccion());
             stmt.setInt(6, distribuidor.getTelefono());
+            stmt.setString(7, distribuidor.getCorreo());
             
             fueAgregado = stmt.executeUpdate();
             
@@ -62,6 +63,7 @@ public class DistribuidorDAO {
                 distribuidor.setAñosDeServicio(rs.getInt("años_de_servicio"));
                 distribuidor.setDireccion(rs.getString("direccion"));
                 distribuidor.setTelefono(rs.getInt("telefono"));
+                distribuidor.setCorreo(rs.getString("correo"));
                 distribuidores.add(distribuidor);
             }
         } catch (Exception e) {
@@ -84,6 +86,7 @@ public class DistribuidorDAO {
                 distribuidor.setAñosDeServicio(rs.getInt("años_de_servicio"));
                 distribuidor.setDireccion(rs.getString("direccion"));
                 distribuidor.setTelefono(rs.getInt("telefono"));
+                distribuidor.setCorreo(rs.getString("correo"));
                 return distribuidor;
             }
         } catch (Exception e) {
@@ -110,14 +113,16 @@ public class DistribuidorDAO {
         boolean fueActualizado =false;
         
         try {
-            PreparedStatement stmt = this.conexion.prepareStatement("update tbl_distribuidores set rut=?,digito_verificador=?, nombre_empresa=? ,años_de_servicio=?,direccion = ?, telefono=? where id_distribuidores=?; ");
+            PreparedStatement stmt = this.conexion.prepareStatement("update tbl_distribuidores set rut=?,digito_verificador=?, nombre_empresa=? ,años_de_servicio=?,direccion = ?, telefono=?, correo =? where id_distribuidores=?; ");
             stmt.setInt(1, distribuidor.getRut());
             stmt.setString(2, String.valueOf(distribuidor.getDigitoVerificador()));
             stmt.setString(3, distribuidor.getNombreEmpresa());
             stmt.setInt(4, distribuidor.getAñosDeServicio());
             stmt.setString(5, distribuidor.getDireccion());
             stmt.setInt(6, distribuidor.getTelefono());
-            stmt.setInt(7, distribuidor.getId_distribuidores());
+            stmt.setString(7, distribuidor.getCorreo());
+            stmt.setInt(8, distribuidor.getId_distribuidores());
+           
             
             fueActualizado= (stmt.executeUpdate()>0);
             

@@ -27,6 +27,7 @@ public class PersonasDAO {
     public boolean agregarPersona(Personas persona){
         boolean filas_afectadas = false;
         int filasAfectadas = 0;
+        int filasAfectadasC =0 ;
         
         try {
             PreparedStatement stmt = this.conexion.prepareStatement("insert into tbl_persona(rut, digito_verificador, nombre, apellido_paterno, apellido_materno, direccion) values(?,?,?,?,?,?);");

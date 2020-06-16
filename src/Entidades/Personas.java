@@ -6,6 +6,7 @@
 package Entidades;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -88,6 +89,10 @@ public class Personas {
 
     public void setTelefono(ArrayList<Telefono> telefono) {
         this.telefono = telefono;
+    }
+
+    public void setCorreo(List<String> asList) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

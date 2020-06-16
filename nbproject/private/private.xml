@@ -3,18 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Vista/IngresarDistribuidor.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/DAO/DistribuidorDAO.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Vista/IngresoTrabajador.java</file>
             <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/DAO/TrabajadorDAO.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Entidades/Distribuidores.java</file>
             <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/DAO/PersonasDAO.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Vista/ListarDistribuidor.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Vista/ModificarDistribuidor.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Logica/DistribuidorLogica.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Entidades/Direcciones.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Entidades/Personas.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Vista/MenuDistribuidores.java</file>
+            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/DAO/LibrosDAO.java</file>
+            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Vista/IngresarAutor.java</file>
+            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/DAO/ClientesDAO.java</file>
+            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/DAO/AutorDAO.java</file>
         </group>
     </open-files>
 </project-private>

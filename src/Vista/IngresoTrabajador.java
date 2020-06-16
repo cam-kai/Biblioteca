@@ -9,8 +9,10 @@ import DAO.PersonasDAO;
 import DAO.TrabajadorDAO;
 import Entidades.Personas;
 import Entidades.Trabajador;
+import java.sql.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -120,25 +122,29 @@ public class IngresoTrabajador extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel7)
+                            .addGap(27, 27, 27)
+                            .addComponent(txtFechaContratacion, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(187, 187, 187)
-                                    .addComponent(jLabel6)
-                                    .addGap(18, 18, 18))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addContainerGap()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                             .addComponent(jLabel2)
-                                            .addGap(38, 38, 38))
+                                            .addGap(26, 26, 26))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                             .addComponent(jLabel4)
-                                            .addGap(28, 28, 28))
+                                            .addGap(16, 16, 16))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                 .addComponent(jLabel5)
                                                 .addComponent(jLabel3))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(187, 187, 187)
+                                    .addComponent(jLabel6)
+                                    .addGap(6, 6, 6)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtDireccion)
                                 .addComponent(txtApellidoMaterno)
@@ -149,13 +155,8 @@ public class IngresoTrabajador extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jLabel8)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtDigitoVerificador, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addGap(27, 27, 27)
-                            .addComponent(txtFechaContratacion, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(10, 10, 10))))
-                .addContainerGap(142, Short.MAX_VALUE))
+                                    .addComponent(txtDigitoVerificador, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(154, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(127, 127, 127)
                 .addComponent(btnSalir)
@@ -196,7 +197,7 @@ public class IngresoTrabajador extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFechaContratacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
                     .addComponent(btnLimpiar)
@@ -228,6 +229,7 @@ public class IngresoTrabajador extends javax.swing.JFrame {
         persona.setApellidoPaterno(txtApellidoPaterno.getText());
         persona.setApellidoMaterno(txtApellidoMaterno.getText());
         persona.setDireccion(txtDireccion.getText());
+        //persona.setCorreo(Arrays.asList(txtCorreo.getText()));
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         try {
             trabajador.setFechaContrato(df.parse(txtFechaContratacion.getText()));

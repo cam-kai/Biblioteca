@@ -6,9 +6,11 @@
 package DAO;
 
 import Conexion.Conexion;
+import Entidades.Estado;
 import Entidades.Libro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -38,5 +40,29 @@ public class LibrosDAO {
        }
        
        return fueAgregado;
+   }
+   
+   public Libro buscarPorISBN(int numeroSerie){
+       
+       
+       try {
+           PreparedStatement stmt = this.conexion.prepareStatement("select * from tbl_libro where numero_de_serie=?;");
+           stmt.setInt(1, numeroSerie);
+           ResultSet rs = stmt.executeQuery();
+           while(rs.next()){
+               Libro libro = new Libro();
+               libro.setId_libro(rs.getInt("id_libro"));
+               libro.setNumeroSerie(rs.getInt("numero_de_serie"));
+               libro.setTitulo(rs.getString("titulo"));
+               libro.setNumeroPaginas(rs.getInt("numero_paginas"));
+               libro.setPrecioReferencial(rs.getInt("precio_referencial"));
+               
+               libro.setAnio_publicacion(rs.getInt("anio_publicacion"));
+               return libro;
+           }
+       } catch (Exception e) {
+           System.out.println(""+e.getMessage());
+       }
+       return null;
    }
 }

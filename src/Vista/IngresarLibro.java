@@ -5,9 +5,12 @@
  */
 package Vista;
 
+import DAO.AutorDAO;
 import DAO.EditorialDAO;
 import DAO.EstadoDAO;
 import DAO.LibrosDAO;
+import DAO.RelLibroAutorDAO;
+import Entidades.Autores;
 import Entidades.Editorial;
 import Entidades.Estado;
 import Entidades.Libro;
@@ -27,6 +30,7 @@ public class IngresarLibro extends javax.swing.JFrame {
         initComponents();
         modificarCboEstado();
         modificarCboEditorial();
+        modificarCboAutores();
     }
 
     /**
@@ -57,6 +61,8 @@ public class IngresarLibro extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnAgregarEditorial = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        cboAutor = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,6 +71,17 @@ public class IngresarLibro extends javax.swing.JFrame {
         jLabel1.setToolTipText("");
 
         jLabel2.setText("Numero de serie :");
+
+        txtNumeroSerie.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNumeroSerieFocusLost(evt);
+            }
+        });
+        txtNumeroSerie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroSerieActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Titulo :");
 
@@ -124,6 +141,10 @@ public class IngresarLibro extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setText("Autor : ");
+
+        cboAutor.setModel(cboAutor.getModel());
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -169,7 +190,11 @@ public class IngresarLibro extends javax.swing.JFrame {
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(cboEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(cboEditorial, 0, 151, Short.MAX_VALUE))
-                                            .addComponent(txtAnioPublicacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                            .addComponent(txtAnioPublicacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cboAutor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAgregarEditorial)
@@ -210,7 +235,11 @@ public class IngresarLibro extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtAnioPublicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(cboAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnLimpiar)
@@ -261,6 +290,8 @@ public class IngresarLibro extends javax.swing.JFrame {
         }
         libro.setAnio_publicacion(Integer.parseInt(txtAnioPublicacion.getText()));
         
+        
+        
         fueAgregado = new LibrosDAO().agregarLibro(libro);
         if(fueAgregado = true){
             JOptionPane.showMessageDialog(null, "El libro fue agregado correctamente");
@@ -269,6 +300,21 @@ public class IngresarLibro extends javax.swing.JFrame {
             
         }
         
+        
+        int idAutor = cboAutor.getSelectedIndex();
+        if(idAutor == 0){
+            JOptionPane.showMessageDialog(null, "Seleccione un autor");
+        }else if( idAutor != 0){
+            Autores autor = new AutorDAO().buscarPorId(idAutor);
+            libro = new LibrosDAO().buscarPorISBN(Integer.parseInt(txtNumeroSerie.getText()));
+            boolean agregadaRelAutorLibro = new RelLibroAutorDAO().agregarLibroAutor(libro, autor);
+            if(agregadaRelAutorLibro ==true){
+                JOptionPane.showMessageDialog(null, "Fue agregada la relacion");
+            }else{
+                JOptionPane.showMessageDialog(null, "No se ha podido realizar la relacion");
+            }
+            
+        }
         
         
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -281,6 +327,24 @@ public class IngresarLibro extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_btnAgregarEditorialActionPerformed
+
+    private void txtNumeroSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroSerieActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumeroSerieActionPerformed
+
+    private void txtNumeroSerieFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumeroSerieFocusLost
+        // TODO add your handling code here:
+        if(txtNumeroSerie.getText().equalsIgnoreCase("")){
+            JOptionPane.showMessageDialog(null, " El campo numero de serie no puede estar vacio");
+        }else{
+        
+        int numeroSerie=Integer.parseInt(txtNumeroSerie.getText());
+        boolean existe = (new LibrosDAO().buscarPorISBN(numeroSerie)!=null);
+        if(existe == true){
+            JOptionPane.showMessageDialog(null, "Ese numero de sarie ya existe");
+        }
+        }
+    }//GEN-LAST:event_txtNumeroSerieFocusLost
 
     public void modificarCboEstado(){
         EstadoDAO estadoDao = new EstadoDAO();
@@ -299,6 +363,15 @@ public class IngresarLibro extends javax.swing.JFrame {
         cboEditorial.addItem("Seleccionar");
         for (Editorial editorial : editoriales) {
             cboEditorial.addItem(editorial.getEditorial());
+        }
+    }
+    
+    public void modificarCboAutores(){
+        AutorDAO autorDao = new AutorDAO();
+        ArrayList<Autores> autores =  autorDao.listarAutores();
+        cboAutor.addItem("Seleccionar");
+        for (Autores autor : autores) {
+            cboAutor.addItem(autor.getNombre()+" "+ autor.getApellidoPaterno()+ " "+ autor.getApellidoMaterno());
         }
     }
     
@@ -342,6 +415,7 @@ public class IngresarLibro extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JComboBox<String> cboAutor;
     private javax.swing.JComboBox<String> cboEditorial;
     private javax.swing.JComboBox<String> cboEstado;
     private javax.swing.JLabel jLabel1;
@@ -352,6 +426,7 @@ public class IngresarLibro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField txtAnioPublicacion;
     private javax.swing.JTextField txtNumeroPaginas;
     private javax.swing.JTextField txtNumeroSerie;

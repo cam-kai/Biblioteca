@@ -25,7 +25,7 @@ public class RelLibroAutorDAO {
     public boolean agregarLibroAutor(Libro libro, Autores autor){
         boolean fueAgregado= false;
         try {
-            PreparedStatement stmt = this.conexion.prepareStatement("insert into tbl_rel_libro_autores(id_libro,id_autor) values(?,?);");
+            PreparedStatement stmt = this.conexion.prepareStatement("insert into tbl_rel_libro_autores(id_libro,id_autores) values(?,?);");
             stmt.setInt(1, libro.getId_libro());
             stmt.setInt(2, autor.getId_autores());
             fueAgregado = (stmt.executeUpdate()>0);

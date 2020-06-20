@@ -59,6 +59,23 @@ public class AutorDAO {
         return autores;
     }
     
-    
+    public Autores buscarPorId(int id){
+        Autores autor = new Autores();
+        try {
+            PreparedStatement stmt = this.conexion.prepareStatement("select * from tbl_autores where id_autores = ?;");
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                autor.setId_autores(rs.getInt("id_autores"));
+                autor.setNombre(rs.getString("nombre"));
+                autor.setApellidoPaterno(rs.getString("apellido_paterno"));
+                autor.setApellidoMaterno(rs.getString("apellido_materno"));
+                return autor;
+            }
+        } catch (Exception e) {
+            System.out.println(""+e.getMessage());
+        }
+        return null;
+    }
     
 }

@@ -6,6 +6,7 @@
 package Entidades;
 
 import Utilidades.IStringConvertible;
+import Utilidades.SuperList;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +20,10 @@ public class Autores implements IStringConvertible{
     private String apellidoMaterno;
     private ArrayList<Libro> libro = new ArrayList<>();
 
+    
+
     public Autores() {
+        
     }
 
     public int getId_autores() {

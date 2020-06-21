@@ -12,6 +12,7 @@ import DAO.EstadoDAO;
 import DAO.IdiomasDAO;
 import DAO.LibrosDAO;
 import DAO.RelLibroAutorDAO;
+import DAO.RelLibroCategoriaDAO;
 import DAO.RelLibroIdiomaDAO;
 import Entidades.Autores;
 import Entidades.Categorias;
@@ -21,6 +22,7 @@ import Entidades.Idiomas;
 import Entidades.Libro;
 import Utilidades.SuperList;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -33,7 +35,9 @@ import javax.swing.event.ListDataListener;
  * @author camila
  */
 public class IngresarLibro extends javax.swing.JFrame {
-
+    SuperList<Autores> autores = new AutorDAO().listarAutores();
+    SuperList<Idiomas> idiomas = new IdiomasDAO().listarIdiomas();
+    SuperList<Categorias> categorias = new CategoriaDAO().listarCategorias();
     /**
      * Creates new form IngresarLibro
      */
@@ -41,11 +45,8 @@ public class IngresarLibro extends javax.swing.JFrame {
         initComponents();
         modificarCboEstado();
         modificarCboEditorial();
-        SuperList<Autores> autores = new AutorDAO().listarAutores();
         ListAutores.setListData(autores.getArray());
-        SuperList<Categorias> categorias = new CategoriaDAO().listarCategorias();
         ListCategorias.setListData(categorias.getArray());
-        SuperList<Idiomas> idiomas = new IdiomasDAO().listarIdiomas();
         ListIdiomas.setListData(idiomas.getArray());
     }
 
@@ -410,37 +411,54 @@ public class IngresarLibro extends javax.swing.JFrame {
             
         }
         
-//        
-//        int idAutor = cboAutor.getSelectedIndex();
-//        if(idAutor == 0){
-//            JOptionPane.showMessageDialog(null, "Seleccione un autor");
-//        }else if( idAutor != 0){
-//            Autores autor = new AutorDAO().buscarPorId(idAutor);
-//            libro = new LibrosDAO().buscarPorISBN(Integer.parseInt(txtNumeroSerie.getText()));
-//            boolean agregadaRelAutorLibro = new RelLibroAutorDAO().agregarLibroAutor(libro, autor);
-////            if(agregadaRelAutorLibro ==true){
-////                JOptionPane.showMessageDialog(null, "Fue agregada la relacion");
-////            }else{
-////                JOptionPane.showMessageDialog(null, "No se ha podido realizar la relacion");
-////            }
-//            
-//        }
+        int[] autores =ListAutores.getSelectedIndices();
+        if(autores.length==0){
+            JOptionPane.showMessageDialog(null, "Seleccione al menos un autor");
+        }else{
+            int[] ids = new int[autores.length];
+            int i =0;
+            for (int autore : autores) {
+                ids[i] = this.autores.get(autore).getId_autores();
+                libro = new LibrosDAO().buscarPorISBN(Integer.parseInt(txtNumeroSerie.getText()));
+                boolean agregadaRelLibroAutores = new RelLibroAutorDAO().agregarLibroAutor(libro, ids[i]);
+                
+                i++;
+                
+            }
+            
+        }
         
-//        int idIdioma = cboIdiomas.getSelectedIndex();
-//        if(idIdioma == 0 ){
-//            JOptionPane.showMessageDialog(null, "Seleccione un idioma");
-//        }else if(idIdioma != 0){
-//            Idiomas idioma = new IdiomasDAO().buscarPorId(idIdioma);
-//            libro = new LibrosDAO().buscarPorISBN(Integer.parseInt(txtNumeroSerie.getText()));
-//            boolean agregadaRelLibroIdioma = new RelLibroIdiomaDAO().agregarRelLibroIdioma(libro, idioma);
-////            if(agregadaRelLibroIdioma == true){
-////                JOptionPane.showMessageDialog(null, "fue agregada la relacion");
-////            }else{
-////                JOptionPane.showMessageDialog(null, "No se ha podido agregar relacion");
-////            }
-//            
-//        }
+        int[] indIdiomas = ListIdiomas.getSelectedIndices();
+        if(indIdiomas.length==0){
+            JOptionPane.showMessageDialog(null, "Seleccione al menos un idioma");
+        }else{
+            int[] ids = new int[indIdiomas.length];
+            int i = 0;
+            for (int indice : indIdiomas) {
+                ids[i] = this.idiomas.get(indice).getId_idiomas();
+                libro = new LibrosDAO().buscarPorISBN(Integer.parseInt(txtNumeroSerie.getText()));
+                boolean agregadaRelLibroIdioma = new RelLibroIdiomaDAO().agregarRelLibroIdioma(libro, ids[i]);
+                 
+                i++;
+            }
+        }
         
+
+        int[] indCategoria = ListCategorias.getSelectedIndices();
+        if(indCategoria.length==0){
+            JOptionPane.showMessageDialog(null, "Seleccione al menos una categoria");
+        }else{
+            int[] ids = new int[indCategoria.length];
+            int i=0;
+            for (int indice : indCategoria) {
+                ids[i]= this.categorias.get(indice).getId_categoria();
+                libro = new LibrosDAO().buscarPorISBN(Integer.parseInt(txtNumeroSerie.getText()));
+                boolean agregadaRelLibroCategoria = new RelLibroCategoriaDAO().agregarRelLibroCategoria(libro, ids[i]);
+                
+                i++;
+                
+            }
+        }
         
         
         

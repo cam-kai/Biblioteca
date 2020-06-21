@@ -12,7 +12,7 @@ import java.util.Iterator;
  *
  * @author camila
  */
-public class SuperList<T> extends ArrayList {
+public class SuperList<T> extends ArrayList<T> {
     public String[] getArray(){
         String[] arreglo = new String[this.size()];
         int i=0;

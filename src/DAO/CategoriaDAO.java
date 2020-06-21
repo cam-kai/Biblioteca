@@ -7,6 +7,7 @@ package DAO;
 
 import Conexion.Conexion;
 import Entidades.Categorias;
+import Utilidades.SuperList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,8 +39,8 @@ public class CategoriaDAO {
         return fueAgregado;
     }
     
-    public ArrayList<Categorias> listarCategorias(){
-        ArrayList<Categorias> categorias = new ArrayList<>();
+    public SuperList<Categorias> listarCategorias(){
+        SuperList<Categorias> categorias = new SuperList<>();
         try {
             PreparedStatement stmt = this.conexion.prepareStatement("select * from tbl_categoria;");
             ResultSet rs = stmt.executeQuery();
@@ -53,6 +54,24 @@ public class CategoriaDAO {
         }
         
         return categorias;
+    }
+    
+    public Categorias buscarPorNombre(String cate){
+        Categorias categoria = new Categorias();
+        try {
+            PreparedStatement stmt = this.conexion.prepareStatement("Select * from tbl_categoria where categoria = ? ;");
+            stmt.setString(1, cate);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                categoria.setId_categoria(rs.getInt("id_categoria"));
+                categoria.setCategoria(rs.getString("categoria"));
+            }
+            return categoria;
+        } catch (Exception e) {
+            System.out.println(""+e.getMessage());
+        }
+        return null ;
+        
     }
     
 }

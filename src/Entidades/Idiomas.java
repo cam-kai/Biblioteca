@@ -5,13 +5,14 @@
  */
 package Entidades;
 
+import Utilidades.IStringConvertible;
 import java.util.ArrayList;
 
 /**
  *
  * @author camve
  */
-public class Idiomas {
+public class Idiomas implements IStringConvertible {
     private int id_idiomas;
     private String idioma;
     private ArrayList<Libro> libro = new ArrayList<>();
@@ -41,6 +42,11 @@ public class Idiomas {
 
     public void setLibro(ArrayList<Libro> libro) {
         this.libro = libro;
+    }
+
+    @Override
+    public String getDataField() {
+        return this.idioma;
     }
     
     

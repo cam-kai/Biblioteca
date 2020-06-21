@@ -5,13 +5,14 @@
  */
 package Entidades;
 
+import Utilidades.IStringConvertible;
 import java.util.ArrayList;
 
 /**
  *
  * @author camve
  */
-public class Autores {
+public class Autores implements IStringConvertible{
     private int id_autores;
     private String Nombre;
     private String apellidoPaterno;
@@ -59,6 +60,11 @@ public class Autores {
 
     public void setLibro(ArrayList<Libro> libro) {
         this.libro = libro;
+    }
+
+    @Override
+    public String getDataField() {
+        return this.Nombre +" "+ this.apellidoPaterno +" "+ this.apellidoMaterno; 
     }
     
     

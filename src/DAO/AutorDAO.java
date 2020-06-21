@@ -7,6 +7,7 @@ package DAO;
 
 import Conexion.Conexion;
 import Entidades.Autores;
+import Utilidades.SuperList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,8 +39,8 @@ public class AutorDAO {
         return fueAgregado;
     }
     
-    public ArrayList<Autores> listarAutores(){
-        ArrayList<Autores> autores = new ArrayList<>();
+    public SuperList<Autores> listarAutores(){
+        SuperList<Autores> autores = new SuperList<>();
         try {
             PreparedStatement stmt = this.conexion.prepareStatement("select * from tbl_autores ;");
             ResultSet rs = stmt.executeQuery();

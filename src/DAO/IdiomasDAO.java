@@ -7,6 +7,7 @@ package DAO;
 
 import Conexion.Conexion;
 import Entidades.Idiomas;
+import Utilidades.SuperList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,8 +39,8 @@ public class IdiomasDAO {
         return fueAgregado;
     }
     
-    public ArrayList<Idiomas> listarIdiomas(){
-        ArrayList<Idiomas> idiomas = new ArrayList<>();
+    public SuperList<Idiomas> listarIdiomas(){
+        SuperList<Idiomas> idiomas = new SuperList<>();
         try {
             PreparedStatement stmt= this.conexion.prepareStatement("select * from tbl_idiomas ;");
             ResultSet rs = stmt.executeQuery();
@@ -54,5 +55,23 @@ public class IdiomasDAO {
         }
         
         return idiomas;
+    }
+    
+    public Idiomas buscarPorId(int id){
+        Idiomas idioma = new Idiomas();
+        try {
+            PreparedStatement stmt = this.conexion.prepareStatement("select * from tbl_idiomas where id_idiomas = ? ;");
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                idioma.setId_idiomas(rs.getInt("id_idiomas"));
+                idioma.setIdioma(rs.getString("idioma"));
+                return idioma;
+            }
+        } catch (Exception e) {
+            System.out.println(""+e.getMessage());
+        }
+        
+        return null;
     }
 }

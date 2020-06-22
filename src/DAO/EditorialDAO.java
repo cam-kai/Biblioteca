@@ -28,7 +28,7 @@ public class EditorialDAO {
         
         try {
             PreparedStatement stmt= this.conexion.prepareStatement("insert into tbl_editorial(editorial) values(?);");
-            stmt.setString(0, editorial.getEditorial());
+            stmt.setString(1, editorial.getEditorial());
             fueAgregado = (stmt.executeUpdate()>0);
         } catch (Exception e) {
         }

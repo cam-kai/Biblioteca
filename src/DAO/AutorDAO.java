@@ -7,6 +7,7 @@ package DAO;
 
 import Conexion.Conexion;
 import Entidades.Autores;
+import Utilidades.IEntitySave;
 import Utilidades.SuperList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
  */
 public class AutorDAO {
     private Connection conexion;
+    
+
     
     public AutorDAO(){
         this.conexion = new Conexion().getConexion();
@@ -33,6 +36,7 @@ public class AutorDAO {
             stmt.setString(2, autor.getApellidoPaterno());
             stmt.setString(3, autor.getApellidoMaterno());
             fueAgregado = (stmt.executeUpdate()>0);
+            
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
         }

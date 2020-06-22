@@ -20,6 +20,7 @@ import Entidades.Editorial;
 import Entidades.Estado;
 import Entidades.Idiomas;
 import Entidades.Libro;
+import Utilidades.IEntitySave;
 import Utilidades.SuperList;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ import javax.swing.event.ListDataListener;
  *
  * @author camila
  */
-public class IngresarLibro extends javax.swing.JFrame {
+public class IngresarLibro extends javax.swing.JFrame implements IEntitySave{
     SuperList<Autores> autores = new AutorDAO().listarAutores();
     SuperList<Idiomas> idiomas = new IdiomasDAO().listarIdiomas();
     SuperList<Categorias> categorias = new CategoriaDAO().listarCategorias();
@@ -363,6 +364,17 @@ public class IngresarLibro extends javax.swing.JFrame {
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         // TODO add your handling code here:
+        txtNumeroSerie.setText("");
+        txtNumeroPaginas.setText("");
+        txtTitulo.setText("");
+        txtPrecioReferencial.setText("");
+        txtAnioPublicacion.setText("");
+        cboEstado.setSelectedIndex(0);
+        cboEditorial.setSelectedIndex(0);
+        ListAutores.clearSelection();
+        ListCategorias.clearSelection();
+        ListIdiomas.clearSelection();
+                
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -470,6 +482,9 @@ public class IngresarLibro extends javax.swing.JFrame {
 
     private void btnAgregarEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEditorialActionPerformed
         // TODO add your handling code here:
+        IngresarEditorial agregar = new IngresarEditorial();
+        agregar.setVisible(true);
+        agregar.setiEntitySave(this);
         
     }//GEN-LAST:event_btnAgregarEditorialActionPerformed
 
@@ -495,18 +510,21 @@ public class IngresarLibro extends javax.swing.JFrame {
         // TODO add your handling code here:
         IngresarAutor agregarAutor =  new IngresarAutor();
         agregarAutor.setVisible(true);
+        agregarAutor.setiEntitySave(this);
     }//GEN-LAST:event_AgregarAutorActionPerformed
 
     private void AgregarIdiomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarIdiomaActionPerformed
         // TODO add your handling code here:
         IngresarIdioma agregarIdioma = new IngresarIdioma();
         agregarIdioma.setVisible(true);
+        agregarIdioma.setiEntitySave(this);
     }//GEN-LAST:event_AgregarIdiomaActionPerformed
 
     private void AgregarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarCategoriaActionPerformed
         // TODO add your handling code here:
         IngresarCategoria agregarCategoria = new IngresarCategoria();
         agregarCategoria.setVisible(true);
+        agregarCategoria.setiEntitySave(this);
     }//GEN-LAST:event_AgregarCategoriaActionPerformed
 
     public void modificarCboEstado(){
@@ -601,4 +619,24 @@ public class IngresarLibro extends javax.swing.JFrame {
     private javax.swing.JTextField txtPrecioReferencial;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void afterSave() {
+                
+        cboEditorial.removeAllItems();
+        cboEditorial.addItem("Seleccione");
+        ArrayList<Editorial> editoriales = new EditorialDAO().listarEditoriales();
+        for (Editorial editorial : editoriales) {
+            cboEditorial.addItem(editorial.getEditorial());
+        }
+        
+        SuperList<Autores> autores = new AutorDAO().listarAutores();
+        ListAutores.setListData(autores.getArray());
+        
+        SuperList<Idiomas> idiomas = new IdiomasDAO().listarIdiomas();
+        ListIdiomas.setListData(idiomas.getArray());
+        
+        SuperList<Categorias> categoria =  new CategoriaDAO().listarCategorias();
+        ListCategorias.setListData(categoria.getArray());
+    }
 }

@@ -7,14 +7,24 @@ package Vista;
 
 import DAO.AutorDAO;
 import Entidades.Autores;
+import Utilidades.IEntitySave;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author camila
  */
-public class IngresarAutor extends javax.swing.JFrame {
+public class IngresarAutor extends javax.swing.JFrame  {
+    
+    private IEntitySave iEntitySave;
 
+    public IEntitySave getiEntitySave() {
+        return iEntitySave;
+    }
+
+    public void setiEntitySave(IEntitySave iEntitySave) {
+        this.iEntitySave = iEntitySave;
+    }
     /**
      * Creates new form IngresarAutor
      */
@@ -171,6 +181,10 @@ public class IngresarAutor extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null, "El autor no ha podido ser agregado ");
         }
+         
+        if(iEntitySave != null){
+                iEntitySave.afterSave();
+            }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     /**
@@ -220,4 +234,7 @@ public class IngresarAutor extends javax.swing.JFrame {
     private javax.swing.JTextField txtApellidoPaterno;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+    
+    
 }

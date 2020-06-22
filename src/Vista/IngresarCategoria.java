@@ -9,6 +9,7 @@ import DAO.AutorDAO;
 import DAO.CategoriaDAO;
 import Entidades.Autores;
 import Entidades.Categorias;
+import Utilidades.IEntitySave;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,6 +18,17 @@ import javax.swing.JOptionPane;
  */
 public class IngresarCategoria extends javax.swing.JFrame {
 
+    private IEntitySave iEntitySave;
+
+    public IEntitySave getiEntitySave() {
+        return iEntitySave;
+    }
+
+    public void setiEntitySave(IEntitySave iEntitySave) {
+        this.iEntitySave = iEntitySave;
+    }
+    
+    
     /**
      * Creates new form IngresarAutor
      */
@@ -140,6 +152,9 @@ public class IngresarCategoria extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "La categoria a sido agregado correctamente");
         }else{
             JOptionPane.showMessageDialog(null, "La categoria no ha podido ser agregado ");
+        }
+        if(iEntitySave != null){
+            iEntitySave.afterSave();
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 

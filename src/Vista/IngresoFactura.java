@@ -7,6 +7,7 @@ package Vista;
 
 import DAO.DistribuidorDAO;
 import Entidades.Distribuidores;
+import Utilidades.IEntitySave;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -14,8 +15,9 @@ import javax.swing.JOptionPane;
  *
  * @author camila
  */
-public class IngresoFactura extends javax.swing.JFrame {
+public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
 
+    private boolean primeraVezCambiado = false;
     /**
      * Creates new form IngresoFactura
      */
@@ -50,6 +52,7 @@ public class IngresoFactura extends javax.swing.JFrame {
         txtTelefono = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
+        btnAgregarDist = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,6 +89,11 @@ public class IngresoFactura extends javax.swing.JFrame {
                 cboNombreEmpresaHierarchyChanged(evt);
             }
         });
+        cboNombreEmpresa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cboNombreEmpresaFocusLost(evt);
+            }
+        });
         cboNombreEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cboNombreEmpresaMouseClicked(evt);
@@ -118,53 +126,67 @@ public class IngresoFactura extends javax.swing.JFrame {
 
         jLabel9.setText("Correo :");
 
+        btnAgregarDist.setText("Agregar Distribuidor");
+        btnAgregarDist.setToolTipText("");
+        btnAgregarDist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarDistActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(29, 29, 29)
-                        .addComponent(txtIdDistribuidores, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(jLabel3)
-                        .addGap(41, 41, 41)
-                        .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDigitoVerificador, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(cboNombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtAnios, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel9)
-                        .addGap(28, 28, 28)
-                        .addComponent(txtCorreo)))
+                        .addComponent(jLabel1)
+                        .addGap(770, 770, 770)
+                        .addComponent(btnAgregarDist))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(29, 29, 29)
+                            .addComponent(txtIdDistribuidores, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(59, 59, 59)
+                            .addComponent(jLabel3)
+                            .addGap(41, 41, 41)
+                            .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtDigitoVerificador, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel6)
+                            .addGap(18, 18, 18)
+                            .addComponent(cboNombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtAnios, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(54, 54, 54)
+                            .addComponent(jLabel7)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(46, 46, 46)
+                            .addComponent(jLabel8)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(42, 42, 42)
+                            .addComponent(jLabel9)
+                            .addGap(28, 28, 28)
+                            .addComponent(txtCorreo))))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(btnAgregarDist))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -185,7 +207,7 @@ public class IngresoFactura extends javax.swing.JFrame {
                     .addComponent(txtAnios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(392, Short.MAX_VALUE))
+                .addContainerGap(388, Short.MAX_VALUE))
         );
 
         pack();
@@ -208,7 +230,30 @@ public class IngresoFactura extends javax.swing.JFrame {
 
     private void cboNombreEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNombreEmpresaActionPerformed
         // TODO add your handling code here:
-        
+        if(primeraVezCambiado == false) {
+            primeraVezCambiado = true;
+            return;
+        }
+        String nombre = String.valueOf(cboNombreEmpresa.getSelectedItem());
+        Distribuidores distribuidor =  new DistribuidorDAO().buscarPorNombre(nombre);
+        if(distribuidor != null){
+            txtIdDistribuidores.setText(Integer.toString(distribuidor.getId_distribuidores()));
+            txtRut.setText(Integer.toString(distribuidor.getRut()));
+            txtDigitoVerificador.setText(Character.toString(distribuidor.getDigitoVerificador()));
+            txtAnios.setText(Integer.toString(distribuidor.getAñosDeServicio()));
+            txtDireccion.setText(distribuidor.getDireccion());
+            txtTelefono.setText(Integer.toString(distribuidor.getTelefono()));
+            txtCorreo.setText(distribuidor.getCorreo());
+        }
+        if(cboNombreEmpresa.getSelectedIndex()==0){
+            txtIdDistribuidores.setText("");
+            txtRut.setText("");
+            txtDigitoVerificador.setText("");
+            txtAnios.setText("");
+            txtDireccion.setText("");
+            txtTelefono.setText("");
+            txtCorreo.setText("");
+        }
     }//GEN-LAST:event_cboNombreEmpresaActionPerformed
 
     private void cboNombreEmpresaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cboNombreEmpresaPropertyChange
@@ -240,6 +285,17 @@ public class IngresoFactura extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_cboNombreEmpresaMousePressed
+
+    private void cboNombreEmpresaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cboNombreEmpresaFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboNombreEmpresaFocusLost
+
+    private void btnAgregarDistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDistActionPerformed
+        // TODO add your handling code here:
+        IngresarDistribuidor ingresarD = new IngresarDistribuidor();
+        ingresarD.setVisible(true);
+        ingresarD.setiEntitySave(this);
+    }//GEN-LAST:event_btnAgregarDistActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,6 +343,7 @@ public class IngresoFactura extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarDist;
     private javax.swing.JComboBox<String> cboNombreEmpresa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -305,4 +362,10 @@ public class IngresoFactura extends javax.swing.JFrame {
     private javax.swing.JTextField txtRut;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void afterSave() {
+        cboNombreEmpresa.removeAllItems();
+        modificarCboNombre();
+    }
 }

@@ -9,6 +9,7 @@ import DAO.DistribuidorDAO;
 import Entidades.Direcciones;
 import Entidades.Distribuidores;
 import Entidades.Telefono;
+import Utilidades.IEntitySave;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -17,7 +18,18 @@ import javax.swing.JOptionPane;
  * @author camila
  */
 public class IngresarDistribuidor extends javax.swing.JFrame {
+    
+    private IEntitySave iEntitySave;
 
+    public IEntitySave getiEntitySave() {
+        return iEntitySave;
+    }
+
+    public void setiEntitySave(IEntitySave iEntitySave) {
+        this.iEntitySave = iEntitySave;
+    }
+    
+    
     /**
      * Creates new form IngresarDistribuidor
      */
@@ -151,9 +163,7 @@ public class IngresarDistribuidor extends javax.swing.JFrame {
                                         .addComponent(jLabel5))
                                     .addGap(22, 22, 22)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(18, 18, 18)
-                                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                             .addGap(18, 18, 18)
                                             .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -168,11 +178,12 @@ public class IngresarDistribuidor extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(txtDigitoVerificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)
-                            .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtDigitoVerificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7)
+                                .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -229,6 +240,9 @@ public class IngresarDistribuidor extends javax.swing.JFrame {
             
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }
+        if(iEntitySave != null){
+            iEntitySave.afterSave();
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 

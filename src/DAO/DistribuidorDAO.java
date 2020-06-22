@@ -95,6 +95,31 @@ public class DistribuidorDAO {
         return null;
     }
     
+    
+        
+    public Distribuidores buscarPorNombre(String nombre){
+        try {
+            PreparedStatement stmt = this.conexion.prepareStatement("select * from tbl_distribuidores where nombre_empresa = ?;");
+            stmt.setString(1, nombre);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Distribuidores distribuidor = new Distribuidores();
+                distribuidor.setId_distribuidores(rs.getInt("id_distribuidores"));
+                distribuidor.setRut(rs.getInt("rut"));
+                distribuidor.setDigitoVerificador(rs.getString("digito_verificador").charAt(0));
+                distribuidor.setNombreEmpresa(rs.getString("nombre_empresa"));
+                distribuidor.setAñosDeServicio(rs.getInt("años_de_servicio"));
+                distribuidor.setDireccion(rs.getString("direccion"));
+                distribuidor.setTelefono(rs.getInt("telefono"));
+                distribuidor.setCorreo(rs.getString("correo"));
+                return distribuidor;
+            }
+        } catch (Exception e) {
+            
+        }
+        return null;
+    }
+    
     public boolean eliminarDistribuidores(int idABuscar){
         
         boolean fueEliminado = false;

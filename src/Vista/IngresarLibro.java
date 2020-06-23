@@ -14,12 +14,14 @@ import DAO.LibrosDAO;
 import DAO.RelLibroAutorDAO;
 import DAO.RelLibroCategoriaDAO;
 import DAO.RelLibroIdiomaDAO;
+import DAO.StockDAO;
 import Entidades.Autores;
 import Entidades.Categorias;
 import Entidades.Editorial;
 import Entidades.Estado;
 import Entidades.Idiomas;
 import Entidades.Libro;
+import Entidades.StockLibro;
 import Utilidades.IEntitySave;
 import Utilidades.SuperList;
 import java.util.ArrayList;
@@ -242,7 +244,7 @@ public class IngresarLibro extends javax.swing.JFrame implements IEntitySave{
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 412, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel9))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10)
@@ -299,7 +301,7 @@ public class IngresarLibro extends javax.swing.JFrame implements IEntitySave{
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNumeroPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtPrecioReferencial, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 208, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,6 +424,12 @@ public class IngresarLibro extends javax.swing.JFrame implements IEntitySave{
             JOptionPane.showMessageDialog(null, "El libro no ha podido ser agregado");
             
         }
+        StockLibro stock = new StockLibro();
+        Libro id_libro = new LibrosDAO().buscarPorISBN(Integer.parseInt(txtNumeroSerie.getText()));
+        stock.setId_libro(id_libro.getId_libro());
+        stock.setStock_libro(0);
+        boolean agregarRelacionStock = new StockDAO().agregarStock(stock);
+        
         
         int[] autores =ListAutores.getSelectedIndices();
         if(autores.length==0){

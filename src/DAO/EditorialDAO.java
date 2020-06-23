@@ -70,4 +70,21 @@ public class EditorialDAO {
         }
         return editorial;
     }
+    
+    public Editorial buscarPorEditorial(String edi){
+        Editorial editorial = new Editorial();
+        try {
+            PreparedStatement stmt = this.conexion.prepareStatement("select * from tbl_editorial where editorial=?;");
+            stmt.setString(1, edi);
+            ResultSet rs= stmt.executeQuery();
+            while(rs.next()){
+                
+                editorial.setId_editorial(rs.getInt("id_editorial"));
+                editorial.setEditorial(rs.getString("editorial"));
+            }
+            
+        } catch (Exception e) {
+        }
+        return editorial;
+    }
 }

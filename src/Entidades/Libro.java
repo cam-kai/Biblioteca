@@ -23,7 +23,9 @@ public class Libro {
     private ArrayList<Idiomas> idiomas = new ArrayList<>();
     private ArrayList<Categorias> categorias = new ArrayList<>();
     private ArrayList<Autores> autores= new ArrayList<>();
-
+    private StockLibro stock;
+    
+    
     public Libro() {
     }
 
@@ -115,6 +117,14 @@ public class Libro {
 
     public void setAutores(ArrayList<Autores> autores) {
         this.autores = autores;
+    }
+
+    public StockLibro getStock() {
+        return stock;
+    }
+
+    public void setStock(StockLibro stock) {
+        this.stock = stock;
     }
     
     

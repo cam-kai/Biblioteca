@@ -9,6 +9,7 @@ import Conexion.Conexion;
 import Entidades.StockLibro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -45,5 +46,24 @@ public class StockDAO {
         } catch (Exception e) {
         }
         return fueModificado;
+    }
+    
+    public StockLibro bucarPorIdLibro(int id){
+        
+        try {
+            PreparedStatement stmt = this.conexion.prepareStatement("select * from tbl_stock_libro where id_libro=?");
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                StockLibro stock = new StockLibro();
+                stock.setId_stock(rs.getInt("id_stock"));
+                stock.setId_libro(rs.getInt("id_libro"));
+                stock.setStock_libro(rs.getInt("stock_libro"));
+                return stock;
+            }
+        } catch (Exception e) {
+            System.out.println(""+e.getMessage());
+        }
+        return null;
     }
 }

@@ -7,8 +7,11 @@ package DAO;
 
 import Conexion.Conexion;
 import Entidades.Compra;
+import Entidades.Distribuidores;
+import Entidades.Factura;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -37,5 +40,24 @@ public class CompraDAO {
         }
         
         return fueAgregada;
+    }
+    public Compra buscarUltimo(){
+        Compra compra = new Compra();
+        try {
+            PreparedStatement stmt = this.conexion.prepareStatement("Select * from tbl_compra order by id_compra desc limit 1;");
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                compra.setId_compra(rs.getInt("id_compra"));
+                Factura factura =new Factura();
+                factura.setId_factura(rs.getInt("id_factura"));
+                compra.setFactura(factura);
+                Distribuidores distribuidor = new Distribuidores();
+                distribuidor.setId_distribuidores(rs.getInt("id_distribuidores"));
+                compra.setDistribuidor(distribuidor);
+            }
+        } catch (Exception e) {
+            System.out.println(""+e.getMessage());
+        }
+        return compra;
     }
 }

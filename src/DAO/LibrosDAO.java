@@ -74,7 +74,7 @@ public class LibrosDAO {
        try {
            String sql = "Select l.id_libro, l.numero_de_serie, l.titulo, l.anio_publicacion, l.precio_referencial, e.editorial, s.stock_libro\n" +
                         "from tbl_libro l inner join tbl_editorial e on l.id_editorial = e.id_editorial, \n" +
-                        "tbl_stock_libro s where s.id_libro = l.id_libro;";
+                        "tbl_stock_libro s where s.id_libro = l.id_libro ;";
            PreparedStatement stmt = this.conexion.prepareStatement(sql);
            ResultSet rs = stmt.executeQuery();
            while(rs.next()){

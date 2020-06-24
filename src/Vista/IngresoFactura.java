@@ -6,15 +6,19 @@
 package Vista;
 
 import DAO.CompraDAO;
+import DAO.DetalleCompraDAO;
 import DAO.DistribuidorDAO;
 import DAO.FacturaDAO;
 import DAO.LibrosDAO;
 import DAO.MedioPagoDAO;
+import DAO.StockDAO;
+import Entidades.DetalleCompra;
 import Entidades.Distribuidores;
 import Entidades.Factura;
 import Entidades.ItemCompra;
 import Entidades.Libro;
 import Entidades.MedioDePago;
+import Entidades.StockLibro;
 import Utilidades.IEntitySave;
 import Utilidades.SuperList;
 import java.time.LocalDateTime;
@@ -702,9 +706,21 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
                 int idFact =  new FacturaDAO().buscarUltimo().getId_factura();
                 
                 boolean fueAgregadaTCom = new CompraDAO().agregarCompra(idDist, idFact);
-                if(fueAgregadaTCom == true){
-                    JOptionPane.showMessageDialog(null, "Fue agregada la relacion");
+                DetalleCompra detalleC = new DetalleCompra();
+                int idCom = new CompraDAO().buscarUltimo().getId_compra();
+                detalleC.setIdCompra(idCom);
+                for (ItemCompra itemCompra : productosCompra) {
+                    int idLib = itemCompra.getId_libro();
+                    detalleC.setIdLibro(idLib);
+                    boolean fueAgregadaRCL = new DetalleCompraDAO().agregarDetalleCompra(detalleC);
+                    StockLibro stock = new StockLibro();
+                    stock.setId_libro(idLib);
+                    int stockActual = new StockDAO().bucarPorIdLibro(idLib).getStock_libro();
+                    int stockNuevo = stockActual + itemCompra.getCantidad();
+                    stock.setStock_libro(stockNuevo);
+                    boolean fueAgregadoStock = new StockDAO().agregarStock(stock);
                 }
+                
             }
             
         }

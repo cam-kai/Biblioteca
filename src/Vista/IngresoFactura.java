@@ -670,29 +670,35 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
 
     private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
         // TODO add your handling code here:
-        Factura factura= new Factura();
-        factura.setPrecioNeto(totalSinIVa);
-        factura.setPrecioConIVA(totalIva);
-        factura.setCostoConIVA(totalConIva);
-        LocalDateTime dateTime = LocalDateTime.now(); 
-        DateTimeFormatter form = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        String Hoy  = String.valueOf(dateTime.format(form));
-        String fecha = String.valueOf(Hoy.indexOf(" "));
-        String hora = String.valueOf(Hoy.indexOf(" ", 4));
-        //factura.setHoraDeCompra(hora);
-        //factura.setFechaDeCompra(fecha);
-        MedioDePago medioP = new MedioDePago();
-        int id= cboMedioDePago.getSelectedIndex();
-        String medio = String.valueOf(cboMedioDePago.getSelectedItem());
-        medioP.setId_medio_de_pago(id);
-        medioP.setMedioDePago(medio);
-        factura.setMedio_de_pago(medioP);
-        boolean fueAgregadoF = new FacturaDAO().fueAgregado(factura);
+        if(cboMedioDePago.getSelectedIndex()==0){
+            JOptionPane.showMessageDialog(null, "Debe ingresar un medio de pago");
+        }else{
         
-        if(fueAgregadoF ==true ){
-            JOptionPane.showMessageDialog(null, "Se ha podido agregar la factura");
+            Factura factura = new Factura();
+            factura.setPrecioNeto(totalSinIVa);
+            factura.setPrecioConIVA(totalIva);
+            factura.setCostoConIVA(totalConIva);
+            LocalDateTime dateTime = LocalDateTime.now();
+            DateTimeFormatter form = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String Hoy = String.valueOf(dateTime.format(form));
+            String fecha = Hoy.substring(0, 10);
+            String hora = Hoy.substring(11, 19);
+            factura.setHoraDeCompra(hora);
+            factura.setFechaDeCompra(fecha);
+            MedioDePago medioP = new MedioDePago();
+            int id = cboMedioDePago.getSelectedIndex();
+            String medio = String.valueOf(cboMedioDePago.getSelectedItem());
+            medioP.setId_medio_de_pago(id);
+            medioP.setMedioDePago(medio);
+            factura.setMedio_de_pago(medioP);
+            boolean fueAgregadoF = new FacturaDAO().fueAgregado(factura);
+
+            if (fueAgregadoF == true) {
+                JOptionPane.showMessageDialog(null, "Se ha podido agregar la factura");
+            }
+            
+            
         }
-        
     }//GEN-LAST:event_btnComprarActionPerformed
 
     /**

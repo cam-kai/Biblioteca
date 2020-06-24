@@ -8,10 +8,16 @@ package Vista;
 import DAO.DistribuidorDAO;
 import DAO.LibrosDAO;
 import Entidades.Distribuidores;
+import Entidades.ItemCompra;
 import Entidades.Libro;
 import Utilidades.IEntitySave;
+import Utilidades.SuperList;
 import java.util.ArrayList;
+import java.util.List;
+import javax.accessibility.AccessibleContext;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,13 +28,17 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
 
     private boolean primeraVezCambiado = false;
     ArrayList<Libro> libros = new ArrayList<Libro>();
+    int contador =1; 
+    SuperList<ItemCompra> productosCompra = new SuperList<>();
+        
     /**
      * Creates new form IngresoFactura
      */
     public IngresoFactura() {
         initComponents();
         modificarCboNombre();
-       
+        listar();
+        
         
     }
 
@@ -68,6 +78,12 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
         txtBuscarPorISBN = new javax.swing.JTextField();
         btnBuscarPorID = new javax.swing.JButton();
         btnBuscarPorISBN = new javax.swing.JButton();
+        btnAgregarLibro = new javax.swing.JButton();
+        btnAgregarACompra = new javax.swing.JButton();
+        btnEliminarDeCompra = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listCompraProductos = new javax.swing.JList<>();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -199,6 +215,41 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
             }
         });
 
+        btnAgregarLibro.setText("Agregar Libro");
+        btnAgregarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarLibroActionPerformed(evt);
+            }
+        });
+
+        btnAgregarACompra.setText("Agregar a compra");
+        btnAgregarACompra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarACompraMouseClicked(evt);
+            }
+        });
+        btnAgregarACompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarACompraActionPerformed(evt);
+            }
+        });
+
+        btnEliminarDeCompra.setText("Eliminar de compra");
+        btnEliminarDeCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarDeCompraActionPerformed(evt);
+            }
+        });
+
+        listCompraProductos.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(listCompraProductos);
+
+        jLabel12.setText("Id libro | cantidad | Precio  |Total");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -206,51 +257,13 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(770, 770, 770)
-                            .addComponent(btnAgregarDist))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(148, 148, 148)
-                                        .addComponent(jLabel7))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtBuscarPorId, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(34, 34, 34)
-                                        .addComponent(btnBuscarPorID)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel11)
-                                        .addGap(39, 39, 39))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(29, 29, 29)
-                                        .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtBuscarPorISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(51, 51, 51)
-                                        .addComponent(btnBuscarPorISBN)
-                                        .addGap(60, 60, 60)
-                                        .addComponent(btnListar))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(35, 35, 35)
-                                        .addComponent(jLabel8)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(42, 42, 42)
-                                        .addComponent(jLabel9)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(770, 770, 770)
+                                .addComponent(btnAgregarDist))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtAnios, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
@@ -268,9 +281,60 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(cboNombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(283, Short.MAX_VALUE))
+                                .addComponent(cboNombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(76, 76, 76)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnEliminarDeCompra)
+                                    .addComponent(btnAgregarACompra))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addGap(148, 148, 148)
+                                        .addComponent(jLabel7))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtBuscarPorId, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(34, 34, 34)
+                                        .addComponent(btnBuscarPorID)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtBuscarPorISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(29, 29, 29)
+                                        .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(42, 42, 42)
+                                        .addComponent(jLabel9))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnBuscarPorISBN)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnListar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnAgregarLibro)))
+                                .addGap(18, 18, 18)
+                                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(792, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,7 +363,7 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
                     .addComponent(txtAnios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnListar)
                     .addComponent(txtBuscarPorId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -307,10 +371,24 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
                     .addComponent(jLabel11)
                     .addComponent(txtBuscarPorISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscarPorID)
-                    .addComponent(btnBuscarPorISBN))
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(btnBuscarPorISBN)
+                    .addComponent(btnAgregarLibro))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(104, 104, 104)
+                        .addComponent(btnAgregarACompra)
+                        .addGap(35, 35, 35)
+                        .addComponent(btnEliminarDeCompra))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(jLabel12)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
 
         pack();
@@ -419,6 +497,70 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
         listar();
     }//GEN-LAST:event_btnBuscarPorISBNActionPerformed
 
+    private void btnAgregarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarLibroActionPerformed
+        // TODO add your handling code here:
+        IngresarLibro ingresarLibro =  new IngresarLibro();
+        ingresarLibro.setVisible(true);
+        
+    }//GEN-LAST:event_btnAgregarLibroActionPerformed
+
+    private void btnAgregarACompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarACompraActionPerformed
+        // TODO add your handling code here:
+        int cantidadIngresada = 0;
+        int precioUnitarioIngresado = 0;
+        int subtotalProducto =0;
+        //contador ++;
+        //String[] productos = new String[contador];
+        int seleccionado = tblLibros.getSelectedRow();
+        if(seleccionado == -1){
+            JOptionPane.showMessageDialog(null, "Selecccione al menos un libro");
+        }else{
+            for (Libro libro : libros) {
+                int id = this.libros.get(seleccionado).getId_libro();
+                                        
+                JTextField txtCantidad = new JTextField();
+                JTextField txtPrecioUnitario = new JTextField();
+                Object[] mensaje= {
+                    "Ingrese Cantidad :", txtCantidad,
+                    "Ingrese Precio Unitario:", txtPrecioUnitario,
+                };
+                int option = JOptionPane.showConfirmDialog(null , mensaje,"¿Cuantos desea comprar ?",0);
+                if(option == JOptionPane.OK_OPTION){
+                    cantidadIngresada= Integer.parseInt(txtCantidad.getText());
+                    precioUnitarioIngresado = Integer.parseInt(txtPrecioUnitario.getText());
+                    
+                                        
+                }
+                subtotalProducto= cantidadIngresada * precioUnitarioIngresado;
+                ItemCompra item = new ItemCompra();
+                item.setId_libro(id);
+                item.setCantidad(cantidadIngresada);
+                item.setPrecioUnitario(precioUnitarioIngresado);
+                item.setTotal(subtotalProducto);
+                
+                productosCompra.add(item);
+                
+                listCompraProductos.setListData(productosCompra.getArray());
+                return;
+            }
+            
+        }
+        
+        
+    }//GEN-LAST:event_btnAgregarACompraActionPerformed
+
+    private void btnAgregarACompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarACompraMouseClicked
+        // TODO add your handling code here:
+        contador ++;
+    }//GEN-LAST:event_btnAgregarACompraMouseClicked
+
+    private void btnEliminarDeCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarDeCompraActionPerformed
+        // TODO add your handling code here:
+        int indice =  listCompraProductos.getSelectedIndex();
+        productosCompra.remove(indice);
+        listCompraProductos.setListData(productosCompra.getArray());
+    }//GEN-LAST:event_btnEliminarDeCompraActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -508,16 +650,21 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
         tblLibros.setModel(modelo);
         
     }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarACompra;
     private javax.swing.JButton btnAgregarDist;
+    private javax.swing.JButton btnAgregarLibro;
     private javax.swing.JButton btnBuscarPorID;
     private javax.swing.JButton btnBuscarPorISBN;
+    private javax.swing.JButton btnEliminarDeCompra;
     private javax.swing.JButton btnListar;
     private javax.swing.JComboBox<String> cboNombreEmpresa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -527,6 +674,8 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> listCompraProductos;
     private javax.swing.JTable tblLibros;
     private javax.swing.JTextField txtAnios;
     private javax.swing.JTextField txtBuscarPorISBN;
@@ -543,5 +692,6 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
     public void afterSave() {
         cboNombreEmpresa.removeAllItems();
         modificarCboNombre();
+        
     }
 }

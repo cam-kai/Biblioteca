@@ -41,6 +41,9 @@ public class IngresarLibro extends javax.swing.JFrame implements IEntitySave{
     SuperList<Autores> autores = new AutorDAO().listarAutores();
     SuperList<Idiomas> idiomas = new IdiomasDAO().listarIdiomas();
     SuperList<Categorias> categorias = new CategoriaDAO().listarCategorias();
+   
+    
+    
     /**
      * Creates new form IngresarLibro
      */
@@ -243,9 +246,7 @@ public class IngresarLibro extends javax.swing.JFrame implements IEntitySave{
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel9))
+                            .addComponent(jLabel9)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -482,6 +483,7 @@ public class IngresarLibro extends javax.swing.JFrame implements IEntitySave{
         
         
         
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void cboEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboEditorialActionPerformed
@@ -633,10 +635,7 @@ public class IngresarLibro extends javax.swing.JFrame implements IEntitySave{
                 
         cboEditorial.removeAllItems();
         cboEditorial.addItem("Seleccione");
-        ArrayList<Editorial> editoriales = new EditorialDAO().listarEditoriales();
-        for (Editorial editorial : editoriales) {
-            cboEditorial.addItem(editorial.getEditorial());
-        }
+        modificarCboEditorial();
         
         SuperList<Autores> autores = new AutorDAO().listarAutores();
         ListAutores.setListData(autores.getArray());

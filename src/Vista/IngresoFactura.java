@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import DAO.CompraDAO;
 import DAO.DistribuidorDAO;
 import DAO.FacturaDAO;
 import DAO.LibrosDAO;
@@ -671,7 +672,7 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
     private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
         // TODO add your handling code here:
         if(cboMedioDePago.getSelectedIndex()==0){
-            JOptionPane.showMessageDialog(null, "Debe ingresar un medio de pago");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un medio de pago");
         }else{
         
             Factura factura = new Factura();
@@ -693,10 +694,18 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
             factura.setMedio_de_pago(medioP);
             boolean fueAgregadoF = new FacturaDAO().fueAgregado(factura);
 
-            if (fueAgregadoF == true) {
-                JOptionPane.showMessageDialog(null, "Se ha podido agregar la factura");
+            if(txtIdDistribuidores.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Debe seleccionar un distribuidor");
+            }else{
+                
+                int idDist = Integer.parseInt(txtIdDistribuidores.getText());
+                int idFact =  new FacturaDAO().buscarUltimo().getId_factura();
+                
+                boolean fueAgregadaTCom = new CompraDAO().agregarCompra(idDist, idFact);
+                if(fueAgregadaTCom == true){
+                    JOptionPane.showMessageDialog(null, "Fue agregada la relacion");
+                }
             }
-            
             
         }
     }//GEN-LAST:event_btnComprarActionPerformed

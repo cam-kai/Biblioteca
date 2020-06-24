@@ -22,14 +22,14 @@ public class CompraDAO {
     }
     
     
-    public boolean agregarCompra(Compra compra){
+    public boolean agregarCompra(int idD, int idF){
         boolean fueAgregada = false;
         
         try {
             
-            PreparedStatement stmt = this.conexion.prepareStatement("Insert into tbl_compra(id_factura, id_distribuidor) values(?,?);");
-            stmt.setInt(1, compra.getFactura().getId_factura());
-            stmt.setInt(2, compra.getDistribuidor().getId_distribuidores());
+            PreparedStatement stmt = this.conexion.prepareStatement("Insert into tbl_compra(id_factura, id_distribuidores) values(?,?);");
+            stmt.setInt(1, idF);
+            stmt.setInt(2, idD);
             fueAgregada = (stmt.executeUpdate()>0);
             
         } catch (Exception e) {

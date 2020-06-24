@@ -29,8 +29,8 @@ public class FacturaDAO {
             stmt.setInt(1, factura.getPrecioNeto());
             stmt.setInt(2, factura.getPrecioConIVA());
             stmt.setInt(3, factura.getCostoConIVA());
-            stmt.setDate(4, factura.getFechaDeCompra());
-            stmt.setTime(5, factura.getHoraDeCompra());
+            stmt.setString(4, factura.getFechaDeCompra());
+            stmt.setString(5, factura.getHoraDeCompra());
             stmt.setInt(6, factura.getMedio_de_pago().getId_medio_de_pago());
             
             fueAgregado = (stmt.executeUpdate()>0);

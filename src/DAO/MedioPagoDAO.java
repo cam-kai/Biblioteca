@@ -32,8 +32,8 @@ public class MedioPagoDAO {
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 MedioDePago medio = new MedioDePago ();
-                medio.setId_medio_de_pago(rs.getInt("id_medio_pago"));
-                medio.setMedioDePago(rs.getString("medio_pago"));
+                medio.setId_medio_de_pago(rs.getInt("id_medio_de_pago"));
+                medio.setMedioDePago(rs.getString("medio_de_pago"));
                 medios.add(medio);
             }
         } catch (Exception e) {

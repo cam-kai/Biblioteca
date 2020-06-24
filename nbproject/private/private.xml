@@ -5,11 +5,12 @@
         <group>
             <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Vista/IngresoFactura.java</file>
             <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/DAO/DistribuidorDAO.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Entidades/DetalleCompra.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/DAO/DetalleCompraDAO.java</file>
+            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Entidades/Factura.java</file>
+            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Vista/ListarDistribuidor.java</file>
+            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Entidades/ItemCompra.java</file>
             <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/DAO/FacturaDAO.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/DAO/CompraDAO.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/DAO/MedioPagoDAO.java</file>
+            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Utilidades/SuperList.java</file>
+            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Vista/IngresarLibro.java</file>
         </group>
     </open-files>
 </project-private>

@@ -17,8 +17,8 @@ public class Factura {
     private int precioNeto;
     private int precioConIVA;
     private int costoConIVA;
-    private Date fechaDeCompra;
-    private Time horaDeCompra;
+    private String fechaDeCompra;
+    private String horaDeCompra;
     private MedioDePago medio_de_pago;
 
     public Factura() {
@@ -56,22 +56,23 @@ public class Factura {
         this.costoConIVA = costoConIVA;
     }
 
-    public Date getFechaDeCompra() {
+    public String getFechaDeCompra() {
         return fechaDeCompra;
     }
 
-    public void setFechaDeCompra(Date fechaDeCompra) {
+    public void setFechaDeCompra(String fechaDeCompra) {
         this.fechaDeCompra = fechaDeCompra;
     }
 
-    public Time getHoraDeCompra() {
+    public String getHoraDeCompra() {
         return horaDeCompra;
     }
 
-    public void setHoraDeCompra(Time horaDeCompra) {
+    public void setHoraDeCompra(String horaDeCompra) {
         this.horaDeCompra = horaDeCompra;
     }
 
+    
     public MedioDePago getMedio_de_pago() {
         return medio_de_pago;
     }

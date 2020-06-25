@@ -131,10 +131,15 @@ public class IngresarEditorial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        
+        boolean fueAgregado = false;
         Editorial editorial = new Editorial();
         editorial.setEditorial(txtEditorial.getText());
-        boolean fueAgregado = new EditorialDAO().agregarEditorial(editorial);
+        if( txtEditorial.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe ingresar el nombre de la editorial");
+        }else{
+            fueAgregado= new EditorialDAO().agregarEditorial(editorial);
+        }
+        
         if(fueAgregado == true){
             JOptionPane.showMessageDialog(null, "La editorial fue agregada existosamente");
         }else{

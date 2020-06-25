@@ -56,7 +56,7 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
         modificarCboNombre();
         listar();
         modificarCboMedioPago();
-        
+        listCompraProductos.setListData(productosCompra.getArray());
         
         
     }
@@ -207,6 +207,8 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
                 "Id", "Numero de serie", "Titulo", "Año de publicacion", "Editorial", "Stock actual"
             }
         ));
+        tblLibros.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblLibros.setShowVerticalLines(false);
         jScrollPane1.setViewportView(tblLibros);
         if (tblLibros.getColumnModel().getColumnCount() > 0) {
             tblLibros.getColumnModel().getColumn(0).setHeaderValue("Id ");
@@ -335,10 +337,10 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(237, 237, 237)
+                                .addGap(402, 402, 402)
                                 .addComponent(jLabel17)
-                                .addGap(31, 31, 31)
-                                .addComponent(txtNumeroFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtNumeroFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnAgregarDist))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -643,11 +645,30 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
                     "Ingrese Cantidad :", txtCantidad,
                     "Ingrese Precio Unitario:", txtPrecioUnitario,
                 };
-                int option = JOptionPane.showConfirmDialog(null , mensaje,"¿Cuantos desea comprar ?",0);
+                int option = JOptionPane.showConfirmDialog(null , mensaje,"¿ Cuantos desea comprar ?",0);
                 if(option == JOptionPane.OK_OPTION){
-                    cantidadIngresada= Integer.parseInt(txtCantidad.getText());
-                    precioUnitarioIngresado = Integer.parseInt(txtPrecioUnitario.getText());
-                    
+                    if(txtCantidad.getText().equals("")){
+                        JOptionPane.showMessageDialog(null, "Debe ingresar una cantidad");
+                        return;
+                    }else if(txtPrecioUnitario.getText().equals("")){
+                        JOptionPane.showMessageDialog(null, "Debe seleccionar un precio por unidad");
+                        return;
+                    }else if(txtCantidad.getText().contains("-")){
+                        JOptionPane.showMessageDialog(null, "Debe ingresar una cantidad valida");
+                        return;
+                    }else if(txtPrecioUnitario.getText().contains("-")){
+                        JOptionPane.showMessageDialog(null, "Debe seleccionar un precio por unidad valido");
+                        return;
+                    }else if(txtCantidad.getText().equals("0")){
+                        JOptionPane.showMessageDialog(null, "Debe ingresar una cantidad valida");
+                        return;
+                    }else if(txtPrecioUnitario.getText().equals("0")){
+                        JOptionPane.showMessageDialog(null, "Debe seleccionar un precio por unidad valido");
+                        return;
+                    }else{
+                        cantidadIngresada= Integer.parseInt(txtCantidad.getText());
+                        precioUnitarioIngresado = Integer.parseInt(txtPrecioUnitario.getText());
+                    }
                                         
                 }
                 subtotalProducto= cantidadIngresada * precioUnitarioIngresado;
@@ -752,7 +773,7 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
                 if(fueAgregadoF== true && fueAgregadaTCom == true && fueAgregadaRCL== true && fueAgregadoStock == true){
                     
                     JOptionPane.showMessageDialog(null, "Fue agregada exitosamente su compra ");
-                    this.dispose();
+                    limpiarTodo();
                 }else{
                     JOptionPane.showMessageDialog(null, "No se ha podido realizar su compra");
                 }
@@ -875,6 +896,28 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
         for (MedioDePago medioDePago : medio) {
             cboMedioDePago.addItem(medioDePago.getMedioDePago());
         }
+    }
+    
+    public void limpiarTodo(){
+        txtNumeroFactura.setText("");
+        txtAnios.setText("");
+        txtBuscarPorISBN.setText("");
+        txtBuscarPorId.setText("");
+        txtCorreo.setText("");
+        txtDigitoVerificador.setText("");
+        txtDireccion.setText("");
+        txtIdDistribuidores.setText("");
+        txtRut.setText("");
+        txtTelefono.setText("");
+        cboMedioDePago.setSelectedIndex(0);
+        cboNombreEmpresa.setSelectedIndex(0);
+        productosCompra.clear();
+        listCompraProductos.setListData(productosCompra.getArray());
+        
+        tblLibros.clearSelection();
+        lblPrecioNeto.setText("");
+        lblIVA.setText("");
+        lbltotalConIva.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

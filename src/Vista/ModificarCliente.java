@@ -293,7 +293,7 @@ public class ModificarCliente extends javax.swing.JFrame {
             
         try {
             
-            boolean valido = this.verificarRut(rut, digito);
+            boolean valido = new Utilidades.Generales().verificarRut(rut, digito);
             if(valido == true){
                     
                     fueModificadoP= new PersonasDAO().modificarPersona(persona);

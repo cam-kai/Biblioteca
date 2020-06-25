@@ -266,7 +266,7 @@ public class IngresoCliente extends javax.swing.JFrame {
             
         try {
             
-            boolean valido = this.verificarRut(rut, digito);
+            boolean valido = new Utilidades.Generales().verificarRut(rut, digito);
             if(valido == true){
                 Personas personaExiste = new PersonasDAO().buscarPorRut(rut);
                 if(personaExiste != null){
@@ -301,46 +301,6 @@ public class IngresoCliente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    public boolean verificarRut(int rut, String digito){
-        String digitoCorrecto= "";
-         if(rut != 0){
-            int contador;
-            contador=2;
-            int Acumulador=0;
-            int resto=0;
-            int multiplicacion;
-            int resta;
-            while (rut!=0){
-                int Multiplo=(rut%10)*contador;
-                Acumulador=Acumulador+Multiplo;
-                rut=rut/10;
-                contador++;
-                if(contador==8){
-                contador=2;
-                }
-                
-            }
-            resto = (Acumulador / 11) ;
-            multiplicacion = resto * 11;
-            resta = Math.abs(Acumulador - multiplicacion);
-            digitoCorrecto = String.valueOf(11- resta);
-            if(digitoCorrecto.equals("10")){
-                digitoCorrecto="K";
-            }
-            if(digitoCorrecto.equals("11")){
-                digitoCorrecto="0";
-            }
-            boolean rutCorrecto= false;
-                
-            if(digitoCorrecto.equalsIgnoreCase(digito)){
-                rutCorrecto=true;
-                return rutCorrecto;  
-            }
-               
-        }
-         
-       return false;
-    }
     
     private void txtRutFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRutFocusLost
         int rutABuscar = Integer.parseInt(txtRut.getText());

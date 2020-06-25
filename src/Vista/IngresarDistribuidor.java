@@ -221,17 +221,25 @@ public class IngresarDistribuidor extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         Distribuidores distribuidor = new Distribuidores();
-        distribuidor.setRut(Integer.parseInt(txtRut.getText()));
-        distribuidor.setDigitoVerificador((txtDigitoVerificador.getText()).charAt(0));
+        int rut = Integer.parseInt(txtRut.getText());
+        distribuidor.setRut(rut);
+        String digito = txtDigitoVerificador.getText();
+        distribuidor.setDigitoVerificador(digito.charAt(0));
         distribuidor.setNombreEmpresa(txtNombre.getText());
         distribuidor.setAñosDeServicio(Integer.parseInt(txtAniosServicio.getText()));
         distribuidor.setDireccion(txtDireccion.getText());
         distribuidor.setTelefono(Integer.parseInt(txtTelefono.getText()));
         distribuidor.setCorreo(txtCorreo.getText());
-        
+        boolean  fueAgregado =false;
         
         try {
-            boolean  fueAgregado = new DistribuidorDAO().agregarDistribuidor(distribuidor);
+            boolean valido =  new Utilidades.Generales().verificarRut(rut, digito);
+            if(valido == true){
+                fueAgregado= new DistribuidorDAO().agregarDistribuidor(distribuidor);
+            }else{
+                fueAgregado = false;
+            }
+            
             if(fueAgregado = true){
                 JOptionPane.showMessageDialog(null, "El distribuidor fue agregado correctamente");
             }else {

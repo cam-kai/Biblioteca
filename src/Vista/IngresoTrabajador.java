@@ -262,7 +262,7 @@ public class IngresoTrabajador extends javax.swing.JFrame {
             
         try {
             
-            boolean valido = this.verificarRut(rut, digito);
+            boolean valido = new Utilidades.Generales().verificarRut(rut, digito);
             if(valido == true){
                 Personas personaExiste = new PersonasDAO().buscarPorRut(rut);
                 if(personaExiste != null){

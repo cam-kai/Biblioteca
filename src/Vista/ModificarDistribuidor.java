@@ -231,8 +231,10 @@ public class ModificarDistribuidor extends javax.swing.JFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
         Distribuidores distribuidor = new Distribuidores();
-        distribuidor.setRut(Integer.parseInt(txtRut.getText()));
-        distribuidor.setDigitoVerificador((txtDigitoVerificador.getText()).charAt(0));
+        int rut = Integer.parseInt(txtRut.getText());
+        distribuidor.setRut(rut);
+        String digito = txtDigitoVerificador.getText();
+        distribuidor.setDigitoVerificador(digito.charAt(0));
         distribuidor.setNombreEmpresa(txtNombre.getText());
         distribuidor.setAñosDeServicio(Integer.parseInt(txtAniosServicio.getText()));
         distribuidor.setDireccion(txtDireccion.getText());
@@ -241,14 +243,21 @@ public class ModificarDistribuidor extends javax.swing.JFrame {
         distribuidor.setId_distribuidores(Integer.parseInt(txtId.getText()));
         boolean fueModificado=false;
         try {
-            fueModificado = new DistribuidorDAO().actualizarDistribuidores(distribuidor);
-            if(fueModificado = true){
+            boolean valido = new Utilidades.Generales().verificarRut(rut, digito);
+            if(valido == true){
+                fueModificado = new DistribuidorDAO().actualizarDistribuidores(distribuidor);
+            }else{
+                fueModificado = false;
+            }
+            
+            if(fueModificado == true){
                 JOptionPane.showMessageDialog(null, "El distribuidor fue modificado correctamente");
             }else{
                 JOptionPane.showMessageDialog(null, "El distribuidor no ha podido ser modificado");
             }
             
         } catch (Exception e) {
+            System.out.println(""+e.getMessage());
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 

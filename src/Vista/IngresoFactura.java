@@ -709,16 +709,26 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
                 DetalleCompra detalleC = new DetalleCompra();
                 int idCom = new CompraDAO().buscarUltimo().getId_compra();
                 detalleC.setIdCompra(idCom);
+                boolean fueAgregadaRCL = false;
+                boolean fueAgregadoStock =false;
                 for (ItemCompra itemCompra : productosCompra) {
                     int idLib = itemCompra.getId_libro();
                     detalleC.setIdLibro(idLib);
-                    boolean fueAgregadaRCL = new DetalleCompraDAO().agregarDetalleCompra(detalleC);
+                    fueAgregadaRCL = new DetalleCompraDAO().agregarDetalleCompra(detalleC);
                     StockLibro stock = new StockLibro();
                     stock.setId_libro(idLib);
                     int stockActual = new StockDAO().bucarPorIdLibro(idLib).getStock_libro();
                     int stockNuevo = stockActual + itemCompra.getCantidad();
                     stock.setStock_libro(stockNuevo);
-                    boolean fueAgregadoStock = new StockDAO().agregarStock(stock);
+                    fueAgregadoStock = new StockDAO().modificarStock(stock);
+                    
+                }
+                if(fueAgregadoF== true && fueAgregadaTCom == true && fueAgregadaRCL== true && fueAgregadoStock == true){
+                    
+                    JOptionPane.showMessageDialog(null, "Fue agregada exitosamente su compra ");
+                    this.dispose();
+                }else{
+                    JOptionPane.showMessageDialog(null, "No se ha podido realizar su compra");
                 }
                 
             }

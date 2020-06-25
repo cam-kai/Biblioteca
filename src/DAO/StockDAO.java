@@ -38,10 +38,10 @@ public class StockDAO {
     public boolean modificarStock(StockLibro stockLibro){
         boolean fueModificado = false;
         try {
-            PreparedStatement stmt = this.conexion.prepareStatement("update tbl_stock_libro set id_libro=?, stock_libro =? where id_stock = ?");
-            stmt.setInt(1, stockLibro.getId_libro());
-            stmt.setInt(2, stockLibro.getStock_libro());
-            stmt.setInt(3, stockLibro.getId_stock());
+            PreparedStatement stmt = this.conexion.prepareStatement("update tbl_stock_libro set  stock_libro =? where id_libro = ?");
+            //stmt.setInt(1, stockLibro.getId_libro());
+            stmt.setInt(1, stockLibro.getStock_libro());
+            stmt.setInt(2, stockLibro.getId_libro());
             fueModificado = (stmt.executeUpdate()>0);
         } catch (Exception e) {
         }

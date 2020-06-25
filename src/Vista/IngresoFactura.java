@@ -719,8 +719,6 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
             boolean fueAgregadoF =false;
             if(txtNumeroFactura.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "Debe ingresar el numero de factura");
-            }else if(txtNumeroFactura.getText().length()>25){
-                JOptionPane.showMessageDialog(null, "El numero de factura no debe superar los 25 caracteres");
             }else{
                 fueAgregadoF=new FacturaDAO().fueAgregado(factura);
             }

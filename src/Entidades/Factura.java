@@ -19,6 +19,7 @@ public class Factura {
     private int costoConIVA;
     private String fechaDeCompra;
     private String horaDeCompra;
+    private int numeroFactura;
     private MedioDePago medio_de_pago;
 
     public Factura() {
@@ -72,6 +73,15 @@ public class Factura {
         this.horaDeCompra = horaDeCompra;
     }
 
+    public int getNumeroFactura() {
+        return numeroFactura;
+    }
+
+    public void setNumeroFactura(int numeroFactura) {
+        this.numeroFactura = numeroFactura;
+    }
+
+    
     
     public MedioDePago getMedio_de_pago() {
         return medio_de_pago;

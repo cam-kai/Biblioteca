@@ -113,11 +113,13 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
         jLabel16 = new javax.swing.JLabel();
         btnComprar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        txtNumeroFactura = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
-        jLabel1.setText("Factura ");
+        jLabel1.setText("Compra de libros");
 
         jLabel2.setText("Id : ");
 
@@ -318,6 +320,10 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
             }
         });
 
+        jLabel17.setText("Numero de factura : ");
+
+        txtNumeroFactura.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -326,64 +332,55 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(770, 770, 770)
+                                .addGap(237, 237, 237)
+                                .addComponent(jLabel17)
+                                .addGap(31, 31, 31)
+                                .addComponent(txtNumeroFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnAgregarDist))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtAnios, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel2)
-                                        .addGap(29, 29, 29)
+                                        .addGap(18, 18, 18)
                                         .addComponent(txtIdDistribuidores, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(59, 59, 59)
-                                .addComponent(jLabel3)
-                                .addGap(41, 41, 41)
-                                .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(70, 70, 70)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(41, 41, 41)
+                                        .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDigitoVerificador, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(cboNombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtDigitoVerificador, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cboNombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(36, 36, 36)
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addGap(101, 101, 101))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(148, 148, 148)
-                                .addComponent(jLabel7)
-                                .addGap(29, 29, 29)
-                                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(41, 41, 41)
-                                .addComponent(jLabel8)
-                                .addGap(18, 46, Short.MAX_VALUE)
-                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(109, 109, 109)
-                                .addComponent(jLabel9)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtBuscarPorId, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
-                                .addComponent(btnBuscarPorID)
-                                .addGap(56, 56, 56)
-                                .addComponent(jLabel11)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtBuscarPorISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnBuscarPorISBN)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnListar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnAgregarLibro)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -413,8 +410,28 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
                                             .addComponent(jLabel15)
                                             .addGap(18, 18, 18)
                                             .addComponent(lbltotalConIva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addComponent(cboMedioDePago, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addContainerGap(49, Short.MAX_VALUE))))
+                                        .addComponent(cboMedioDePago, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtBuscarPorId, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel5))
+                                .addGap(34, 34, 34)
+                                .addComponent(btnBuscarPorID)
+                                .addGap(56, 56, 56)
+                                .addComponent(jLabel11)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtBuscarPorISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBuscarPorISBN)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnListar)
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addComponent(btnAgregarLibro)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(49, 49, 49))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,7 +439,9 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(btnAgregarDist))
+                    .addComponent(btnAgregarDist)
+                    .addComponent(jLabel17)
+                    .addComponent(txtNumeroFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -696,7 +715,16 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
             medioP.setId_medio_de_pago(id);
             medioP.setMedioDePago(medio);
             factura.setMedio_de_pago(medioP);
-            boolean fueAgregadoF = new FacturaDAO().fueAgregado(factura);
+            factura.setNumeroFactura(Integer.parseInt(txtNumeroFactura.getText()));
+            boolean fueAgregadoF =false;
+            if(txtNumeroFactura.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Debe ingresar el numero de factura");
+            }else if(txtNumeroFactura.getText().length()>25){
+                JOptionPane.showMessageDialog(null, "El numero de factura no debe superar los 25 caracteres");
+            }else{
+                fueAgregadoF=new FacturaDAO().fueAgregado(factura);
+            }
+             
 
             if(txtIdDistribuidores.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "Debe seleccionar un distribuidor");
@@ -871,6 +899,7 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -893,6 +922,7 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
     private javax.swing.JTextField txtDigitoVerificador;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtIdDistribuidores;
+    private javax.swing.JTextField txtNumeroFactura;
     private javax.swing.JTextField txtRut;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables

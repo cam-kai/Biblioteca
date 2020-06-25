@@ -27,14 +27,14 @@ public class FacturaDAO {
         boolean fueAgregado = false;
         
         try {
-            PreparedStatement stmt = this.conexion.prepareStatement("insert into tbl_factura(precio_neto, precio_con_IVA, costo_con_IVA, fecha_de_compra, hora_de_compra, id_medio_de_pago) values(?,?,?,?,?,?);");
+            PreparedStatement stmt = this.conexion.prepareStatement("insert into tbl_factura(precio_neto, precio_con_IVA, costo_con_IVA, fecha_de_compra, hora_de_compra, id_medio_de_pago, numero_factura) values(?,?,?,?,?,?,?);");
             stmt.setInt(1, factura.getPrecioNeto());
             stmt.setInt(2, factura.getPrecioConIVA());
             stmt.setInt(3, factura.getCostoConIVA());
             stmt.setString(4, factura.getFechaDeCompra());
             stmt.setString(5, factura.getHoraDeCompra());
             stmt.setInt(6, factura.getMedio_de_pago().getId_medio_de_pago());
-            
+            stmt.setInt(7, factura.getNumeroFactura());
             fueAgregado = (stmt.executeUpdate()>0);
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
@@ -58,7 +58,7 @@ public class FacturaDAO {
                 MedioDePago medio = new MedioDePago();
                 medio.setId_medio_de_pago(rs.getInt("id_medio_de_pago"));
                 factura.setMedio_de_pago(medio);
-                
+                factura.setNumeroFactura(rs.getInt("numero_factura"));
             }
         } catch (Exception e) {
             System.out.println(""+e.getMessage());

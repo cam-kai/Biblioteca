@@ -5,9 +5,8 @@
  */
 package Vista;
 
-import DAO.PersonasDAO;
+
 import DAO.TrabajadorDAO;
-import Entidades.Personas;
 import Entidades.Trabajador;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,15 +28,15 @@ public class ModificarTrabajador extends javax.swing.JFrame {
         initComponents();
         txtId.setText(String.valueOf(trabajador.getId_trabajador()));
         txtId.enable(false);
-        txtRut.setText(String.valueOf(trabajador.getRut()));
+        txtRut.setText(String.valueOf(trabajador.getRutT()));
         txtRut.enable(false);
-        txtDigitoVerificador.setText(Character.toString(trabajador.getDigitoVerificador()));
-        txtNombre.setText(trabajador.getNombre());
-        txtApellidoPaterno.setText(trabajador.getApellidoPaterno());
-        txtApellidoMaterno.setText(trabajador.getApellidoMaterno());
-        txtDireccion.setText(trabajador.getDireccion());
-        txtCorreo.setText(trabajador.getCorreo());
-        txtTelefono.setText(Integer.toString(trabajador.getTelefono()));
+        txtDigitoVerificador.setText(trabajador.getDigitoVerificadorT());
+        txtNombre.setText(trabajador.getNombreT());
+        txtApellidoPaterno.setText(trabajador.getApellido_paternoT());
+        txtApellidoMaterno.setText(trabajador.getApellido_maternoT());
+        txtDireccion.setText(trabajador.getDireccionT());
+        txtCorreo.setText(trabajador.getCorreoT());
+        txtTelefono.setText(Integer.toString(trabajador.getTelefonoT()));
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         txtFechaContratacion.setText(String.valueOf(df.format(trabajador.getFechaContrato())));
     }
@@ -256,23 +255,21 @@ public class ModificarTrabajador extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFechaContratacionActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
-        Personas persona = new Personas ();
-        
+                
         Trabajador trabajador = new Trabajador();
         
         int rut= Integer.parseInt(txtRut.getText());
-        persona.setRut(rut);
+        trabajador.setRutT(rut);
         String digito = txtDigitoVerificador.getText();
         if(digito.length()==1){
-            persona.setDigitoVerificador(digito.charAt(0));
+            trabajador.setDigitoVerificadorT(digito);
         }
-        persona.setNombre(txtNombre.getText());
-        persona.setApellidoPaterno(txtApellidoPaterno.getText());
-        persona.setApellidoMaterno(txtApellidoMaterno.getText());
-        persona.setDireccion(txtDireccion.getText());
-        persona.setCorreo(txtCorreo.getText());
-        persona.setTelefono(Integer.parseInt(txtTelefono.getText()));
+        trabajador.setNombreT(txtNombre.getText());
+        trabajador.setApellido_paternoT(txtApellidoPaterno.getText());
+        trabajador.setApellido_maternoT(txtApellidoMaterno.getText());
+        trabajador.setDireccionT(txtDireccion.getText());
+        trabajador.setCorreoT(txtCorreo.getText());
+        trabajador.setTelefonoT(Integer.parseInt(txtTelefono.getText()));
         trabajador.setId_trabajador(Integer.parseInt(txtId.getText()));
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -280,29 +277,21 @@ public class ModificarTrabajador extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(ModificarTrabajador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        trabajador.setRut(Integer.parseInt(txtRut.getText()));
         
         
-        boolean fueModificadoP= false;
-        boolean fueModificadoT = false;
         boolean fueModificado= false;
             
         try {
-            
+
             boolean valido = new Utilidades.Generales().verificarRut(rut, digito);
-            if(valido == true){
-                    
-                    fueModificadoP= new PersonasDAO().modificarPersona(persona);
-                    fueModificadoT = new TrabajadorDAO().modificarTrabajador(trabajador);
-                    
-                    if(fueModificadoP== true || fueModificadoT == true){
-                    fueModificado= true;
-                }
-               
-                
+            if (valido == true) {
+
+                fueModificado = new TrabajadorDAO().modificarTrabajador(trabajador);
+
             }
-            
+
         } catch (Exception e) {
+            System.out.println("" + e.getMessage());
         }
                 
         
@@ -317,51 +306,8 @@ public class ModificarTrabajador extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnModificarActionPerformed
-
-    public boolean verificarRut(int rut, String digito){
-        String digitoCorrecto= "";
-         if(rut != 0){
-            int contador;
-            contador=2;
-            int Acumulador=0;
-            int resto=0;
-            int multiplicacion;
-            int resta;
-            while (rut!=0){
-                int Multiplo=(rut%10)*contador;
-                Acumulador=Acumulador+Multiplo;
-                rut=rut/10;
-                contador++;
-                if(contador==8){
-                contador=2;
-                }
-                
-            }
-            resto = (Acumulador / 11) ;
-            multiplicacion = resto * 11;
-            resta = Math.abs(Acumulador - multiplicacion);
-            digitoCorrecto = String.valueOf(11- resta);
-            if(digitoCorrecto.equals("10")){
-                digitoCorrecto="K";
-            }
-            if(digitoCorrecto.equals("11")){
-                digitoCorrecto="0";
-            }
-            boolean rutCorrecto= false;
-                
-            if(digitoCorrecto.equalsIgnoreCase(digito)){
-                rutCorrecto=true;
-                return rutCorrecto;  
-            }
-               
-        }
-         
-       return false;
-    }
-    
+ 
     private void txtRutFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRutFocusLost
-   
-        
         
     }//GEN-LAST:event_txtRutFocusLost
 

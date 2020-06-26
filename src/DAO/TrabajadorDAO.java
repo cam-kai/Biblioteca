@@ -39,9 +39,9 @@ public class TrabajadorDAO {
             stmt.setString(7, trabajador.getDireccionT());
             stmt.setString(8, trabajador.getCorreoT());
             stmt.setInt(9, trabajador.getTelefonoT());
-            filas_afectadas = (stmt.executeUpdate()==1);
+            filas_afectadas = (stmt.executeUpdate()>0);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(""+e.getMessage());
         }
         return filas_afectadas;
     }
@@ -49,7 +49,7 @@ public class TrabajadorDAO {
     public ArrayList<Trabajador> listarTrabajador(){
         ArrayList<Trabajador> trabajadores = new ArrayList<>();
         try {
-            String sql= "SELECT * from tbl_trabajador ORDER BY t.id_trabajador ;";
+            String sql= "SELECT * from tbl_trabajador ORDER BY id_trabajador ;";
             PreparedStatement stmt =this.conexion.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
@@ -97,6 +97,7 @@ public class TrabajadorDAO {
                 return trabajador;
             }
         } catch (Exception e) {
+            System.out.println(""+e.getMessage());
         }
         return null;
     }
@@ -160,7 +161,7 @@ public class TrabajadorDAO {
             fueModificado = (stmt.executeUpdate()>0);
             
         } catch (Exception e) {
-            fueModificado = false;
+            System.out.println(""+e.getMessage());
         }
         
         return fueModificado;

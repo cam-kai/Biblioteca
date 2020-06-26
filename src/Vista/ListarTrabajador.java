@@ -222,14 +222,14 @@ public class ListarTrabajador extends javax.swing.JFrame {
         for (Trabajador trabajador : trabajadores) {
             String[] fila = new String[9];
             fila[0]= String.valueOf(trabajador.getId_trabajador());
-            fila[1]= String.valueOf(trabajador.getRut()+" - "+ trabajador.getDigitoVerificador());
-            fila[2]= trabajador.getNombre();
-            fila[3]= trabajador.getApellidoPaterno();
-            fila[4]= trabajador.getApellidoMaterno();
+            fila[1]= String.valueOf(trabajador.getRutT()+" - "+ trabajador.getDigitoVerificadorT());
+            fila[2]= trabajador.getNombreT();
+            fila[3]= trabajador.getApellido_paternoT();
+            fila[4]= trabajador.getApellido_maternoT();
             fila[5]= String.valueOf(trabajador.getFechaContrato());
-            fila[6]= trabajador.getDireccion();
-            fila[7]= trabajador.getCorreo();
-            fila[8]= String.valueOf(trabajador.getTelefono());
+            fila[6]= trabajador.getDireccionT();
+            fila[7]= trabajador.getCorreoT();
+            fila[8]= String.valueOf(trabajador.getTelefonoT());
             
             modelo.addRow(fila);
             

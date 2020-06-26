@@ -6,9 +6,7 @@
 package Vista;
 
 import DAO.ClientesDAO;
-import DAO.PersonasDAO;
 import Entidades.Cliente;
-import Entidades.Personas;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -64,7 +62,7 @@ public class IngresoCliente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Noto Sans", 0, 24)); // NOI18N
-        jLabel1.setText("Ingrese trabajador ");
+        jLabel1.setText("Ingrese cliente");
 
         jLabel2.setText("Rut ");
 
@@ -235,53 +233,45 @@ public class IngresoCliente extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        Personas persona = new Personas ();
+        
         Cliente cliente = new Cliente();
         
         int rut= Integer.parseInt(txtRut.getText());
-        persona.setRut(rut);
+        cliente.setRut(rut);
         String digito = txtDigitoVerificador.getText();
-        if(digito.length()==1){
-            persona.setDigitoVerificador(digito.charAt(0));
-        }
+        cliente.setDigitoVerificador(digito);
         
-        persona.setNombre(txtNombre.getText());
-        persona.setApellidoPaterno(txtApellidoPaterno.getText());
-        persona.setApellidoMaterno(txtApellidoMaterno.getText());
-        persona.setDireccion(txtDireccion.getText());
-        persona.setCorreo(txtCorreo.getText());
-        persona.setTelefono(Integer.parseInt(txtTelefono.getText()));
+        cliente.setNombre(txtNombre.getText());
+        cliente.setApellido_paterno(txtApellidoPaterno.getText());
+        cliente.setApellido_materno(txtApellidoMaterno.getText());
+        cliente.setDireccion(txtDireccion.getText());
+        cliente.setCorreo(txtCorreo.getText());
+        cliente.setTelefono(Integer.parseInt(txtTelefono.getText()));
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         try {
             cliente.setFechaNacimiento(df.parse(txtFechaNacimiento.getText()));
         } catch (ParseException ex) {
             Logger.getLogger(IngresoCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        cliente.setRut(Integer.parseInt(txtRut.getText()));
         
         
-        boolean fueAgregadoP= false;
-        boolean fueAgregadoC = false;
+        
+        boolean fueModificado = false;
         boolean fueAgregado= false;
             
         try {
             
             boolean valido = new Utilidades.Generales().verificarRut(rut, digito);
             if(valido == true){
-                Personas personaExiste = new PersonasDAO().buscarPorRut(rut);
-                if(personaExiste != null){
-                    fueAgregadoC = new ClientesDAO().agregarClientes(cliente);
-                    if (fueAgregadoC=true){
+                Cliente clienteExiste = new ClientesDAO().buscarPorId(rut);
+                
+                if(clienteExiste != null){
+                    fueModificado = new ClientesDAO().modificarClientes(cliente);
+                    if (fueModificado==true){
                         fueAgregado=true;
                     }
                 }else{
-                    
-                    fueAgregadoP= new PersonasDAO().agregarPersona(persona);
-                    fueAgregadoC = new ClientesDAO().agregarClientes(cliente);
-                    
-                    if(fueAgregadoP== true && fueAgregadoC == true){
-                    fueAgregado= true;
-                }
+                    fueAgregado = new ClientesDAO().agregarClientes(cliente);
                 }
                 
             }
@@ -304,17 +294,15 @@ public class IngresoCliente extends javax.swing.JFrame {
     
     private void txtRutFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRutFocusLost
         int rutABuscar = Integer.parseInt(txtRut.getText());
-        PersonasDAO personaDao = new PersonasDAO();
-        Personas persona  = new Personas();
-        persona =  personaDao.buscarPorRut(rutABuscar);
+        Cliente cliente = new ClientesDAO().buscarPorRut(rutABuscar);
         txtRut.enable(false);
-        txtDigitoVerificador.setText(Character.toString(persona.getDigitoVerificador()));
-        txtNombre.setText(persona.getNombre());
-        txtApellidoPaterno.setText(persona.getApellidoPaterno());
-        txtApellidoMaterno.setText(persona.getApellidoMaterno());
-        txtDireccion.setText(persona.getDireccion());
-        txtCorreo.setText(persona.getCorreo());
-        txtTelefono.setText(Integer.toString(persona.getTelefono()));
+        txtDigitoVerificador.setText(cliente.getDigitoVerificador());
+        txtNombre.setText(cliente.getNombre());
+        txtApellidoPaterno.setText(cliente.getApellido_paterno());
+        txtApellidoMaterno.setText(cliente.getApellido_materno());
+        txtDireccion.setText(cliente.getDireccion());
+        txtCorreo.setText(cliente.getCorreo());
+        txtTelefono.setText(Integer.toString(cliente.getTelefono()));
         
         
         

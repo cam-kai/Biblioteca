@@ -225,8 +225,8 @@ public class ListarClientes extends javax.swing.JFrame {
             fila[0]= String.valueOf(cliente.getId_cliente());
             fila[1]= String.valueOf(cliente.getRut()+" - "+ cliente.getDigitoVerificador());
             fila[2]= cliente.getNombre();
-            fila[3]= cliente.getApellidoPaterno();
-            fila[4]= cliente.getApellidoMaterno();
+            fila[3]= cliente.getApellido_paterno();
+            fila[4]= cliente.getApellido_materno();
             fila[5]= String.valueOf(cliente.getFechaNacimiento());
             fila[6]= cliente.getDireccion();
             fila[7]= cliente.getCorreo();

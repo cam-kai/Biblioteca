@@ -5,9 +5,8 @@
  */
 package Vista;
 
-import DAO.PersonasDAO;
+
 import DAO.ClientesDAO;
-import Entidades.Personas;
 import Entidades.Cliente;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,10 +30,10 @@ public class ModificarCliente extends javax.swing.JFrame {
         txtId.enable(false);
         txtRut.setText(String.valueOf(cliente.getRut()));
         txtRut.enable(false);
-        txtDigitoVerificador.setText(Character.toString(cliente.getDigitoVerificador()));
+        txtDigitoVerificador.setText(cliente.getDigitoVerificador());
         txtNombre.setText(cliente.getNombre());
-        txtApellidoPaterno.setText(cliente.getApellidoPaterno());
-        txtApellidoMaterno.setText(cliente.getApellidoMaterno());
+        txtApellidoPaterno.setText(cliente.getApellido_paterno());
+        txtApellidoMaterno.setText(cliente.getApellido_materno());
         txtDireccion.setText(cliente.getDireccion());
         txtCorreo.setText(cliente.getCorreo());
         txtTelefono.setText(Integer.toString(cliente.getTelefono()));
@@ -262,21 +261,21 @@ public class ModificarCliente extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        Personas persona = new Personas ();
+        
         Cliente cliente = new Cliente();
         
         int rut= Integer.parseInt(txtRut.getText());
-        persona.setRut(rut);
+        cliente.setRut(rut);
         String digito = txtDigitoVerificador.getText();
         if(digito.length()==1){
-            persona.setDigitoVerificador(digito.charAt(0));
+            cliente.setDigitoVerificador(digito);
         }
-        persona.setNombre(txtNombre.getText());
-        persona.setApellidoPaterno(txtApellidoPaterno.getText());
-        persona.setApellidoMaterno(txtApellidoMaterno.getText());
-        persona.setDireccion(txtDireccion.getText());
-        persona.setCorreo(txtCorreo.getText());
-        persona.setTelefono(Integer.parseInt(txtTelefono.getText()));
+        cliente.setNombre(txtNombre.getText());
+        cliente.setApellido_paterno(txtApellidoPaterno.getText());
+        cliente.setApellido_materno(txtApellidoMaterno.getText());
+        cliente.setDireccion(txtDireccion.getText());
+        cliente.setCorreo(txtCorreo.getText());
+        cliente.setTelefono(Integer.parseInt(txtTelefono.getText()));
         cliente.setId_cliente(Integer.parseInt(txtId.getText()));
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -284,29 +283,20 @@ public class ModificarCliente extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(ModificarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        cliente.setRut(Integer.parseInt(txtRut.getText()));
         
-        
-        boolean fueModificadoP= false;
-        boolean fueModificadoC = false;
         boolean fueModificado= false;
             
         try {
             
             boolean valido = new Utilidades.Generales().verificarRut(rut, digito);
             if(valido == true){
-                    
-                    fueModificadoP= new PersonasDAO().modificarPersona(persona);
-                    fueModificadoC = new ClientesDAO().modificarClientes(cliente);
-                    
-                    if(fueModificadoP== true || fueModificadoC == true){
-                    fueModificado= true;
-                }
-                
-                
+
+                fueModificado = new ClientesDAO().modificarClientes(cliente);
+
             }
             
         } catch (Exception e) {
+            System.out.println(""+e.getMessage());
         }
                 
         
@@ -321,45 +311,7 @@ public class ModificarCliente extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnModificarActionPerformed
-public boolean verificarRut(int rut, String digito){
-        String digitoCorrecto= "";
-         if(rut != 0){
-            int contador;
-            contador=2;
-            int Acumulador=0;
-            int resto=0;
-            int multiplicacion;
-            int resta;
-            while (rut!=0){
-                int Multiplo=(rut%10)*contador;
-                Acumulador=Acumulador+Multiplo;
-                rut=rut/10;
-                contador++;
-                if(contador==8){
-                contador=2;
-                }
-                
-            }
-            resto = (Acumulador / 11) ;
-            multiplicacion = resto * 11;
-            resta = Math.abs(Acumulador - multiplicacion);
-            digitoCorrecto = String.valueOf(11- resta);
-            if(digitoCorrecto.equals("10")){
-                digitoCorrecto="K";
-            }
-            if(digitoCorrecto.equals("11")){
-                digitoCorrecto="0";
-            }
-            boolean rutCorrecto= false;
-                
-            if(digitoCorrecto.equalsIgnoreCase(digito)){
-                rutCorrecto=true;
-                return rutCorrecto;  
-            }
-               
-        }
-        return false;
-    }
+
 
     private void txtRutFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRutFocusLost
    

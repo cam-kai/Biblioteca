@@ -212,7 +212,6 @@ public class ListarDistribuidor extends javax.swing.JFrame {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Id");
         modelo.addColumn("Rut");
-        modelo.addColumn("DV");
         modelo.addColumn("Nombre");
         modelo.addColumn("Años de servicio");
         modelo.addColumn("Dirección");
@@ -234,15 +233,15 @@ public class ListarDistribuidor extends javax.swing.JFrame {
         }
         
         for (Distribuidores distribuidor : distribuidores) {
-            String[] fila = new String[8];
+            String[] fila = new String[7];
             fila[0] = String.valueOf(distribuidor.getId_distribuidores());
-            fila[1] = String.valueOf(distribuidor.getRut());
-            fila[2] = Character.toString(distribuidor.getDigitoVerificador());
-            fila[3] = distribuidor.getNombreEmpresa();
-            fila[4] = String.valueOf(distribuidor.getAñosDeServicio());
-            fila[5] = distribuidor.getDireccion();
-            fila[6] = String.valueOf(distribuidor.getTelefono());
-            fila[7] = distribuidor.getCorreo();
+            fila[1] = String.valueOf(distribuidor.getRut()+ "- "+ distribuidor.getDigitoVerificador());
+            fila[2] = distribuidor.getNombreEmpresa();
+            fila[3] = String.valueOf(distribuidor.getAñosDeServicio());
+            fila[4] = distribuidor.getDireccion();
+            fila[5] = String.valueOf(distribuidor.getTelefono());
+            fila[6] = distribuidor.getCorreo();
+            
             
             modelo.addRow(fila);
                     

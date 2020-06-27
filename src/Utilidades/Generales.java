@@ -5,6 +5,8 @@
  */
 package Utilidades;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author camila
@@ -51,5 +53,50 @@ public class Generales {
         }
          
        return false;
+    }
+    
+    public ArrayList<String> validacionesDistribuidor( String rut, String dV, String nombre, String anios, String direccion, String telefono, String correo){
+        ArrayList<String> errores = new ArrayList<>();
+        String error = "";
+        
+        if(rut.isBlank() == true){
+            error = "Debe ingresar un rut";
+            errores.add(error);
+        }else if(rut.matches("[0-9]+")== false){
+            error = "El rut debe contener solo numeros";
+            errores.add(error);
+        }else if(dV.isBlank()== true){
+            error = "Debe ingresar un caracter";
+            errores.add(error);
+        }else if(dV.matches("[0-9]+")==false && dV.contains("k")== false && dV.contains("K")==false){
+            error = "El digito verificador es invalido";
+            errores.add(error);
+        }else if(nombre.isBlank() == true){
+            error = "Debe ingresar un nombre de empresa";
+            errores.add(error);
+        }else if(anios.isBlank() == true){
+            error = "Debe ingresar los años de servicio";
+            errores.add(error);
+        }else if(anios.matches("[0-9]+")== false){
+            error = "Los años de servicio tienen que ser numericos";
+            errores.add(error);
+        }else if(direccion.isBlank()== true){
+            error = "Debe ingresar una direccion";
+            errores.add(error);
+        }else if(telefono.isBlank()== true){
+            error = "Debe ingresar un telefono de contacto";
+            errores.add(error);
+        }else if(telefono.matches("[0-9]+")== false){
+            error = "El telefono debe contener solo numeros";
+            errores.add(error);
+        }else if(correo.isBlank()== true){
+            error = "Debe ingresar un correo";
+            errores.add(error);
+        }else if(correo.contains("@")== false && correo.indexOf(".")>0){
+            error = "Debe ingresar un correo valido";
+            errores.add(error);
+        }
+        
+        return errores;
     }
 }

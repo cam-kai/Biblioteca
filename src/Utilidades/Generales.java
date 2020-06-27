@@ -99,4 +99,64 @@ public class Generales {
         
         return errores;
     }
+    
+    public ArrayList<String> validacionesClienteTrabajador( String fecha, String rut, String dV, String nombre, String apellidoP , String apellidoM , String direccion , String correo , String telefono){
+        ArrayList<String> errores = new ArrayList<>();
+        String error ="";
+        
+        if(fecha.isBlank()== true){
+            error = "Debe ingresar una fecha";
+            errores.add(error);
+        }else if(fecha.contains("/") == false){
+            error = "La fecha debe tener el siguiente formato : dia/mes/año";
+            errores.add(error);
+        }else if(rut.isBlank() == true){
+            error = "Debe ingresar un rut";
+            errores.add(error);
+        }else if(rut.matches("[0-9]+")== false){
+            error = "El rut debe contener solo numeros";
+            errores.add(error);
+        }else if(dV.isBlank()== true){
+            error = "Debe ingresar un digito verificador";
+            errores.add(error);
+        }else if(dV.matches("[0-9]+")== false && dV.contains("k")== false && dV.contains("K")== false){
+            error = "El digito verificador debe ser entre 0 y 9 ó k ";
+            errores.add(error);
+        }else if(dV.length()>1){
+            error = "Este campo solo admite un caracter";
+            errores.add(error);
+        }else if(nombre.isBlank()== true){
+            error = "Debe ingresar un nombre";
+            errores.add(error);
+        }else if(nombre.matches("[0-9]+")== true){
+            error = "El nombre no puede contener numeros";
+            errores.add(error);
+        }else if(apellidoP.isBlank()==true){
+            error = "Debe ingresar un apellido";
+            errores.add(error);
+        }else if(apellidoP.matches("[0-9]+")== true){
+            error = "El apellido no puede contener numeros";
+            errores.add(error);
+        }else if(apellidoM.matches("[0-9]+")== true){
+            error = "El apellido no puede contener numeros";
+            errores.add(error);
+        }else if(direccion.isBlank()==true){
+            error = "Debe ingresar una direccion";
+            errores.add(error);
+        }else if(correo.isBlank()== true){
+            error = "Debe ingresar un correo electronico";
+            errores.add(error);
+        }else if(correo.contains("@")==false && correo.indexOf(".")>0){
+            error = "Debe ingresar un correo valido";
+            errores.add(error);
+        }else if(telefono.isBlank() == true){
+            error = "Debe ingresar un telefono";
+            errores.add(error);
+        }else if(telefono.matches("[0-9]+")== false){
+            error = "El telefono solo debe contener numeros";
+            errores.add(error);
+        }
+        
+        return errores;
+    }
 }

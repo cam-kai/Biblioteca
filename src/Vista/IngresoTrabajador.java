@@ -11,6 +11,7 @@ import Entidades.Trabajador;
 import java.sql.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -86,6 +87,9 @@ public class IngresoTrabajador extends javax.swing.JFrame {
         });
 
         txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNombreFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNombreFocusLost(evt);
             }
@@ -115,6 +119,9 @@ public class IngresoTrabajador extends javax.swing.JFrame {
         });
 
         txtDigitoVerificador.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDigitoVerificadorFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtDigitoVerificadorFocusLost(evt);
             }
@@ -278,82 +285,87 @@ public class IngresoTrabajador extends javax.swing.JFrame {
         
         
         Trabajador trabajador = new Trabajador();
+        String fechaC =txtFechaContratacion.getText();
+        String rut = txtRut.getText();
+        String dV = txtDigitoVerificador.getText();
+        String nombre = txtNombre.getText();
+        String apellidoP =txtApellidoPaterno.getText();
+        String apellidoM = txtApellidoMaterno.getText();
+        String direccion = txtDireccion.getText();
+        String correo= txtCorreo.getText();
+        String telefono = txtTelefono.getText();
         
-        int rut= Integer.parseInt(txtRut.getText());
-        
-               
-        trabajador.setRutT(rut);
-        String digito = txtDigitoVerificador.getText();
-        
-        if (digito.length() == 1) {
-            trabajador.setDigitoVerificadorT(digito);
-        }
-
-        trabajador.setNombreT(txtNombre.getText());
-
-        trabajador.setApellido_paternoT(txtApellidoPaterno.getText());
-
-        trabajador.setApellido_maternoT(txtApellidoMaterno.getText());
-
-        trabajador.setDireccionT(txtDireccion.getText());
-
-        trabajador.setCorreoT(txtCorreo.getText());
-
-        trabajador.setTelefonoT(Integer.parseInt(txtTelefono.getText()));
-
-        
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            trabajador.setFechaContrato(df.parse(txtFechaContratacion.getText()));
-        } catch (ParseException ex) {
-            Logger.getLogger(IngresoTrabajador.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        boolean fueAgregado= false;
+        ArrayList<String> errores = new Utilidades.Generales().validacionesClienteTrabajador(fechaC, rut, dV, nombre, apellidoP, apellidoM, direccion, correo, telefono);
+        String[] mensaje = new String[errores.size()];
+        if(errores.size()>0){
             
-        try {
-            
-            boolean valido = new Utilidades.Generales().verificarRut(rut, digito);
-            if(valido == true){
-                Trabajador trabajadorExiste = new TrabajadorDAO().buscarPorRut(rut);
+            for (String error : errores) {
+                mensaje[errores.size()-1]= " - " + error ;
                 
-                if(trabajadorExiste != null){
-                    fueAgregado = new TrabajadorDAO().modificarTrabajador(trabajador);
-                    
-                }else{
-                                      
-                    fueAgregado = new TrabajadorDAO().agregarTrabajador(trabajador);
+            }
+            JOptionPane.showMessageDialog(null,"Tiene el siguiente error: \n"+ mensaje[errores.size()-1]);
+        } else {
+            int rutT = Integer.parseInt(rut);
+            
+            boolean valido = new Utilidades.Generales().verificarRut(rutT, dV);
+            if(valido == true){
+                trabajador.setRutT(rutT);
+                trabajador.setDigitoVerificadorT(dV);
+                trabajador.setNombreT(nombre);
+                trabajador.setApellido_paternoT(apellidoP);
+                trabajador.setApellido_maternoT(apellidoM);
+                trabajador.setDireccionT(direccion);
+                trabajador.setCorreoT(correo);
+                trabajador.setTelefonoT(Integer.parseInt(telefono));
+                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    trabajador.setFechaContrato(df.parse(fechaC));
+                } catch (ParseException ex) {
+                    Logger.getLogger(IngresoTrabajador.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
+                boolean fueAgregado = false;
+
+                try {
+
+                    Trabajador trabajadorExiste = new TrabajadorDAO().buscarPorRut(rutT);
+
+                    if (trabajadorExiste != null) {
+                        fueAgregado = new TrabajadorDAO().modificarTrabajador(trabajador);
+
+                    } else {
+
+                        fueAgregado = new TrabajadorDAO().agregarTrabajador(trabajador);
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("" + e.getMessage());
+                }
+
+                if (fueAgregado == true) {
+                    JOptionPane.showMessageDialog(this, "El trabajador fue agregado correctamente");
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "El trabajador no ha podido ser agregado");
+                }
+
+
             }else{
                 JOptionPane.showMessageDialog(null, "El rut es invalido");
             }
             
-        } catch (Exception e) {
-            System.out.println(""+e.getMessage());
         }
-                
+    
         
-        if(fueAgregado ==true){
-            JOptionPane.showMessageDialog(this, "El trabajador fue agregado correctamente");
+        
             
-        }else{
-            JOptionPane.showMessageDialog(null, "El trabajador no ha podido ser agregado");
-        }
-        
         
         
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     
     private void txtRutFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRutFocusLost
-        if(txtRut.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Debe ingresar un rut");
-        }else if(txtRut.getText().matches("[0-9]+")== false){
-            JOptionPane.showMessageDialog(null, "Debe ingresar el rut sin puntos");
-        }
-        
+                
         int rutABuscar = Integer.parseInt(txtRut.getText());
         Trabajador trabajador = new TrabajadorDAO().buscarPorRut(rutABuscar);
         txtRut.enable(false);
@@ -391,13 +403,7 @@ public class IngresoTrabajador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void txtDigitoVerificadorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDigitoVerificadorFocusLost
-        
-        
-        if (txtDigitoVerificador.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar su digito verificador");
-        } else if (txtDigitoVerificador.getText().length() > 1) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar un solo caracter");
-        }
+
     }//GEN-LAST:event_txtDigitoVerificadorFocusLost
 
     private void txtDigitoVerificadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDigitoVerificadorActionPerformed
@@ -405,47 +411,57 @@ public class IngresoTrabajador extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDigitoVerificadorActionPerformed
 
     private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
-        if(txtNombre.getText().isEmpty()==true){
-            JOptionPane.showMessageDialog(null, "Debe ingresar un nombre");
-        }
+        
         
     }//GEN-LAST:event_txtNombreFocusLost
 
     private void txtApellidoPaternoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtApellidoPaternoFocusLost
-        if(txtApellidoPaterno.getText().isEmpty()==true){
-            JOptionPane.showMessageDialog(null, "Debe ingresar un apellido");
-        }
+        
     }//GEN-LAST:event_txtApellidoPaternoFocusLost
 
     private void txtDireccionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusLost
-        if(txtDireccion.getText().isEmpty() == true){
-            JOptionPane.showMessageDialog(null, "Debe ingresar una direccion");
-        }
+       
     }//GEN-LAST:event_txtDireccionFocusLost
 
     private void txtCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusLost
-        if(txtCorreo.getText().isEmpty() == true){
-            JOptionPane.showMessageDialog(null, "Debe ingresar un correo");
-        }
-        
+    
     }//GEN-LAST:event_txtCorreoFocusLost
 
     private void txtTelefonoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefonoFocusLost
-        if(txtTelefono.getText().isEmpty() == true){
-            JOptionPane.showMessageDialog(null, "Debe ingresar un telefono");
-        }else if(txtTelefono.getText().matches("[0-9]+")==false){
-            JOptionPane.showMessageDialog(null, "Debe ingresar solo numeros");
-        }
-        
+               
     }//GEN-LAST:event_txtTelefonoFocusLost
 
     private void txtFechaContratacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaContratacionFocusLost
-        if(txtFechaContratacion.getText().isEmpty() == true){
+        if(txtFechaContratacion.getText().isBlank() == true){
             JOptionPane.showMessageDialog(null, "Debe ingresar una fecha de contratación");
         }else if(txtFechaContratacion.getText().contains("/")== false){
             JOptionPane.showMessageDialog(null, "Debe ingresar la fecha en el siguiente formato : dia/mes/año");
         }
     }//GEN-LAST:event_txtFechaContratacionFocusLost
+
+    private void txtDigitoVerificadorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDigitoVerificadorFocusGained
+        if(txtRut.getText().isBlank()== true){
+            JOptionPane.showMessageDialog(null, "Debe ingresar un rut");
+        }else if(txtRut.getText().matches("[0-9]+")== false){
+            JOptionPane.showMessageDialog(null, "Debe ingresar el rut sin puntos");
+        }
+    }//GEN-LAST:event_txtDigitoVerificadorFocusGained
+
+    private void txtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusGained
+        if (txtDigitoVerificador.getText().isBlank()== true) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar su digito verificador");
+        } else if (txtDigitoVerificador.getText().length() > 1) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un solo caracter");
+        }
+        int rut = Integer.parseInt(txtRut.getText());
+        String digito= txtDigitoVerificador.getText();
+        
+        boolean valido = new Utilidades.Generales().verificarRut(rut, digito);
+        if(valido == false){
+            JOptionPane.showMessageDialog(null, "Debe ingresar un rut valido");
+        }
+        
+    }//GEN-LAST:event_txtNombreFocusGained
 
     /**
      * @param args the command line arguments

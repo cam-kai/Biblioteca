@@ -326,6 +326,11 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
         jLabel17.setText("Numero de factura : ");
 
         txtNumeroFactura.setToolTipText("");
+        txtNumeroFactura.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNumeroFacturaFocusLost(evt);
+            }
+        });
 
         jButton1.setText("Actualizar Distribuidor");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -835,6 +840,14 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void txtNumeroFacturaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumeroFacturaFocusLost
+        if(txtNumeroFactura.getText().isBlank() == true){
+            JOptionPane.showMessageDialog(null, "Tiene que ingresar un numero de factura");
+        }else if(txtNumeroFactura.getText().matches("[0-9]+") == false){
+            JOptionPane.showMessageDialog(null, "El campo debe llenarse solo con numeros");
+        }
+    }//GEN-LAST:event_txtNumeroFacturaFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -1028,7 +1041,4 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
         
     }
 
-    private int indexOf(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

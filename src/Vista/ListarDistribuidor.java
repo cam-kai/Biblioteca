@@ -7,6 +7,7 @@ package Vista;
 
 import DAO.DistribuidorDAO;
 import Entidades.Distribuidores;
+import Utilidades.IEntitySave;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -15,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author camila
  */
-public class ListarDistribuidor extends javax.swing.JFrame {
+public class ListarDistribuidor extends javax.swing.JFrame implements IEntitySave{
 
     ArrayList<Distribuidores> distribuidores = new ArrayList<>();
     /**
@@ -298,4 +299,10 @@ public class ListarDistribuidor extends javax.swing.JFrame {
     private javax.swing.JTable tblDistribuidores;
     private javax.swing.JTextField txtIdABuscar;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void afterSave() {
+        tblDistribuidores.clearSelection();
+        listar();
+    }
 }

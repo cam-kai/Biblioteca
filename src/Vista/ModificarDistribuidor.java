@@ -7,6 +7,7 @@ package Vista;
 
 import DAO.DistribuidorDAO;
 import Entidades.Distribuidores;
+import Utilidades.IEntitySave;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -15,7 +16,8 @@ import javax.swing.JOptionPane;
  * @author camila
  */
 public class ModificarDistribuidor extends javax.swing.JFrame {
-
+    private IEntitySave iEntitySave ;
+    
     /**
      * Creates new form IngresarDistribuidor
      */
@@ -282,6 +284,9 @@ public class ModificarDistribuidor extends javax.swing.JFrame {
                 System.out.println("" + e.getMessage());
             }
             
+        }
+        if(iEntitySave != null){
+            iEntitySave.afterSave();
         }
         
     }//GEN-LAST:event_btnModificarActionPerformed

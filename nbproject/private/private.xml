@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Utilidades/Generales.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Vista/IngresarDistribuidor.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Vista/IngresoTrabajador.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/DAO/TrabajadorDAO.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Vista/ListarTrabajador.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Vista/ModificarTrabajador.java</file>
-            <file>file:/home/camila/Documentos/Taller%20de%20diseño%20de%20aplicaciones/Biblioteca-131V_Camila_Vega/src/Entidades/Trabajador.java</file>
+            <file>file://Mac/Home/Desktop/Biblioteca-131V_Camila_Vega/src/Vista/IngresoFactura.java</file>
+            <file>file://Mac/Home/Desktop/Biblioteca-131V_Camila_Vega/src/Utilidades/Generales.java</file>
+            <file>file://Mac/Home/Desktop/Biblioteca-131V_Camila_Vega/src/Vista/ModificarTrabajador.java</file>
+            <file>file://Mac/Home/Desktop/Biblioteca-131V_Camila_Vega/src/Vista/IngresoTrabajador.java</file>
         </group>
     </open-files>
 </project-private>

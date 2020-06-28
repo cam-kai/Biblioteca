@@ -115,7 +115,7 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
         btnCancelar = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         txtNumeroFactura = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnActualizarDistribuidor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -332,10 +332,10 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
             }
         });
 
-        jButton1.setText("Actualizar Distribuidor");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizarDistribuidor.setText("Actualizar Distribuidor");
+        btnActualizarDistribuidor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnActualizarDistribuidorActionPerformed(evt);
             }
         });
 
@@ -438,7 +438,7 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jButton1)
+                                            .addComponent(btnActualizarDistribuidor)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel8)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -469,7 +469,7 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
                     .addComponent(txtDigitoVerificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(cboNombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnActualizarDistribuidor))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -799,7 +799,7 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
         }
     }//GEN-LAST:event_btnComprarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnActualizarDistribuidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarDistribuidorActionPerformed
         // TODO add your handling code here:
         Distribuidores distribuidor = new Distribuidores();
         String idD = txtIdDistribuidores.getText();
@@ -814,12 +814,12 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
         ArrayList<String> errores  = new Utilidades.Generales().validacionesDistribuidor( rutD, dVD, nombre, anios, direccion, telefono, correo);
         String[] mensaje = new String[errores.size()];
         if(errores.size()>0){
-            
+            int contadorE = 0;
             for (String error : errores) {
-                mensaje[errores.size()-1]= " - " + error ;
-                
+                mensaje[contadorE]= " - " + error ;
+                contadorE ++ ;
             }
-            JOptionPane.showMessageDialog(null,"Tiene el siguiente error: \n"+ mensaje[errores.size()-1]);
+            JOptionPane.showMessageDialog(null, mensaje, "Usted tiene los siguientes errores:",JOptionPane.ERROR_MESSAGE);
         }else{
             distribuidor.setId_distribuidores(Integer.parseInt(idD));
             distribuidor.setRut(Integer.parseInt(rutD));
@@ -838,7 +838,7 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
                 JOptionPane.showMessageDialog(null, "El distribuidor no ha podido ser actualizado");
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnActualizarDistribuidorActionPerformed
 
     private void txtNumeroFacturaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumeroFacturaFocusLost
         if(txtNumeroFactura.getText().isBlank() == true){
@@ -986,6 +986,7 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizarDistribuidor;
     private javax.swing.JButton btnAgregarACompra;
     private javax.swing.JButton btnAgregarDist;
     private javax.swing.JButton btnAgregarLibro;
@@ -997,7 +998,6 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
     private javax.swing.JButton btnListar;
     private javax.swing.JComboBox<String> cboMedioDePago;
     private javax.swing.JComboBox<String> cboNombreEmpresa;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

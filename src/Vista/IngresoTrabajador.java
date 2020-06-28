@@ -298,12 +298,12 @@ public class IngresoTrabajador extends javax.swing.JFrame {
         ArrayList<String> errores = new Utilidades.Generales().validacionesClienteTrabajador(fechaC, rut, dV, nombre, apellidoP, apellidoM, direccion, correo, telefono);
         String[] mensaje = new String[errores.size()];
         if(errores.size()>0){
-            
+            int contadorE = 0;
             for (String error : errores) {
-                mensaje[errores.size()-1]= " - " + error ;
-                
+                mensaje[contadorE]= " - " + error ;
+                contadorE ++ ;
             }
-            JOptionPane.showMessageDialog(null,"Tiene el siguiente error: \n"+ mensaje[errores.size()-1]);
+            JOptionPane.showMessageDialog(null, mensaje, "Usted tiene los siguientes errores:",JOptionPane.ERROR_MESSAGE);
         } else {
             int rutT = Integer.parseInt(rut);
             
@@ -432,11 +432,11 @@ public class IngresoTrabajador extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTelefonoFocusLost
 
     private void txtFechaContratacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFechaContratacionFocusLost
-        if(txtFechaContratacion.getText().isBlank() == true){
-            JOptionPane.showMessageDialog(null, "Debe ingresar una fecha de contratación");
-        }else if(txtFechaContratacion.getText().contains("/")== false){
-            JOptionPane.showMessageDialog(null, "Debe ingresar la fecha en el siguiente formato : dia/mes/año");
-        }
+//        if(txtFechaContratacion.getText().isBlank() == true){
+//            JOptionPane.showMessageDialog(null, "Debe ingresar una fecha de contratación");
+//        }else if(txtFechaContratacion.getText().contains("/")== false){
+//            JOptionPane.showMessageDialog(null, "Debe ingresar la fecha en el siguiente formato : dia/mes/año");
+//        }
     }//GEN-LAST:event_txtFechaContratacionFocusLost
 
     private void txtDigitoVerificadorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDigitoVerificadorFocusGained
@@ -448,19 +448,7 @@ public class IngresoTrabajador extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDigitoVerificadorFocusGained
 
     private void txtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusGained
-        if (txtDigitoVerificador.getText().isBlank()== true) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar su digito verificador");
-        } else if (txtDigitoVerificador.getText().length() > 1) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar un solo caracter");
-        }
-        int rut = Integer.parseInt(txtRut.getText());
-        String digito= txtDigitoVerificador.getText();
-        
-        boolean valido = new Utilidades.Generales().verificarRut(rut, digito);
-        if(valido == false){
-            JOptionPane.showMessageDialog(null, "Debe ingresar un rut valido");
-        }
-        
+
     }//GEN-LAST:event_txtNombreFocusGained
 
     /**

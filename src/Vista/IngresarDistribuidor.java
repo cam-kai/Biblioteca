@@ -225,12 +225,12 @@ public class IngresarDistribuidor extends javax.swing.JFrame {
         ArrayList<String> errores  = new Utilidades.Generales().validacionesDistribuidor( rut, dVD, nombre, anios, direccion, telefono, correo);
         String[] mensaje = new String[errores.size()];
         if(errores.size()>0){
-            
+            int contadorE = 0;
             for (String error : errores) {
-                mensaje[errores.size()-1]= " - " + error ;
-                
+                mensaje[contadorE]= " - " + error ;
+                contadorE ++ ;
             }
-            JOptionPane.showMessageDialog(null,"Tiene el siguiente error: \n"+ mensaje[errores.size()-1]);
+            JOptionPane.showMessageDialog(null, mensaje, "Usted tiene los siguientes errores:",JOptionPane.ERROR_MESSAGE);
         }else{
 
             Distribuidores distribuidor = new Distribuidores();

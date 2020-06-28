@@ -247,12 +247,12 @@ public class ModificarDistribuidor extends javax.swing.JFrame {
         ArrayList<String> errores  =  new Utilidades.Generales().validacionesDistribuidor(rutD, dVD, nombre, anios, direccion, telefono, correo);
         String[] mensaje = new String[errores.size()];
         if(errores.size()>0){
-            
+            int contadorE = 0;
             for (String error : errores) {
-                mensaje[errores.size()-1]= " - " + error ;
-                
+                mensaje[contadorE]= " - " + error ;
+                contadorE ++ ;
             }
-            JOptionPane.showMessageDialog(null,"Tiene el siguiente error: \n"+ mensaje[errores.size()-1]);
+            JOptionPane.showMessageDialog(null, mensaje, "Usted tiene los siguientes errores:",JOptionPane.ERROR_MESSAGE);
         }else {
             int rut = Integer.parseInt(rutD);
             boolean fueModificado = false;

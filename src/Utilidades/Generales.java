@@ -65,31 +65,41 @@ public class Generales {
         }else if(rut.matches("[0-9]+")== false){
             error = "El rut debe contener solo numeros";
             errores.add(error);
-        }else if(dV.isBlank()== true){
+        }
+        if(dV.isBlank()== true){
             error = "Debe ingresar un caracter";
             errores.add(error);
         }else if(dV.matches("[0-9]+")==false && dV.contains("k")== false && dV.contains("K")==false){
             error = "El digito verificador es invalido";
             errores.add(error);
-        }else if(nombre.isBlank() == true){
+        }else if(dV.length()>1){
+            error = "El digito verificador debe contener un solo caracter";
+            errores.add(error);
+        }
+        if(nombre.isBlank() == true){
             error = "Debe ingresar un nombre de empresa";
             errores.add(error);
-        }else if(anios.isBlank() == true){
+        }
+        if(anios.isBlank() == true){
             error = "Debe ingresar los años de servicio";
             errores.add(error);
         }else if(anios.matches("[0-9]+")== false){
             error = "Los años de servicio tienen que ser numericos";
             errores.add(error);
-        }else if(direccion.isBlank()== true){
+        }
+        if(direccion.isBlank()== true){
             error = "Debe ingresar una direccion";
             errores.add(error);
-        }else if(telefono.isBlank()== true){
+        }
+        if(telefono.isBlank()== true){
             error = "Debe ingresar un telefono de contacto";
             errores.add(error);
-        }else if(telefono.matches("[0-9]+")== false){
+        }
+        if(telefono.matches("[0-9]+")== false){
             error = "El telefono debe contener solo numeros";
             errores.add(error);
-        }else if(correo.isBlank()== true){
+        }
+        if(correo.isBlank()== true){
             error = "Debe ingresar un correo";
             errores.add(error);
         }else if(correo.contains("@")== false && correo.indexOf(".")>0){
@@ -110,46 +120,58 @@ public class Generales {
         }else if(fecha.contains("/") == false){
             error = "La fecha debe tener el siguiente formato : dia/mes/año";
             errores.add(error);
-        }else if(rut.isBlank() == true){
+        }else if(fecha.length()>10 == true){
+            error = "La fecha solo puede contener 10 caracteres";
+            errores.add(error);
+        }
+        if(rut.isBlank() == true){
             error = "Debe ingresar un rut";
             errores.add(error);
         }else if(rut.matches("[0-9]+")== false){
             error = "El rut debe contener solo numeros";
             errores.add(error);
-        }else if(dV.isBlank()== true){
+        }
+        if(dV.isBlank()== true){
             error = "Debe ingresar un digito verificador";
             errores.add(error);
         }else if(dV.matches("[0-9]+")== false && dV.contains("k")== false && dV.contains("K")== false){
             error = "El digito verificador debe ser entre 0 y 9 ó k ";
             errores.add(error);
         }else if(dV.length()>1){
-            error = "Este campo solo admite un caracter";
+            error = "El digito verificador admite un caracter";
             errores.add(error);
-        }else if(nombre.isBlank()== true){
+        }
+        if(nombre.isBlank()== true){
             error = "Debe ingresar un nombre";
             errores.add(error);
         }else if(nombre.matches("[0-9]+")== true){
             error = "El nombre no puede contener numeros";
             errores.add(error);
-        }else if(apellidoP.isBlank()==true){
+        }
+        if(apellidoP.isBlank()==true){
             error = "Debe ingresar un apellido";
             errores.add(error);
         }else if(apellidoP.matches("[0-9]+")== true){
             error = "El apellido no puede contener numeros";
             errores.add(error);
-        }else if(apellidoM.matches("[0-9]+")== true){
+        }
+        if(apellidoM.matches("[0-9]+")== true){
             error = "El apellido no puede contener numeros";
             errores.add(error);
-        }else if(direccion.isBlank()==true){
+        }
+        if(direccion.isBlank()==true){
             error = "Debe ingresar una direccion";
             errores.add(error);
-        }else if(correo.isBlank()== true){
+        }
+        if(correo.isBlank()== true){
             error = "Debe ingresar un correo electronico";
             errores.add(error);
-        }else if(correo.contains("@")==false && correo.indexOf(".")>0){
+        }
+        if(correo.contains("@")==false && correo.indexOf(".")>0){
             error = "Debe ingresar un correo valido";
             errores.add(error);
-        }else if(telefono.isBlank() == true){
+        }
+        if(telefono.isBlank() == true){
             error = "Debe ingresar un telefono";
             errores.add(error);
         }else if(telefono.matches("[0-9]+")== false){

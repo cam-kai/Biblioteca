@@ -10,6 +10,7 @@ import DAO.TrabajadorDAO;
 import Entidades.Trabajador;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -255,55 +256,77 @@ public class ModificarTrabajador extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFechaContratacionActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-                
-        Trabajador trabajador = new Trabajador();
+        String fechaC = txtFechaContratacion.getText();
+        String rut = txtRut.getText();
+        String dV = txtDigitoVerificador.getText();
+        String nombre = txtNombre.getText();
+        String apellidoP =txtApellidoPaterno.getText();
+        String apellidoM = txtApellidoMaterno.getText();
+        String direccion = txtDireccion.getText();
+        String correo= txtCorreo.getText();
+        String telefono = txtTelefono.getText();
         
-        int rut= Integer.parseInt(txtRut.getText());
-        trabajador.setRutT(rut);
-        String digito = txtDigitoVerificador.getText();
-        if(digito.length()==1){
-            trabajador.setDigitoVerificadorT(digito);
-        }
-        trabajador.setNombreT(txtNombre.getText());
-        trabajador.setApellido_paternoT(txtApellidoPaterno.getText());
-        trabajador.setApellido_maternoT(txtApellidoMaterno.getText());
-        trabajador.setDireccionT(txtDireccion.getText());
-        trabajador.setCorreoT(txtCorreo.getText());
-        trabajador.setTelefonoT(Integer.parseInt(txtTelefono.getText()));
-        trabajador.setId_trabajador(Integer.parseInt(txtId.getText()));
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            trabajador.setFechaContrato(df.parse(txtFechaContratacion.getText()));
-        } catch (ParseException ex) {
-            Logger.getLogger(ModificarTrabajador.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        boolean fueModificado= false;
+        ArrayList<String> errores = new Utilidades.Generales().validacionesClienteTrabajador(fechaC, rut, dV, nombre, apellidoP, apellidoM, direccion, correo, telefono);
+        String[] mensaje = new String[errores.size()];
+        if(errores.size()>0){
+            int contadorE = 0;
+            for (String error : errores) {
+                mensaje[contadorE]= " - " + error ;
+                contadorE ++ ;
+            }
+            JOptionPane.showMessageDialog(null, mensaje, "Usted tiene los siguientes errores:",JOptionPane.ERROR_MESSAGE);
+        } else{
             
-        try {
+        
+        
+            Trabajador trabajador = new Trabajador();
 
-            boolean valido = new Utilidades.Generales().verificarRut(rut, digito);
-            if (valido == true) {
-
-                fueModificado = new TrabajadorDAO().modificarTrabajador(trabajador);
-
+            int rutT= Integer.parseInt(rut);
+            trabajador.setRutT(rutT);
+            
+            if(dV.length()==1){
+                trabajador.setDigitoVerificadorT(dV);
+            }
+            trabajador.setNombreT(nombre);
+            trabajador.setApellido_paternoT(apellidoP);
+            trabajador.setApellido_maternoT(apellidoM);
+            trabajador.setDireccionT(direccion);
+            trabajador.setCorreoT(correo);
+            trabajador.setTelefonoT(Integer.parseInt(telefono));
+            trabajador.setId_trabajador(Integer.parseInt(txtId.getText()));
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                trabajador.setFechaContrato(df.parse(fechaC));
+            } catch (ParseException ex) {
+                Logger.getLogger(ModificarTrabajador.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        } catch (Exception e) {
-            System.out.println("" + e.getMessage());
+
+            boolean fueModificado= false;
+
+            try {
+
+                boolean valido = new Utilidades.Generales().verificarRut(rutT, dV);
+                if (valido == true) {
+
+                    fueModificado = new TrabajadorDAO().modificarTrabajador(trabajador);
+
+                }
+
+            } catch (Exception e) {
+                System.out.println("" + e.getMessage());
+            }
+
+
+            if(fueModificado ==true){
+                JOptionPane.showMessageDialog(this, "El trabajador fue modificado correctamente");
+
+
+            }else{
+                JOptionPane.showMessageDialog(null, "El trabajador no ha podido ser modificado");
+            }
+
         }
-                
-        
-        if(fueModificado ==true){
-            JOptionPane.showMessageDialog(this, "El trabajador fue modificado correctamente");
-            
-            
-        }else{
-            JOptionPane.showMessageDialog(null, "El trabajador no ha podido ser modificado");
-        }
-        
-        
         
     }//GEN-LAST:event_btnModificarActionPerformed
  

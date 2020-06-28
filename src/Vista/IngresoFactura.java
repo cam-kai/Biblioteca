@@ -841,7 +841,7 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
     }//GEN-LAST:event_btnActualizarDistribuidorActionPerformed
 
     private void txtNumeroFacturaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumeroFacturaFocusLost
-        if(txtNumeroFactura.getText().isBlank() == true){
+        if(new Utilidades.Generales().isBlank(txtNumeroFactura.getText())){
             JOptionPane.showMessageDialog(null, "Tiene que ingresar un numero de factura");
         }else if(txtNumeroFactura.getText().matches("[0-9]+") == false){
             JOptionPane.showMessageDialog(null, "El campo debe llenarse solo con numeros");

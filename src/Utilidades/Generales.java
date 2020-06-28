@@ -6,12 +6,35 @@
 package Utilidades;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
  * @author camila
  */
+
+
+
+
 public class Generales {
+    
+    
+     public static boolean isBlank2(String datos) {
+        if(datos.trim().length() == 0) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public boolean isBlank(String datos) {
+        if(datos.trim().length() == 0) {
+            return true;
+        }
+        
+        return false;
+    }
     
     
     public boolean verificarRut(int rut, String digito){
@@ -59,14 +82,14 @@ public class Generales {
         ArrayList<String> errores = new ArrayList<>();
         String error = "";
         
-        if(rut.isBlank() == true){
+        if(isBlank(rut)){
             error = "Debe ingresar un rut";
             errores.add(error);
         }else if(rut.matches("[0-9]+")== false){
             error = "El rut debe contener solo numeros";
             errores.add(error);
         }
-        if(dV.isBlank()== true){
+        if(isBlank(dV)){
             error = "Debe ingresar un caracter";
             errores.add(error);
         }else if(dV.matches("[0-9]+")==false && dV.contains("k")== false && dV.contains("K")==false){
@@ -76,22 +99,22 @@ public class Generales {
             error = "El digito verificador debe contener un solo caracter";
             errores.add(error);
         }
-        if(nombre.isBlank() == true){
+        if(isBlank(nombre)){
             error = "Debe ingresar un nombre de empresa";
             errores.add(error);
         }
-        if(anios.isBlank() == true){
+        if(isBlank(anios)){
             error = "Debe ingresar los años de servicio";
             errores.add(error);
         }else if(anios.matches("[0-9]+")== false){
             error = "Los años de servicio tienen que ser numericos";
             errores.add(error);
         }
-        if(direccion.isBlank()== true){
+        if(isBlank(direccion)){
             error = "Debe ingresar una direccion";
             errores.add(error);
         }
-        if(telefono.isBlank()== true){
+        if(isBlank(telefono)){
             error = "Debe ingresar un telefono de contacto";
             errores.add(error);
         }
@@ -99,7 +122,7 @@ public class Generales {
             error = "El telefono debe contener solo numeros";
             errores.add(error);
         }
-        if(correo.isBlank()== true){
+        if(isBlank(correo)){
             error = "Debe ingresar un correo";
             errores.add(error);
         }else if(correo.contains("@")== false && correo.indexOf(".")>0){
@@ -114,7 +137,7 @@ public class Generales {
         ArrayList<String> errores = new ArrayList<>();
         String error ="";
         
-        if(fecha.isBlank()== true){
+        if(isBlank(fecha)){
             error = "Debe ingresar una fecha";
             errores.add(error);
         }else if(fecha.contains("/") == false){
@@ -124,14 +147,14 @@ public class Generales {
             error = "La fecha solo puede contener 10 caracteres";
             errores.add(error);
         }
-        if(rut.isBlank() == true){
+        if(isBlank(rut)){
             error = "Debe ingresar un rut";
             errores.add(error);
         }else if(rut.matches("[0-9]+")== false){
             error = "El rut debe contener solo numeros";
             errores.add(error);
         }
-        if(dV.isBlank()== true){
+        if(isBlank(dV)){
             error = "Debe ingresar un digito verificador";
             errores.add(error);
         }else if(dV.matches("[0-9]+")== false && dV.contains("k")== false && dV.contains("K")== false){
@@ -141,14 +164,14 @@ public class Generales {
             error = "El digito verificador admite un caracter";
             errores.add(error);
         }
-        if(nombre.isBlank()== true){
+        if(isBlank(nombre)){
             error = "Debe ingresar un nombre";
             errores.add(error);
         }else if(nombre.matches("[0-9]+")== true){
             error = "El nombre no puede contener numeros";
             errores.add(error);
         }
-        if(apellidoP.isBlank()==true){
+        if(isBlank(apellidoP)){
             error = "Debe ingresar un apellido";
             errores.add(error);
         }else if(apellidoP.matches("[0-9]+")== true){
@@ -159,19 +182,29 @@ public class Generales {
             error = "El apellido no puede contener numeros";
             errores.add(error);
         }
-        if(direccion.isBlank()==true){
+        if(isBlank(direccion)){
             error = "Debe ingresar una direccion";
             errores.add(error);
         }
-        if(correo.isBlank()== true){
+        if(isBlank(correo)){
             error = "Debe ingresar un correo electronico";
             errores.add(error);
         }
-        if(correo.contains("@")==false && correo.indexOf(".")>0){
+        if(correo.contains("@")==false ){
             error = "Debe ingresar un correo valido";
             errores.add(error);
         }
-        if(telefono.isBlank() == true){
+        Pattern pat = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+						+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher matC = pat.matcher(correo);
+        if( matC.find()== true){
+            System.out.println("es valido");
+        }else{
+            System.out.println("No es valido");
+            error = "Debe ingresar un correo valido";
+            errores.add(error);
+        }
+        if(isBlank(telefono)){
             error = "Debe ingresar un telefono";
             errores.add(error);
         }else if(telefono.matches("[0-9]+")== false){

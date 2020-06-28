@@ -440,7 +440,7 @@ public class IngresoTrabajador extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFechaContratacionFocusLost
 
     private void txtDigitoVerificadorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDigitoVerificadorFocusGained
-        if(txtRut.getText().isBlank()== true){
+        if(Utilidades.Generales.isBlank2(txtRut.getText())){
             JOptionPane.showMessageDialog(null, "Debe ingresar un rut");
         }else if(txtRut.getText().matches("[0-9]+")== false){
             JOptionPane.showMessageDialog(null, "Debe ingresar el rut sin puntos");

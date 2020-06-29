@@ -10,6 +10,7 @@ import DAO.ClientesDAO;
 import Entidades.Cliente;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -263,49 +264,68 @@ public class ModificarCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         Cliente cliente = new Cliente();
+        String fechaN =txtFechaNacimiento.getText();
+        String rut = txtRut.getText();
+        String dV = txtDigitoVerificador.getText();
+        String nombre = txtNombre.getText();
+        String apellidoP =txtApellidoPaterno.getText();
+        String apellidoM = txtApellidoMaterno.getText();
+        String direccion = txtDireccion.getText();
+        String correo= txtCorreo.getText();
+        String telefono = txtTelefono.getText();
         
-        int rut= Integer.parseInt(txtRut.getText());
-        cliente.setRut(rut);
-        String digito = txtDigitoVerificador.getText();
-        if(digito.length()==1){
-            cliente.setDigitoVerificador(digito);
-        }
-        cliente.setNombre(txtNombre.getText());
-        cliente.setApellido_paterno(txtApellidoPaterno.getText());
-        cliente.setApellido_materno(txtApellidoMaterno.getText());
-        cliente.setDireccion(txtDireccion.getText());
-        cliente.setCorreo(txtCorreo.getText());
-        cliente.setTelefono(Integer.parseInt(txtTelefono.getText()));
-        cliente.setId_cliente(Integer.parseInt(txtId.getText()));
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            cliente.setFechaNacimiento(df.parse(txtFechaNacimiento.getText()));
-        } catch (ParseException ex) {
-            Logger.getLogger(ModificarCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        boolean fueModificado = false;
         
-        boolean fueModificado= false;
-            
-        try {
-            
-            boolean valido = new Utilidades.Generales().verificarRut(rut, digito);
-            if(valido == true){
-
-                fueModificado = new ClientesDAO().modificarClientes(cliente);
-
+        
+        
+        ArrayList<String> errores = new Utilidades.Generales().validacionesClienteTrabajador(fechaN, rut, dV, nombre, apellidoP, apellidoM, direccion, correo, telefono);
+        String[] mensaje = new String[errores.size()];
+        if(errores.size()>0){
+            int contadorE = 0;
+            for (String error : errores) {
+                mensaje[contadorE]= " - " + error ;
+                contadorE ++ ;
             }
-            
-        } catch (Exception e) {
-            System.out.println(""+e.getMessage());
-        }
-                
-        
-        if(fueModificado ==true){
-            JOptionPane.showMessageDialog(this, "El cliente fue modificado correctamente");
-            
-            
+            JOptionPane.showMessageDialog(null, mensaje, "Usted tiene los siguientes errores:",JOptionPane.ERROR_MESSAGE);
         }else{
-            JOptionPane.showMessageDialog(null, "El cliente no ha podido ser modificado");
+            int rutC = Integer.parseInt(rut);
+            
+            boolean valido = new Utilidades.Generales().verificarRut(rutC, dV);
+            if (valido == true) {
+                cliente.setId_cliente(Integer.parseInt(txtId.getText()));
+                cliente.setRut(rutC);
+                cliente.setDigitoVerificador(dV);
+                cliente.setNombre(nombre);
+                cliente.setApellido_paterno(apellidoP);
+                cliente.setApellido_materno(apellidoM);
+                cliente.setDireccion(direccion);
+                cliente.setCorreo(correo);
+                cliente.setTelefono(Integer.parseInt(telefono));
+                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    cliente.setFechaNacimiento(df.parse(fechaN));
+                } catch (ParseException ex) {
+                    Logger.getLogger(IngresoCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                        
+                try {
+
+                    fueModificado = new ClientesDAO().modificarClientes(cliente);
+               
+
+                } catch (Exception e) {
+                    System.out.println("" + e.getMessage());
+                }
+            }
+
+            if (fueModificado == true) {
+                JOptionPane.showMessageDialog(this, "El cliente fue modificado correctamente");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "El cliente no ha podido ser modificado");
+            }
+
+
         }
         
         

@@ -10,6 +10,9 @@ import Entidades.Idiomas;
 import Entidades.Libro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,10 +22,11 @@ public class RelLibroIdiomaDAO {
     private Connection conexion;
     
     public RelLibroIdiomaDAO(){
-        this.conexion = new Conexion().getConexion();
+        
     }
     
     public boolean agregarRelLibroIdioma(Libro libro, int id){
+        this.conexion = new Conexion().getConexion();
         boolean fueAgregado = false;
         try {
             PreparedStatement stmt= this.conexion.prepareStatement("insert into tbl_rel_libro_idiomas(id_idiomas, id_libro ) values(?,?);");
@@ -31,6 +35,13 @@ public class RelLibroIdiomaDAO {
             fueAgregado= (stmt.executeUpdate()>0);
             
         } catch (Exception e) {
+            System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return fueAgregado;
     }

@@ -24,11 +24,11 @@ public class Conexion {
         try{
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             
-            if(conexion == null){
-                this.conexion = (Connection) DriverManager.getConnection(url , usuario, pass);
-            }
-        }catch(Exception ex){
             
+                this.conexion = (Connection) DriverManager.getConnection(url , usuario, pass);
+            
+        }catch(Exception ex){
+            System.out.println(""+ex.getMessage());
         }
     }
     
@@ -36,7 +36,7 @@ public class Conexion {
         return conexion;
     }
     
-    public void close(){
+    public void getClose(){
         try {
             conexion.close();
         } catch (Exception e) {

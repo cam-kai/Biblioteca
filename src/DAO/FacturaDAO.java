@@ -11,6 +11,9 @@ import Entidades.MedioDePago;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,10 +23,11 @@ public class FacturaDAO {
     private Connection conexion;
     
     public FacturaDAO(){
-        this.conexion= new Conexion().getConexion();
+        
     }
     
     public boolean fueAgregado(Factura factura){
+        this.conexion = new Conexion().getConexion();
         boolean fueAgregado = false;
         
         try {
@@ -38,12 +42,19 @@ public class FacturaDAO {
             fueAgregado = (stmt.executeUpdate()>0);
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         return fueAgregado;
     }
     
     public Factura buscarUltimo(){
+        this.conexion = new Conexion().getConexion();
         Factura factura = new Factura();
         try {
             PreparedStatement stmt =  this.conexion.prepareStatement("select * from tbl_factura order by id_factura desc limit 1 ; ");
@@ -62,6 +73,12 @@ public class FacturaDAO {
             }
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return factura;
     }

@@ -9,6 +9,9 @@ import Conexion.Conexion;
 import Entidades.DetalleCompra;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,10 +21,11 @@ public class DetalleCompraDAO {
     private Connection conexion;
     
     public DetalleCompraDAO(){
-        this.conexion = new Conexion().getConexion();
+        
     }
     
     public boolean agregarDetalleCompra(DetalleCompra detalleCompra){
+        this.conexion = new Conexion().getConexion();
         boolean fueAgregado = false;
         
         try {
@@ -30,7 +34,15 @@ public class DetalleCompraDAO {
            stmt.setInt(2, detalleCompra.getIdLibro());
            fueAgregado = (stmt.executeUpdate()>0);
         } catch (Exception e) {
+            System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        
         
         return fueAgregado;
     }

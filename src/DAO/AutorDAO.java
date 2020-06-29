@@ -12,7 +12,10 @@ import Utilidades.SuperList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,10 +27,11 @@ public class AutorDAO {
 
     
     public AutorDAO(){
-        this.conexion = new Conexion().getConexion();
+        
     }
     
     public boolean agregarAutor(Autores autor){
+        this.conexion = new Conexion().getConexion();
         boolean fueAgregado =  false;
         
         try {
@@ -39,11 +43,19 @@ public class AutorDAO {
             
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        
         return fueAgregado;
     }
     
     public SuperList<Autores> listarAutores(){
+        this.conexion = new Conexion().getConexion();
         SuperList<Autores> autores = new SuperList<>();
         try {
             PreparedStatement stmt = this.conexion.prepareStatement("select * from tbl_autores ;");
@@ -59,12 +71,19 @@ public class AutorDAO {
             
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         return autores;
     }
     
     public Autores buscarPorId(int id){
+        this.conexion = new Conexion().getConexion();
         Autores autor = new Autores();
         try {
             PreparedStatement stmt = this.conexion.prepareStatement("select * from tbl_autores where id_autores = ?;");
@@ -79,6 +98,12 @@ public class AutorDAO {
             }
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }

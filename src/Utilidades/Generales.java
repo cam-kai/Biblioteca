@@ -125,11 +125,17 @@ public class Generales {
         if(isBlank(correo)){
             error = "Debe ingresar un correo";
             errores.add(error);
-        }else if(correo.contains("@")== false && correo.indexOf(".")>0){
+        }
+        Pattern pat = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+						+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher matC = pat.matcher(correo);
+        if( matC.find()== true){
+            System.out.println("es valido");
+        }else{
+            System.out.println("No es valido");
             error = "Debe ingresar un correo valido";
             errores.add(error);
         }
-        
         return errores;
     }
     
@@ -190,10 +196,7 @@ public class Generales {
             error = "Debe ingresar un correo electronico";
             errores.add(error);
         }
-        if(correo.contains("@")==false ){
-            error = "Debe ingresar un correo valido";
-            errores.add(error);
-        }
+        
         Pattern pat = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 						+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
         Matcher matC = pat.matcher(correo);

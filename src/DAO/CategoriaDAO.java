@@ -11,7 +11,10 @@ import Utilidades.SuperList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,10 +24,11 @@ public class CategoriaDAO {
     private Connection conexion;
     
     public CategoriaDAO(){
-        this.conexion = new Conexion().getConexion();
+        
     }
     
     public boolean agregarCategoria(Categorias categoria){
+        this.conexion = new Conexion().getConexion();
         boolean fueAgregado = false;
         
         try {
@@ -33,6 +37,12 @@ public class CategoriaDAO {
             fueAgregado = (stmt.executeUpdate()>1);
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         
@@ -40,9 +50,10 @@ public class CategoriaDAO {
     }
     
     public SuperList<Categorias> listarCategorias(){
+        Connection conn =  new Conexion().getConexion();
         SuperList<Categorias> categorias = new SuperList<>();
         try {
-            PreparedStatement stmt = this.conexion.prepareStatement("select * from tbl_categoria;");
+            PreparedStatement stmt = conn.prepareStatement("select * from tbl_categoria;");
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 Categorias categoria = new Categorias ();
@@ -50,16 +61,25 @@ public class CategoriaDAO {
                 categoria.setCategoria(rs.getString("categoria"));
                 categorias.add(categoria);
             }
+            
         } catch (Exception e) {
+            System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         return categorias;
     }
     
     public Categorias buscarPorNombre(String cate){
+        Connection conn = new Conexion().getConexion();
         Categorias categoria = new Categorias();
         try {
-            PreparedStatement stmt = this.conexion.prepareStatement("Select * from tbl_categoria where categoria = ? ;");
+            PreparedStatement stmt = conn.prepareStatement("Select * from tbl_categoria where categoria = ? ;");
             stmt.setString(1, cate);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
@@ -69,6 +89,12 @@ public class CategoriaDAO {
             return categoria;
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null ;
         

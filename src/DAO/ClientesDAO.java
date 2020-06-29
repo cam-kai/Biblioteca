@@ -8,10 +8,14 @@ package DAO;
 import Conexion.Conexion;
 import Entidades.Cliente;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,13 +25,15 @@ public class ClientesDAO {
     private Connection conexion;
     
     public ClientesDAO(){
-        this.conexion = new Conexion().getConexion();
+        
     }
     
     public boolean agregarClientes(Cliente cliente){
+        this.conexion = new Conexion().getConexion();
         boolean filas_afectadas = false;
         try {
-            String sql = "insert into tbl_clientes(fecha_de_nacimiento,rut, digito_verificador , nombre, apellido_paterno, apellido_materno, direccion, correo, telefono) values(?,?,?,?,?,?,?,?,?);";
+            
+            String sql = "insert into tbl_clientes(fecha_de_nacimiento,rut,digito_verificador,nombre,apellido_paterno,apellido_materno,direccion,correo,telefono) values(?,?,?,?,?,?,?,?,?);";
             PreparedStatement stmt = this.conexion.prepareStatement(sql);
             stmt.setString(1, new SimpleDateFormat("yyyy/MM/dd").format(cliente.getFechaNacimiento()));
             stmt.setInt(2, cliente.getRut());
@@ -41,11 +47,19 @@ public class ClientesDAO {
             filas_afectadas = (stmt.executeUpdate()>0);
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        
         return filas_afectadas;
     }
     
     public ArrayList<Cliente> listarTodo(){
+        this.conexion = new Conexion().getConexion();
         ArrayList<Cliente> clientes =  new ArrayList<>();
         
         try {
@@ -70,6 +84,12 @@ public class ClientesDAO {
             
         } catch (Exception e) {
             System.out.println(""+ e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         
@@ -77,6 +97,7 @@ public class ClientesDAO {
     }
     
     public Cliente buscarPorId(int id){
+        this.conexion = new Conexion().getConexion();
         try {
             String sql = "SELECT * from tbl_clientes where id_clientes = ?;";
             PreparedStatement stmt = this.conexion.prepareStatement(sql);
@@ -98,12 +119,21 @@ public class ClientesDAO {
                 
             }
         } catch (Exception e) {
+            System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
     
     
     public Cliente buscarPorRut(int rut){
+        this.conexion = new Conexion().getConexion();
+        
         try {
             String sql = "SELECT * from tbl_cientes where rut = ?;";
             PreparedStatement stmt = this.conexion.prepareStatement(sql);
@@ -125,12 +155,20 @@ public class ClientesDAO {
                 
             }
         } catch (Exception e) {
+            System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
     
     
     public boolean eliminarClientes(int id){
+        this.conexion = new Conexion().getConexion();
         boolean fueEliminado = false;
         
         try {
@@ -140,13 +178,19 @@ public class ClientesDAO {
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
             fueEliminado= false;
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         return fueEliminado;
     }
     
     public boolean modificarClientes(Cliente cliente){
-    
+        this.conexion = new Conexion().getConexion();
         boolean fueModificado = false;
         
         try {
@@ -165,7 +209,14 @@ public class ClientesDAO {
             fueModificado = (stmt.executeUpdate()>0);
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        
         return fueModificado;
     }
     

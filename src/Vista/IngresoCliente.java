@@ -9,6 +9,7 @@ import DAO.ClientesDAO;
 import Entidades.Cliente;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -133,48 +134,49 @@ public class IngresoCliente extends javax.swing.JFrame {
                         .addGap(206, 206, 206)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(181, 181, 181)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel6)
-                                                .addComponent(jLabel11)
-                                                .addComponent(jLabel10))
-                                            .addGap(28, 28, 28))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel7)
-                                            .addGap(15, 15, 15)))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(25, 25, 25)
-                                            .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(181, 181, 181)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(15, 15, 15))
+                                    .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(txtCorreo, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel3)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel4)))
-                                    .addGap(33, 33, 33)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtApellidoPaterno, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(txtRut, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel8)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtDigitoVerificador, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING))))))))
+                                            .addComponent(jLabel10)
+                                            .addComponent(jLabel11))
+                                        .addGap(38, 38, 38))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6)
+                                .addGap(38, 38, 38)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtCorreo, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtApellidoPaterno, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(txtRut, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel8)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtDigitoVerificador, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING)))))
                 .addContainerGap(235, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -235,36 +237,50 @@ public class IngresoCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         Cliente cliente = new Cliente();
-        
-        int rut= Integer.parseInt(txtRut.getText());
-        cliente.setRut(rut);
-        String digito = txtDigitoVerificador.getText();
-        cliente.setDigitoVerificador(digito);
-        
-        cliente.setNombre(txtNombre.getText());
-        cliente.setApellido_paterno(txtApellidoPaterno.getText());
-        cliente.setApellido_materno(txtApellidoMaterno.getText());
-        cliente.setDireccion(txtDireccion.getText());
-        cliente.setCorreo(txtCorreo.getText());
-        cliente.setTelefono(Integer.parseInt(txtTelefono.getText()));
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            cliente.setFechaNacimiento(df.parse(txtFechaNacimiento.getText()));
-        } catch (ParseException ex) {
-            Logger.getLogger(IngresoCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+        String fechaN =txtFechaNacimiento.getText();
+        String rut = txtRut.getText();
+        String dV = txtDigitoVerificador.getText();
+        String nombre = txtNombre.getText();
+        String apellidoP =txtApellidoPaterno.getText();
+        String apellidoM = txtApellidoMaterno.getText();
+        String direccion = txtDireccion.getText();
+        String correo= txtCorreo.getText();
+        String telefono = txtTelefono.getText();
         
         boolean fueModificado = false;
-        boolean fueAgregado= false;
+        boolean fueAgregado = false;
+        
+        
+        ArrayList<String> errores = new Utilidades.Generales().validacionesClienteTrabajador(fechaN, rut, dV, nombre, apellidoP, apellidoM, direccion, correo, telefono);
+        String[] mensaje = new String[errores.size()];
+        if(errores.size()>0){
+            int contadorE = 0;
+            for (String error : errores) {
+                mensaje[contadorE]= " - " + error ;
+                contadorE ++ ;
+            }
+            JOptionPane.showMessageDialog(null, mensaje, "Usted tiene los siguientes errores:",JOptionPane.ERROR_MESSAGE);
+        }else{
+            int rutC = Integer.parseInt(rut);
             
-        try {
-            
-            boolean valido = new Utilidades.Generales().verificarRut(rut, digito);
-            if(valido == true){
-                Cliente clienteExiste = new ClientesDAO().buscarPorId(rut);
-                
+            boolean valido = new Utilidades.Generales().verificarRut(rutC, dV);
+            if (valido == true) {
+
+                cliente.setRut(rutC);
+                cliente.setDigitoVerificador(dV);
+                cliente.setNombre(nombre);
+                cliente.setApellido_paterno(apellidoP);
+                cliente.setApellido_materno(apellidoM);
+                cliente.setDireccion(direccion);
+                cliente.setCorreo(correo);
+                cliente.setTelefono(Integer.parseInt(telefono));
+                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    cliente.setFechaNacimiento(df.parse(fechaN));
+                } catch (ParseException ex) {
+                    Logger.getLogger(IngresoCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Cliente clienteExiste = new ClientesDAO().buscarPorId(rutC);
                 if(clienteExiste != null){
                     fueModificado = new ClientesDAO().modificarClientes(cliente);
                     if (fueModificado==true){
@@ -273,22 +289,16 @@ public class IngresoCliente extends javax.swing.JFrame {
                 }else{
                     fueAgregado = new ClientesDAO().agregarClientes(cliente);
                 }
-                
+            }else{
+                JOptionPane.showMessageDialog(null, "El rut del cliente no es valido");
             }
-            
-        } catch (Exception e) {
+            if (fueAgregado == true) {
+                JOptionPane.showMessageDialog(this, "El cliente fue agregado correctamente");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "El cliente no ha podido ser agregado");
+            }
         }
-                
-        
-        if(fueAgregado ==true){
-            JOptionPane.showMessageDialog(this, "El cliente fue agregado correctamente");
-            
-        }else{
-            JOptionPane.showMessageDialog(null, "El cliente no ha podido ser agregado");
-        }
-        
-        
-        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     

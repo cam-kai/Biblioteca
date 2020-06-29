@@ -13,7 +13,10 @@ import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,10 +27,11 @@ public class DistribuidorDAO {
     private Connection conexion;
     
     public DistribuidorDAO(){
-        this.conexion = new Conexion().getConexion();
+        
     }
     
     public boolean agregarDistribuidor(Distribuidores distribuidor){
+        this.conexion = new Conexion().getConexion();
         int fueAgregado = 0;
         
         try {
@@ -44,12 +48,19 @@ public class DistribuidorDAO {
             fueAgregado = stmt.executeUpdate();
             
         } catch (Exception e) {
-            
+            System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return (fueAgregado > 0);
     }
     
     public ArrayList<Distribuidores> listarDistribuidores (){
+        this.conexion = new Conexion().getConexion();
         ArrayList<Distribuidores> distribuidores = new ArrayList<>();
         try {
             PreparedStatement stmt = this.conexion.prepareStatement("select * from tbl_distribuidores;");
@@ -67,12 +78,20 @@ public class DistribuidorDAO {
                 distribuidores.add(distribuidor);
             }
         } catch (Exception e) {
+            System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         return distribuidores;
     }
     
     public Distribuidores buscarPorId(int idABuscar){
+        this.conexion = new Conexion().getConexion();
         try {
             PreparedStatement stmt = this.conexion.prepareStatement("select * from tbl_distribuidores where id_distribuidores = ?;");
             stmt.setInt(1, idABuscar);
@@ -90,7 +109,13 @@ public class DistribuidorDAO {
                 return distribuidor;
             }
         } catch (Exception e) {
-            
+            System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
@@ -98,6 +123,7 @@ public class DistribuidorDAO {
     
         
     public Distribuidores buscarPorNombre(String nombre){
+        this.conexion = new Conexion().getConexion();
         try {
             PreparedStatement stmt = this.conexion.prepareStatement("select * from tbl_distribuidores where nombre_empresa = ?;");
             stmt.setString(1, nombre);
@@ -115,26 +141,39 @@ public class DistribuidorDAO {
                 return distribuidor;
             }
         } catch (Exception e) {
-            
+            System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
     
     public boolean eliminarDistribuidores(int idABuscar){
-        
+        this.conexion = new Conexion().getConexion();
         boolean fueEliminado = false;
         try {
             PreparedStatement stmt = this.conexion.prepareStatement("delete from tbl_distribuidores where id_distribuidores = ?;");
             stmt.setInt(1, idABuscar);
             fueEliminado= (stmt.executeUpdate()>0);
         } catch (Exception e) {
+            System.out.println(""+e.getMessage());
             fueEliminado = false;
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return fueEliminado;
     }
     
     public boolean actualizarDistribuidores(Distribuidores distribuidor){
-        
+        this.conexion = new Conexion().getConexion();
         boolean fueActualizado =false;
         
         try {
@@ -153,6 +192,12 @@ public class DistribuidorDAO {
             
         } catch (Exception e) {
             fueActualizado= false;
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         return fueActualizado;

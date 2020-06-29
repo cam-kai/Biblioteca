@@ -10,6 +10,9 @@ import Entidades.Autores;
 import Entidades.Libro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,10 +22,11 @@ public class RelLibroAutorDAO {
     private Connection conexion;
     
     public RelLibroAutorDAO(){
-        this.conexion = new Conexion().getConexion();
+        
     }
     
     public boolean agregarLibroAutor(Libro libro, int id){
+        this.conexion = new Conexion().getConexion();
         boolean fueAgregado= false;
         try {
             PreparedStatement stmt = this.conexion.prepareStatement("insert into tbl_rel_libro_autores(id_libro,id_autores) values(?,?);");
@@ -31,6 +35,12 @@ public class RelLibroAutorDAO {
             fueAgregado = (stmt.executeUpdate()>0);
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         return fueAgregado;

@@ -10,7 +10,10 @@ import Entidades.MedioDePago;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,11 +23,12 @@ public class MedioPagoDAO {
     private Connection conexion;
     
     public MedioPagoDAO(){
-        this.conexion = new Conexion().getConexion();
+        
     }
     
     
     public ArrayList<MedioDePago> listarMediosDePago(){
+        this.conexion = new Conexion().getConexion();
         ArrayList<MedioDePago> medios = new ArrayList<>();
         
         try {
@@ -38,7 +42,14 @@ public class MedioPagoDAO {
             }
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+       
         
         return medios;
     }

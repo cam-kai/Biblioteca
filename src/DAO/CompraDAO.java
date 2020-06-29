@@ -12,6 +12,9 @@ import Entidades.Factura;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,11 +24,12 @@ public class CompraDAO {
     private Connection conexion;
     
     public CompraDAO(){
-        this.conexion = new Conexion().getConexion();
+        
     }
     
     
     public boolean agregarCompra(int idD, int idF){
+        this.conexion = new Conexion().getConexion();
         boolean fueAgregada = false;
         
         try {
@@ -37,11 +41,18 @@ public class CompraDAO {
             
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         return fueAgregada;
     }
     public Compra buscarUltimo(){
+        this.conexion = new Conexion().getConexion();
         Compra compra = new Compra();
         try {
             PreparedStatement stmt = this.conexion.prepareStatement("Select * from tbl_compra order by id_compra desc limit 1;");
@@ -57,6 +68,12 @@ public class CompraDAO {
             }
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return compra;
     }

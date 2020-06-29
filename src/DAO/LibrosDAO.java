@@ -11,7 +11,10 @@ import Entidades.Libro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,10 +24,11 @@ public class LibrosDAO {
    private Connection conexion;
    
    public LibrosDAO(){
-       this.conexion = new Conexion().getConexion();
+       
    }
    
    public boolean agregarLibro(Libro libro){
+       this.conexion = new Conexion().getConexion();
        boolean fueAgregado  =false;
        
        try {
@@ -38,13 +42,20 @@ public class LibrosDAO {
            stmt.setInt(7, libro.getAnio_publicacion());
            fueAgregado = (stmt.executeUpdate()>0);
        } catch (Exception e) {
-       }
+           System.out.println(""+e.getMessage());
+       }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
        
        return fueAgregado;
    }
    
    public Libro buscarPorISBN(int numeroSerie){
-       
+       this.conexion = new Conexion().getConexion();
        
        try {
            PreparedStatement stmt = this.conexion.prepareStatement("select * from tbl_libro where numero_de_serie=?;");
@@ -64,12 +75,19 @@ public class LibrosDAO {
            }
        } catch (Exception e) {
            System.out.println(""+e.getMessage());
-       }
+       }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
        return null;
    }
    
    public ArrayList<Libro> listarTodo(){
        ArrayList<Libro> libros = new ArrayList<>();
+       this.conexion = new Conexion().getConexion();
        
        try {
            String sql = "Select l.id_libro, l.numero_de_serie, l.titulo, l.anio_publicacion, l.precio_referencial, e.editorial, s.stock_libro\n" +
@@ -90,13 +108,20 @@ public class LibrosDAO {
            }
        } catch (Exception e) {
            System.out.println(""+e.getMessage());
-       }
+       }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
        
        
        return libros;
    }
    
    public Libro buscarPorNSerie(int isbn){
+       this.conexion = new Conexion().getConexion();
        Libro libro = new Libro();
        
        try {
@@ -119,7 +144,13 @@ public class LibrosDAO {
            }
        } catch (Exception e) {
            System.out.println(""+e.getMessage());
-       }
+       }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
        
        
        return null;
@@ -127,6 +158,7 @@ public class LibrosDAO {
    
    
    public Libro buscarPorId(int id){
+       this.conexion = new Conexion().getConexion();
        Libro libro = new Libro();
        
        try {
@@ -149,7 +181,13 @@ public class LibrosDAO {
            }
        } catch (Exception e) {
            System.out.println(""+e.getMessage());
-       }
+       }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
        
        
        return null;

@@ -11,8 +11,11 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,10 +25,11 @@ public class TrabajadorDAO {
     private Connection conexion;
     
     public TrabajadorDAO(){
-        this.conexion = new Conexion().getConexion();
+        
     }
     
     public boolean agregarTrabajador(Trabajador trabajador){
+        this.conexion = new Conexion().getConexion();
         boolean filas_afectadas = false;
         try {
             String sql = "insert into tbl_trabajador(fecha_contratacion,rut, digito_verificador, nombre, apellido_paterno, apellido_materno, direccion, correo, telefono) values (?,?,?,?,?,?,?,?,?);";
@@ -42,11 +46,19 @@ public class TrabajadorDAO {
             filas_afectadas = (stmt.executeUpdate()>0);
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        
         return filas_afectadas;
     }
     
     public ArrayList<Trabajador> listarTrabajador(){
+        this.conexion = new Conexion().getConexion();
         ArrayList<Trabajador> trabajadores = new ArrayList<>();
         try {
             String sql= "SELECT * from tbl_trabajador ORDER BY id_trabajador ;";
@@ -69,6 +81,12 @@ public class TrabajadorDAO {
             
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         
@@ -76,7 +94,7 @@ public class TrabajadorDAO {
     }
     
     public Trabajador buscarPorId(int id){
-        
+        this.conexion = new Conexion().getConexion();
         try {
             String sql= "SELECT * from tbl_trabajador where id_trabajador=? ;";
             PreparedStatement stmt =this.conexion.prepareStatement(sql);
@@ -98,12 +116,19 @@ public class TrabajadorDAO {
             }
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        
         return null;
     }
     
     public Trabajador buscarPorRut(int rut){
-        
+        this.conexion = new Conexion().getConexion();
         try {
             String sql= "SELECT * from tbl_trabajador where rut=? ;";
             PreparedStatement stmt =this.conexion.prepareStatement(sql);
@@ -125,11 +150,19 @@ public class TrabajadorDAO {
             }
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        
         return null;
     }
     
     public boolean eliminarTrabajador(int id){
+        this.conexion = new Conexion().getConexion();
         boolean fueEliminado = false;
         
         try {
@@ -137,11 +170,19 @@ public class TrabajadorDAO {
             stmt.setInt(1, id);
             fueEliminado =(stmt.executeUpdate()>0);
         } catch (Exception e) {
+            System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return fueEliminado; 
     }
     
     public boolean modificarTrabajador(Trabajador trabajador){
+        this.conexion = new Conexion().getConexion();
         boolean fueModificado= false;
         
         try {
@@ -162,6 +203,12 @@ public class TrabajadorDAO {
             
         } catch (Exception e) {
             System.out.println(""+e.getMessage());
+        }finally{
+            try {
+                this.conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         return fueModificado;

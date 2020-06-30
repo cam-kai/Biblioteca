@@ -275,6 +275,7 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
             }
         });
 
+        listCompraProductos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         listCompraProductos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -286,6 +287,7 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
             }
         });
         jScrollPane2.setViewportView(listCompraProductos);
+        listCompraProductos.getAccessibleContext().setAccessibleName("");
 
         jLabel12.setText("Id libro | cantidad | Precio  |Total");
 
@@ -293,16 +295,19 @@ public class IngresoFactura extends javax.swing.JFrame implements IEntitySave {
         jLabel13.setText("Precio neto :");
 
         lblPrecioNeto.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        lblPrecioNeto.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         jLabel14.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
         jLabel14.setText("IVA :");
 
         lblIVA.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        lblIVA.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         jLabel15.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
         jLabel15.setText("Total : ");
 
         lbltotalConIva.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        lbltotalConIva.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         cboMedioDePago.setModel(cboMedioDePago.getModel());
 

@@ -331,6 +331,7 @@ public class IngresoTrabajador extends javax.swing.JFrame {
                     Trabajador trabajadorExiste = new TrabajadorDAO().buscarPorRut(rutT);
 
                     if (trabajadorExiste != null) {
+                        trabajador.setId_trabajador(trabajadorExiste.getId_trabajador());
                         fueAgregado = new TrabajadorDAO().modificarTrabajador(trabajador);
 
                     } else {
@@ -376,6 +377,8 @@ public class IngresoTrabajador extends javax.swing.JFrame {
         txtDireccion.setText(trabajador.getDireccionT());
         txtCorreo.setText(trabajador.getCorreoT());
         txtTelefono.setText(Integer.toString(trabajador.getTelefonoT()));
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        txtFechaContratacion.setText(df.format(trabajador.getFechaContrato()));
         
         
         

@@ -135,7 +135,7 @@ public class ClientesDAO {
         this.conexion = new Conexion().getConexion();
         
         try {
-            String sql = "SELECT * from tbl_cientes where rut = ?;";
+            String sql = "SELECT * from tbl_clientes where rut = ?;";
             PreparedStatement stmt = this.conexion.prepareStatement(sql);
             stmt.setInt(1, rut);
             ResultSet rs = stmt.executeQuery();

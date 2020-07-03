@@ -7,6 +7,7 @@ package Vista;
 
 import DAO.TrabajadorDAO;
 import Entidades.Trabajador;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -226,7 +227,8 @@ public class ListarTrabajador extends javax.swing.JFrame {
             fila[2]= trabajador.getNombreT();
             fila[3]= trabajador.getApellido_paternoT();
             fila[4]= trabajador.getApellido_maternoT();
-            fila[5]= String.valueOf(trabajador.getFechaContrato());
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            fila[5]= df.format(trabajador.getFechaContrato());
             fila[6]= trabajador.getDireccionT();
             fila[7]= trabajador.getCorreoT();
             fila[8]= String.valueOf(trabajador.getTelefonoT());

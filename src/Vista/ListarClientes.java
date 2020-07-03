@@ -7,6 +7,7 @@ package Vista;
 
 import DAO.ClientesDAO;
 import Entidades.Cliente;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -227,7 +228,8 @@ public class ListarClientes extends javax.swing.JFrame {
             fila[2]= cliente.getNombre();
             fila[3]= cliente.getApellido_paterno();
             fila[4]= cliente.getApellido_materno();
-            fila[5]= String.valueOf(cliente.getFechaNacimiento());
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            fila[5]= df.format(cliente.getFechaNacimiento());
             fila[6]= cliente.getDireccion();
             fila[7]= cliente.getCorreo();
             fila[8]= String.valueOf(cliente.getTelefono());

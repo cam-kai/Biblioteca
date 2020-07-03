@@ -280,8 +280,9 @@ public class IngresoCliente extends javax.swing.JFrame {
                 } catch (ParseException ex) {
                     Logger.getLogger(IngresoCliente.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                Cliente clienteExiste = new ClientesDAO().buscarPorId(rutC);
+                Cliente clienteExiste = new ClientesDAO().buscarPorRut(rutC);
                 if(clienteExiste != null){
+                    cliente.setId_cliente(clienteExiste.getId_cliente());
                     fueModificado = new ClientesDAO().modificarClientes(cliente);
                     if (fueModificado==true){
                         fueAgregado=true;
@@ -313,6 +314,8 @@ public class IngresoCliente extends javax.swing.JFrame {
         txtDireccion.setText(cliente.getDireccion());
         txtCorreo.setText(cliente.getCorreo());
         txtTelefono.setText(Integer.toString(cliente.getTelefono()));
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        txtFechaNacimiento.setText(df.format(cliente.getFechaNacimiento()));
         
         
         

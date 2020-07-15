@@ -5,6 +5,8 @@
  */
 package Utilidades;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -146,10 +148,14 @@ public class Generales {
         if(isBlank(fecha)){
             error = "Debe ingresar una fecha";
             errores.add(error);
-        }else if(fecha.length()>10 == true){
+        }
+        if(fecha.length()>10 == true){
             error = "La fecha solo puede contener 10 caracteres";
             errores.add(error);
         }
+        
+        
+        
         // 29 f = ^(29/02/(2000|2400|2800|(19|2[0-9](0[48]|[2468][048]|[13579][26]))))$
         // feb = ^((0[1-9]|1[0-9]|2[0-8])/02/((19|2[0-9])[0-9]{2}))$
         // 31 d = ^((0[1-9]|[12][0-9]|3[01])/(0[13578]|10|12)/((19|2[0-9])[0-9]{2}))$
@@ -165,6 +171,17 @@ public class Generales {
             error = "La fecha debe tener el siguiente formato : dia/mes/año ";
             errores.add(error);
         }
+        LocalDate hoy = LocalDate.now();
+        DateTimeFormatter form = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String fechaActual = String.valueOf(hoy.format(form));
+        int anioActual = Integer.parseInt(fechaActual.substring(7,10));
+        int anioIngresado = Integer.parseInt(fecha.substring(7,10));
+        int anios = anioActual-anioIngresado;
+        if(anios < 18){
+            error = "Se deben ingresar solo personas de 18 años en adelante";
+            errores.add(error);
+        }
+        
         if(isBlank(rut)){
             error = "Debe ingresar un rut";
             errores.add(error);

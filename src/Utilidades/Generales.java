@@ -171,16 +171,6 @@ public class Generales {
             error = "La fecha debe tener el siguiente formato : dia/mes/año ";
             errores.add(error);
         }
-        LocalDate hoy = LocalDate.now();
-        DateTimeFormatter form = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String fechaActual = String.valueOf(hoy.format(form));
-        int anioActual = Integer.parseInt(fechaActual.substring(7,10));
-        int anioIngresado = Integer.parseInt(fecha.substring(7,10));
-        int anios = anioActual-anioIngresado;
-        if(anios < 18){
-            error = "Se deben ingresar solo personas de 18 años en adelante";
-            errores.add(error);
-        }
         
         if(isBlank(rut)){
             error = "Debe ingresar un rut";

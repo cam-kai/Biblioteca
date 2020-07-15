@@ -9,6 +9,8 @@ import DAO.ClientesDAO;
 import Entidades.Cliente;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -250,8 +252,19 @@ public class IngresoCliente extends javax.swing.JFrame {
         boolean fueModificado = false;
         boolean fueAgregado = false;
         
+        LocalDate hoy = LocalDate.now();
+        DateTimeFormatter form = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String fechaActual = String.valueOf(hoy.format(form));
+        int anioActual = Integer.parseInt(fechaActual.substring(7,10));
+        int anioIngresado = Integer.parseInt(fechaN.substring(7,10));
+        int anios = anioActual-anioIngresado;
+        
         
         ArrayList<String> errores = new Utilidades.Generales().validacionesClienteTrabajador(fechaN, rut, dV, nombre, apellidoP, apellidoM, direccion, correo, telefono);
+        if(anios < 18){
+            String error = "Se deben ingresar solo personas de 18 años en adelante";
+            errores.add(error);
+        }
         String[] mensaje = new String[errores.size()];
         if(errores.size()>0){
             int contadorE = 0;
